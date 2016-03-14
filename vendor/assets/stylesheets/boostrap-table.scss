@@ -1,0 +1,222 @@
+//colors
+$color_alto_approx: #dddddd;
+$color_wild_sand_approx: #f5f5f5;
+$white: #fff;
+
+//@extend-elements
+//original selectors
+//.fixed-table-toolbar .bars, .fixed-table-toolbar .search, .fixed-table-toolbar .columns
+%extend_1 {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+
+.table {
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid $color_alto_approx;
+    border-collapse: collapse !important;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 1px;
+    th {
+        vertical-align: middle;
+        //Instead of the line below you could use @include box-sizing($bs)
+        box-sizing: border-box;
+    }
+    td {
+        vertical-align: middle;
+        //Instead of the line below you could use @include box-sizing($bs)
+        box-sizing: border-box;
+    }
+    > thead > tr > th {
+        vertical-align: bottom;
+        border-bottom: 2px solid $color_alto_approx;
+    }
+    thead > tr > th {
+        padding: 0;
+        margin: 0;
+    }
+}
+.fixed-table-container {
+    position: relative;
+    clear: both;
+    border: 1px solid $color_alto_approx;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 4px;
+    table {
+        width: 100%;
+    }
+    tbody {
+        td {
+            border-left: 1px solid $color_alto_approx;
+            &:first-child {
+                border-left: none;
+            }
+        }
+        tr:first-child td {
+            border-top: none;
+        }
+        .selected td {
+            background-color: $color_wild_sand_approx;
+        }
+    }
+    .bs-checkbox {
+        text-align: center;
+        .th-inner {
+            padding: 8px 0;
+        }
+    }
+    input[type="radio"] {
+        margin: 0 auto !important;
+    }
+    input[type="checkbox"] {
+        margin: 0 auto !important;
+    }
+    .no-records-found {
+        text-align: center;
+    }
+    thead th {
+        height: 0;
+        padding: 0;
+        margin: 0;
+        border-left: 1px solid $color_alto_approx;
+        &:first-child {
+            border-left: none;
+        }
+        .th-inner {
+            padding: 8px;
+            line-height: 24px;
+            vertical-align: top;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .sortable {
+            cursor: pointer;
+        }
+    }
+}
+.fixed-table-header {
+    overflow: hidden;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 4px 4px 0 0;
+}
+.fixed-table-body {
+    overflow-x: auto;
+    overflow-y: auto;
+    height: 100%;
+    .card-view .title {
+        font-weight: bold;
+        display: inline-block;
+        min-width: 30%;
+        text-align: left !important;
+    }
+    thead th .th-inner {
+        //Instead of the line below you could use @include box-sizing($bs)
+        box-sizing: border-box;
+    }
+}
+.fixed-table-pagination {
+    .pagination {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        a {
+            padding: 6px 12px;
+            line-height: 1.428571429;
+        }
+    }
+    .pagination-detail {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .pagination-info {
+        line-height: 34px;
+        margin-right: 5px;
+    }
+    .btn-group {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .page-list {
+        display: inline-block;
+    }
+    .dropup .dropdown-menu {
+        margin-bottom: 0;
+    }
+    li.disabled a {
+        pointer-events: none;
+        cursor: default;
+    }
+}
+.fixed-table-toolbar {
+    .columns {
+        margin-left: 5px;
+        @extend %extend_1;
+        label {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: normal;
+            line-height: 1.428571429;
+        }
+    }
+    .bars {
+        @extend %extend_1;
+    }
+    .search {
+        @extend %extend_1;
+    }
+    .dropdown-menu {
+        text-align: left;
+        max-height: 300px;
+        overflow: auto;
+    }
+    .btn-group > .btn-group {
+        display: inline-block;
+        margin-left: -1px !important;
+        > .btn {
+            //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+            border-radius: 0;
+        }
+        &:first-child > .btn {
+            //Instead of the line below you could use @include border-top-left-radius($radius)
+            border-top-left-radius: 4px;
+            //Instead of the line below you could use @include border-bottom-left-radius($radius)
+            border-bottom-left-radius: 4px;
+        }
+        &:last-child > .btn {
+            //Instead of the line below you could use @include border-top-right-radius($radius)
+            border-top-right-radius: 4px;
+            //Instead of the line below you could use @include border-bottom-right-radius($radius)
+            border-bottom-right-radius: 4px;
+        }
+    }
+}
+.fixed-table-loading {
+    display: none;
+    position: absolute;
+    top: 42px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: $white;
+    text-align: center;
+}
+.pull-right .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+p.fixed-table-scroll-inner {
+    width: 100%;
+    height: 200px;
+}
+div.fixed-table-scroll-outer {
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+}

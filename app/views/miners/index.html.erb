@@ -1,0 +1,65 @@
+
+    <div class="row">
+      <ol class="breadcrumb">
+        <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+        <li class="active">Icons</li>
+      </ol>
+    </div><!--/.row-->
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header"><%= @mine.name %> Miner's</h1>
+      </div>
+    </div><!--/.row-->
+    
+<div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/miners.json">
+                <thead>
+                <tr>
+                    <th data-field="state" data-checkbox="true" >First Name</th>
+                    <th data-field="first_name"data-sortable="true" >First Name</th>
+                    <th data-field="last_name" data-sortable="true">Last Name</th>
+                    <th data-field="address"  data-sortable="true">Address</th>
+                    <th data-field="mobile_number" data-sortable="true">Mobile Number</th>
+                    <th data-field="tunnel.name" data-sortable="true">Tunnel</th>
+                    <th data-field="date_hired" data-sortable="true">Date Hired</th>
+                </tr>
+                </thead>
+            </table>
+            <script>
+                // $(function () {
+                //     $('#hover, #striped, #condensed').click(function () {
+                //         var classes = 'table';
+            
+                //         if ($('#hover').prop('checked')) {
+                //             classes += ' table-hover';
+                //         }
+                //         if ($('#condensed').prop('checked')) {
+                //             classes += ' table-condensed';
+                //         }
+                //         $('#table-style').bootstrapTable('destroy')
+                //             .bootstrapTable({
+                //                 classes: classes,
+                //                 striped: $('#striped').prop('checked')
+                //             });
+                //     });
+                // });
+            
+                // function rowStyle(row, index) {
+                //     var classes = ['active', 'success', 'info', 'warning', 'danger'];
+            
+                //     if (index % 2 === 0 ) {
+                //         return {
+                //             classes: classes[2]
+                //         };
+                //     }
+                //     return {};
+                // }
+            </script>
+          </div>
+        </div>
+      </div>
+</div>

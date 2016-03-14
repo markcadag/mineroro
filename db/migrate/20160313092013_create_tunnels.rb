@@ -1,0 +1,10 @@
+class CreateTunnels < ActiveRecord::Migration
+  def change
+    create_table :tunnels do |t|
+      t.string :name
+      t.references :mine, index: true, foreign_key: true
+
+      t.timestamps null: false
+    end
+  end
+end

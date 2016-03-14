@@ -14,4 +14,12 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
+//= require chart-data
+//= require chart.min
+//= require easypiechart
+//= require easypiechart-data
+//= require html5shiv.min
+//= require lumino.glyphs
+//= require bootstrap-table
+//= require select2-full
 //= require_tree .

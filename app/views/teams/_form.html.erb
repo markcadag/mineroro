@@ -1,0 +1,19 @@
+
+
+<%= form_for(@mine) do |f| %>
+  <% if @mine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mine.errors.count, "error") %> prohibited this mine from being saved:</h2>
+
+      <ul>
+      <% @mine.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
