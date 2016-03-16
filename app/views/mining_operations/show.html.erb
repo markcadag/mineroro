@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Import count:</strong>
+  <%= @mining_operation.import_count %>
+</p>
+
+<p>
+  <strong>Export count:</strong>
+  <%= @mining_operation.export_count %>
+</p>
+
+<p>
+  <strong>Export unit:</strong>
+  <%= @mining_operation.export_unit %>
+</p>
+
+<p>
+  <strong>Import unit:</strong>
+  <%= @mining_operation.import_unit %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @mining_operation.status %>
+</p>
+
+<p>
+  <strong>Stash:</strong>
+  <%= @mining_operation.stash %>
+</p>
+
+<p>
+  <strong>Stash name:</strong>
+  <%= @mining_operation.stash_name %>
+</p>
+
+<%= link_to 'Edit', edit_mining_operation_path(@mining_operation) %> |
+<%= link_to 'Back', mining_operations_path %>

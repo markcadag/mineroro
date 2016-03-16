@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  import_count: 
+  export_count: 
+  export_unit: MyString
+  import_unit: MyString
+  status: MyString
+  stash: MyString
+  stash_name: MyString
+
+two:
+  import_count: 
+  export_count: 
+  export_unit: MyString
+  import_unit: MyString
+  status: MyString
+  stash: MyString
+  stash_name: MyString
