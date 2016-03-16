@@ -5,7 +5,7 @@ class MinersController < ApplicationController
   # GET /roles.json
   def index
     @miners = Miner.all
-    # session[:mine_id] = 1
+    session[:mine_id] = 1
     # session.clear
     @mine = current_mine
      respond_to do |format|
