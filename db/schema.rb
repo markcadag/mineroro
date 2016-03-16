@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160314103215) do
+ActiveRecord::Schema.define(version: 20160316082809) do
 
   create_table "expense_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -57,6 +57,24 @@ ActiveRecord::Schema.define(version: 20160314103215) do
 
   add_index "mines", ["user_id"], name: "index_mines_on_user_id", using: :btree
 
+  create_table "mining_operations", force: :cascade do |t|
+    t.float    "import_count",   limit: 53
+    t.float    "export_count",   limit: 53
+    t.string   "export_unit",    limit: 255
+    t.string   "import_unit",    limit: 255
+    t.string   "status",         limit: 255
+    t.string   "stash",          limit: 255
+    t.string   "stash_name",     limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "operation_type", limit: 255
+    t.integer  "mine_id",        limit: 4
+    t.integer  "tunnel_id",      limit: 4
+  end
+
+  add_index "mining_operations", ["mine_id"], name: "index_mining_operations_on_mine_id", using: :btree
+  add_index "mining_operations", ["tunnel_id"], name: "index_mining_operations_on_tunnel_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.datetime "created_at",           null: false
@@ -86,6 +104,16 @@ ActiveRecord::Schema.define(version: 20160314103215) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  create_table "tunnel_expenses", force: :cascade do |t|
+    t.integer  "tunnel_id",  limit: 4
+    t.integer  "expense_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "tunnel_expenses", ["expense_id"], name: "index_tunnel_expenses_on_expense_id", using: :btree
+  add_index "tunnel_expenses", ["tunnel_id"], name: "index_tunnel_expenses_on_tunnel_id", using: :btree
 
   create_table "tunnels", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -118,8 +146,12 @@ ActiveRecord::Schema.define(version: 20160314103215) do
   add_foreign_key "expenses", "users"
   add_foreign_key "miners", "mines"
   add_foreign_key "mines", "users"
+  add_foreign_key "mining_operations", "mines"
+  add_foreign_key "mining_operations", "tunnels"
   add_foreign_key "roles", "users"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
+  add_foreign_key "tunnel_expenses", "expenses"
+  add_foreign_key "tunnel_expenses", "tunnels"
   add_foreign_key "tunnels", "mines"
 end
