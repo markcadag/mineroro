@@ -4,12 +4,21 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Expense.all
+    @expenses = Expense.all.order('created_at DESC')
+    @tunnels = @current_mine.tunnels;
+    respond_to do |format|
+      format.html 
+      format.json { render json: @expenses.as_json(:include => [:tunnels] ) }
+    end
   end
 
   # GET /expenses/1
   # GET /expenses/1.json
   def show
+    respond_to do |format|
+        format.html
+        format.json { render :json => @expense }
+    end
   end
 
   # GET /expenses/new
@@ -25,8 +34,19 @@ class ExpensesController < ApplicationController
   # POST /expenses.json
   def create
     @expense = Expense.new(expense_params)
-    @expense.user_id = current_user.id
-    @expense.mine_id = current_mine.id
+    # @expense.user_id = current_user.id
+    @expense.mine_id = @current_mine.id
+    @tunnels = @current_mine.tunnels
+    tunnels = params[:expense][:tunnels]
+    tunnels.each do |tunnel|
+      if tunnel.present?
+        tun = Tunnel.find(tunnel)
+        if @tunnels.include? tun
+          @expense.tunnels << tun
+        end
+      end
+    end
+
     respond_to do |format|
       if @expense.save
         format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
@@ -71,6 +91,6 @@ class ExpensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def expense_params
-      params.require(:expense).permit(:name, :amount, :quantity, :unit, :category, :description)
+      params.require(:expense).permit(:name, :amount, :quantity, :unit, :category, :description, :tunnels)
     end
 end
