@@ -1,19 +1,28 @@
+
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
 	<form role="search">
 		<div class="form-group">
 			<input type="text" class="form-control" placeholder="Search">
 		</div>
 	</form>
-	<ul class="nav menu">
-		<li class="active"><a href="index.html"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
-		<li><a href="widgets.html"><svg class="glyph stroked calendar"><use xlink:href="#stroked-calendar"></use></svg> Site Status</a></li>
-		<li><a href="charts.html"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Plant Status</a></li>
-		<li><a href="tables.html"><svg class="glyph stroked table"><use xlink:href="#stroked-table"></use></svg> Requests</a></li>
-		<li class="parent ">
+	<!-- mine_dashboard_index_path(@current_mine.id) -->
+	<ul class="nav menu">  
+		<li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="<%=  %>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>			
+		<li class="<%= 'active' if params[:controller] == 'expenses' %>"><a href="<%= expenses_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Expenses</a></li>
+		<li class="parent <%= 'active' if params[:controller] == 'mining_operations' %>">
 			<a href="#">
-				<span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Miners 
+				<span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Mining Operations 
 			</a>
-			<ul class="children collapse" id="sub-item-1">
+			<ul class="children collapse <%= 'in' if params[:controller] == 'mining_operations' %>" id="sub-item-1">
+				<li><a href="<%= mining_operations_path(:operation_type => 'site') %>"><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Site Status</a></li>
+				<li><a href="<%= mining_operations_path(:operation_type => 'plant') %>"><svg class="glyph stroked calendar"><use xlink:href="#stroked-table"></use></svg> Plant Status</a></li>
+			</ul>
+		</li>
+		<li class="parent <%= 'active' if params[:controller] == 'miners' %>">
+			<a href="#">
+				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Miners 
+			</a>
+			<ul class="children collapse <%= 'in' if params[:controller] == 'miners' %>" id="sub-item-2">
 					<li>
 					<a class="" href="#">
 						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> View Attendance
