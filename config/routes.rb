@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :mining_operations
   resources :expenses
   resources :mines
   resources :miners
