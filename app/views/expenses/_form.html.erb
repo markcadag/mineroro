@@ -61,7 +61,7 @@
               <div class="form-group">
                 <%= f.label :unit ,:class => 'col-md-3 control-label' %>
                 <div class="col-md-9">
-                    <%= f.collection_select :unit, StoredUnit.all,:name, :name, {prompt: true} ,{class: 'form-control', style: 'margin-bottom:15px;'} %>
+                    <%= f.collection_select :unit, StoredUnit.all,:name, :name, {prompt: true}, {:id => 'unit', class: 'form-control', style: 'margin-bottom:15px;'} %>
                 </div>
               </div>
 
@@ -72,6 +72,12 @@
                 </div>
               </div>
 
+              <div class="form-group">
+                 <%= f.label :tunnels,:class => 'col-md-3 control-label' %>
+                <div class="col-md-9">
+                <%= f.collection_select :tunnels, @tunnels,:id, :name, {prompt: true} ,{:id => 'tunnels', class: 'form-control', style: 'margin-bottom:15px;', :multiple => true} %>
+                </div>
+              </div>
 
               <div class="form-group">
                 <%= f.label :desc,:class => 'col-md-3 control-label' %>
@@ -83,33 +89,60 @@
                <div class="form-group">
                 <%= f.label :total ,:class => 'col-md-3 control-label' %>
                 <div class="col-md-9">
-                    <input id="total" type="number" class="form-control" readonly style='margin-bottom:15px;' />
+                    <p id="total" class="form-control" style='margin-bottom:15px;' />Php 0</p>
                 </div>
               </div>
 
+              <style type="text/css">
+                .select2-container {
+                      margin-bottom: 15px;
+                  }
+                .select2-container--default .select2-selection--multiple {
+                     border: 1px solid #eee;
+                }
 
+                .select2-container--default .select2-selection--single {
+                  border: 1px solid #eee;
+                  padding-left: 10px;
+                  padding-bottom: 30px;
+                  padding-top: 2px;
+                }
+
+                .select2-container--default .select2-selection--single .select2-selection__arrow {
+                  top: 4px;
+                }
+
+              </style>
               <script type="text/javascript">
 
                 $("#amount").keyup(multiply);
                 $("#quantity").keyup(multiply);
 
                 function multiply() {
-                  console.log("triggered");
                   var quantity = parseFloat($("#quantity").val());
                   var amount = parseFloat($("#amount").val());
-                  if (!isNaN(quantity) && !isNaN(amount)) { 
-                    $("#total").val(quantity * amount);
+                  if (!isNaN(quantity) && !isNaN(amount)) {
+                    var sum = quantity * amount;
+                    var value = numberWithCommas(sum.toString());
+                    $("#total").text("Php " + value);
                   } else {
-                    $("#total").val("not a number?");
+                    $("#total").text("not a number?");
                   }
                 }
+
+                function numberWithCommas(n) {
+                    var parts=n.toString().split(".");
+                    return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+                }
+
+                $(document).ready(function() { $("#tunnels").select2();  $("#unit").select2(); });
 
               </script>
 
                 <!-- Form actions -->
                 <div class="form-group">
                   <div class="col-md-12 widget-right">
-                         <%= f.submit 'Submit', :class => 'btn btn-default btn-md pull-right' %>
+                         <%= f.submit 'Submit', :class => 'btn btn-primary btn-md pull-right' %>
                   </div>
                 </div>
 

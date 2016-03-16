@@ -21,5 +21,7 @@
 //= require html5shiv.min
 //= require lumino.glyphs
 //= require bootstrap-table
-//= require select2-full
+//= require editable/bootstrap-editable
+//= require bootstrap-table-editable
+//= require bootstrap-table-export
 //= require_tree .
