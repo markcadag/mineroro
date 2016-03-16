@@ -1,0 +1,134 @@
+<div class="row">
+      <ol class="breadcrumb">
+        <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+        <li class="active">Icons</li>
+      </ol>
+    </div><!--/.row-->
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Summary of Site Status for <%= Time.now.to_formatted_s(:long) %> </h1>
+      </div>
+    </div><!--/.row-->
+    
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-blue panel-widget ">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <div class="large">120<span><small class="text-muted"> of 300</small></span></div>
+              <div class="text-muted">Produced Ore (sacks)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-orange panel-widget">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked open folder"><use xlink:href="#stroked-folder"/></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <div class="large">52<span><small class="text-muted"> of 500</small></span></div>
+              <div class="text-muted">Site Requests</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-teal panel-widget">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked folder"><use xlink:href="#stroked-folder"/></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <div class="large">Php 20k</div>
+              <div class="text-muted">Operation Cost</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-red panel-widget">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <div class="large">25 sacks</div>
+              <div class="text-muted">Delivered to plant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--   {
+    "id": 1,
+    "import_count": 2,
+    "export_count": 3,
+    "export_unit": "ores",
+    "import_unit": "ores",
+    "status": "delivered",
+    "stash": "20",
+    "stash_name": "ores",
+    "created_at": "2016-03-15T23:00:46.000Z",
+    "updated_at": "2016-03-15T23:00:46.000Z",
+    "operation_type": "plant",
+    "mine_id": 1
+  } -->
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <p>Monthly Report</p>
+          </div>
+          <div class="panel-body">
+            <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/mining_operations.json?operation_type=plant">
+                <thead>
+                <tr>
+                    <th data-field="import_count"data-sortable="true" >Sacks Count</th>
+                    <th data-field="import_unit" data-sortable="true" >Unit</th>
+                    <th data-field="stash" data-sortable="true">Stashed Count</th>
+                    <th data-field="address"  data-sortable="true">Address</th>
+                    <th data-field="operation_type" data-sortable="true">Operation Type</th>
+                    <th data-field="tunnel.name" data-sortable="true">Tunnel</th>
+                    <th data-field="date_hired" data-sortable="true">Date Hired</th>
+                </tr>
+                </thead>
+            </table>
+            <script>
+                // $(function () {
+                //     $('#hover, #striped, #condensed').click(function () {
+                //         var classes = 'table';
+            
+                //         if ($('#hover').prop('checked')) {
+                //             classes += ' table-hover';
+                //         }
+                //         if ($('#condensed').prop('checked')) {
+                //             classes += ' table-condensed';
+                //         }
+                //         $('#table-style').bootstrapTable('destroy')
+                //             .bootstrapTable({
+                //                 classes: classes,
+                //                 striped: $('#striped').prop('checked')
+                //             });
+                //     });
+                // });
+            
+                // function rowStyle(row, index) {
+                //     var classes = ['active', 'success', 'info', 'warning', 'danger'];
+            
+                //     if (index % 2 === 0 ) {
+                //         return {
+                //             classes: classes[2]
+                //         };
+                //     }
+                //     return {};
+                // }
+            </script>
+          </div>
+        </div>
+      </div>
+
+        </div><!--/.row-->
