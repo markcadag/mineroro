@@ -11,7 +11,7 @@ class Expense < ActiveRecord::Base
 	has_many :request
   	has_many :mines, :through => :request
 
-  	has_many :tunnel_expenses
+  	has_many :tunnel_expenses, dependent: :destroy
   	has_many :tunnels, :through => :tunnel_expenses
 
 end
