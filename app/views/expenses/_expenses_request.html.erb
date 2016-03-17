@@ -1,0 +1,25 @@
+<li class="left clearfix">
+  <span class="chat-img pull-left">
+    <img src="http://placehold.it/80/30a5ff/fff" alt="User Avatar" class="img-circle" />
+  </span>
+  <div class="chat-body clearfix">
+    <div class="header">
+      <strong class="primary-font"> <%= expenses_request.name %> > Zaldy</strong> <small class="text-muted">32 mins ago</small>
+      <% if expenses_request.status == 'pending'%>
+        <span class="label label-warning"> <%= expenses_request.status %></span>
+      <% elsif expenses_request.status == 'approved' %>
+        <span class="label label-success"> <%= expenses_request.status %></span>
+      <% elsif expenses_request.status == 'disapproved' %>
+        <span class="label label-danger"> <%= expenses_request.status %></span>
+       <% end -%>
+    </div>
+    <p>
+       <%= expenses_request.description  %>
+    </p>
+    <div>
+      <h5>Amount: <%= expenses_request.amount %>&nbsp;&nbsp;&nbsp;&nbsp;Type:<%= expenses_request.category %></h5>
+      <h5>Quantity: <%= expenses_request.quantity %>&nbsp;&nbsp;&nbsp;&nbsp;Unit: <%= expenses_request.unit %></h5>
+    </div>
+    <h4>Total: <b>Php 20.00</b></h4>
+  </div>
+</li>
