@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317051811) do
+ActiveRecord::Schema.define(version: 20160317100610) do
 
   create_table "expense_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -74,14 +74,6 @@ ActiveRecord::Schema.define(version: 20160317051811) do
 
   add_index "mining_operations", ["mine_id"], name: "index_mining_operations_on_mine_id", using: :btree
   add_index "mining_operations", ["tunnel_id"], name: "index_mining_operations_on_tunnel_id", using: :btree
-
-  create_table "roles", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
 
   create_table "stored_units", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -150,7 +142,6 @@ ActiveRecord::Schema.define(version: 20160317051811) do
   add_foreign_key "mines", "users"
   add_foreign_key "mining_operations", "mines"
   add_foreign_key "mining_operations", "tunnels"
-  add_foreign_key "roles", "users"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "tunnel_expenses", "expenses"
