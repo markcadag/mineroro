@@ -9,10 +9,12 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root 'welcome#index'
-  
   devise_for :users
+  # You can have the root of your site routed with "root"
+  devise_scope :user do
+    root :to => 'devise/sessions#new'
+  end
+
 
   resources :users do
     resources :mines
@@ -22,7 +24,10 @@ Rails.application.routes.draw do
     resources :dashboard
     resources :miners
   end
-  
+
+
+  post "mines/session", :to=>"mines#save_mine_session"
+  delete 'expense/destroy_multiple', :to  => 'expenses#destroy_multiple'
 
 
   # Example of regular route:
