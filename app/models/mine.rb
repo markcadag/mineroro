@@ -3,4 +3,5 @@ class Mine < ActiveRecord::Base
 	has_many :tunnels
 	belongs_to :user
 	has_many :expenses
+	resourcify
 end
