@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317101056) do
+ActiveRecord::Schema.define(version: 20160317122440) do
 
   create_table "expense_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -49,10 +49,11 @@ ActiveRecord::Schema.define(version: 20160317101056) do
   add_index "miners", ["mine_id"], name: "index_miners_on_mine_id", using: :btree
 
   create_table "mines", force: :cascade do |t|
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "name",       limit: 255
-    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "name",        limit: 255
+    t.integer  "user_id",     limit: 4
+    t.string   "description", limit: 255
   end
 
   add_index "mines", ["user_id"], name: "index_mines_on_user_id", using: :btree

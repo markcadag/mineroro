@@ -11,46 +11,36 @@
       <div class="col-lg-12">
         <h1 class="page-header">Listing Mines</h1>
       </div>
-    </div><!--/.row-->
-    
-
-  <div class="row">
-      <div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-body">
-            <a href="#" class="thumbnail">
-              <%= image_tag("placeholder_large") %>
-            </a>
-            <h4>Brgy Chua</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut ante in sapien blandit luctus sed ut lacus. Phasellus urna est, faucibus nec ultrices placerat, feugiat et ligula. Donec vestibulum magna a dui pharetra molestie. Fusce et dui urna.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-body">
-            <a href="#" class="thumbnail">
-              <%= image_tag("placeholder_large") %>
-            </a>
-            <h4>Tampakan</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut ante in sapien blandit luctus sed ut lacus. Phasellus urna est, faucibus nec ultrices placerat, feugiat et ligula. Donec vestibulum magna a dui pharetra molestie. Fusce et dui urna.</p>
-          </div>
-        </div>
-      </div>
-
+    </div ><!--/.row-->
+    <div class="row">
+      <% @mines.each do |mine| %>
         <div class="col-md-4">
-        <div class="panel panel-info">
-          <div class="panel-body">
-            <a href="#" class="thumbnail">
-              <%= image_tag("placeholder_large") %>
-            </a>
-            <h4>Tampakan</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque ut ante in sapien blandit luctus sed ut lacus. Phasellus urna est, faucibus nec ultrices placerat, feugiat et ligula. Donec vestibulum magna a dui pharetra molestie. Fusce et dui urna.</p>
-          </div>
+            <div class="panel panel-info">
+              <div class="panel-body">
+               <a href="#" onclick='manageMine("<%= mine.id %>")'>
+                <div class="thumbnail">
+                <%= image_tag("placeholder_large") %>
+                </div>
+                <h4><%= mine.name %></h4>
+                <p><%= mine.description %></p>
+              </div>
+              </a>
+            </div>
         </div>
-      </div>
-      
-    </div><!-- /.row -->
+      <% end %>
+    </div>
 
+    <script type="text/javascript">
+      function manageMine(mineId) {              
+          var url = "mine/session";
+          $.ajax({
+            type: "POST",
+            url: url,
+            data: { 'mine_id': mineId } ,
+            success:  function(g) {
+              window.location.href = "/dashboard";
+            }
+          });
+      }
+    </script>
 <br>

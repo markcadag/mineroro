@@ -4,10 +4,11 @@ class MinesController < ApplicationController
   # GET /mines
   # GET /mines.json
   def index
-    @mines = current_mine
+
+    @mines = Mine.with_roles('admin', current_user)
      respond_to do |format|
       format.html
-      format.json { render json: @mines.as_json(:include => [:miners, :tunnels] ) }
+      format.json { render json: @mines.as_json() }
     end
   end
 
@@ -43,6 +44,10 @@ class MinesController < ApplicationController
 
   def save_mine_session
     session[:mine_id] = params[:mine_id]
+    respond_to do |format|
+      format.html { redirect_to dashboard_index_path }
+      format.json { head :no_content }
+    end
   end
 
   # PATCH/PUT /mines/1

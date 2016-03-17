@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   end
 
 
-  post "mines/session", :to=>"mines#save_mine_session"
+  post "mine/session", :to=>"mines#save_mine_session"
   delete 'expense/destroy_multiple', :to  => 'expenses#destroy_multiple'
 
 
