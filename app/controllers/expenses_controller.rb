@@ -1,5 +1,5 @@
 class ExpensesController < ApplicationController
-  before_action :set_expense, only: [:show, :edit, :update, :destroy]
+  before_action :set_expense, only: [:show, :edit, :update]
 
   # GET /expenses
   # GET /expenses.json
@@ -70,6 +70,14 @@ class ExpensesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @expense.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy_multiple
+    Expense.where(:id => params[:expenses]).destroy_all
+    respond_to do |format|
+      format.json { head :no_content }
+      format.js
     end
   end
 
