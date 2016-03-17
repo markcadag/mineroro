@@ -41,6 +41,10 @@ class MinesController < ApplicationController
     end
   end
 
+  def save_mine_session
+    session[:mine_id] = params[:mine_id]
+  end
+
   # PATCH/PUT /mines/1
   # PATCH/PUT /mines/1.json
   def update
