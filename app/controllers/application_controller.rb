@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
 	  rescue ActiveRecord::RecordNotFound
 	end
 
+	def after_sign_in_path_for(resource)
+  		mines_path
+	end
+
 end
