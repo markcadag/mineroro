@@ -17,57 +17,116 @@
         <div class="panel panel-default">
           <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Approved Expenses</div>
           <div class="panel-body">
-            <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/expenses.json">
-                <thead>
-                <tr> 
-                    <th data-field="checkbox" data-checkbox="true" ></th>
-                    <th data-field="name" data-sortable="true" >Name</th>
-                    <th data-field="amount"data-sortable="true" >Amount</th>
-                    <th data-field="quantity" data-sortable="true">Quantity</th>
-                    <th data-field="unit"  data-sortable="true">Unit</th>
-                    <th data-field="category" data-sortable="true">Category</th>
-                    <th data-field="user.name" data-sortable="true">Created</th>
-                    <th data-field="tunnels.name" data-sortable="true">Tunnels</th>
-                    <th data-field="description" data-sortable="true">Description</th>
-                    <th data-field="created_at" data-sortable="true">Created</th>
-                </tr>
-                </thead>
-            </table>
+            <div id="toolbar">
+            <button id="button" class="btn btn-primary">Delete Selection</button>
+        </div>
+           <!--  <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/expenses.json">
+            </table> -->
+            <table id="table" id="table-style" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle"></table>
             <script>
-                // $(function () {
-                //     $('#hover, #striped, #condensed').click(function () {
-                //         var classes = 'table';
-            
-                //         if ($('#hover').prop('checked')) {
-                //             classes += ' table-hover';
-                //         }
-                //         if ($('#condensed').prop('checked')) {
-                //             classes += ' table-condensed';
-                //         }
-                //         $('#table-style').bootstrapTable('destroy')
-                //             .bootstrapTable({
-                //                 classes: classes,
-                //                 striped: $('#striped').prop('checked')
-                //             });
-                //     });
-                // });
-            
-                // function rowStyle(row, index) {
-                //     var classes = ['active', 'success', 'info', 'warning', 'danger'];
-            
-                //     if (index % 2 === 0 ) {
-                //         return {
-                //             classes: classes[2]
-                //         };
-                //     }
-                //     return {};
-                // }
+
+                $(function () {
+                   var $table = $('#table'),
+                   $button = $('#button');
+                   $button.click(function () {
+
+                      var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
+                          return row.id;
+                      });
+                      
+                      var jsonParams = JSON.stringify($table.bootstrapTable('getSelections'));
+
+                      $.ajax({
+                          url: '<%= expense_destroy_multiple_path %>',
+                          type: 'DELETE',
+                          data: { expenses:  ids },
+                          success: function(result) {
+                            $table.bootstrapTable('remove', {
+                              field: 'id',
+                              values: ids
+                            });
+                          }
+                      });
+                    });
+
+                  $table.bootstrapTable({
+                    url: '/expenses.json',
+                    columns: [{
+                        field: 'state',
+                        checkbox: true,
+                        align: 'center',
+                        valign: 'middle'
+                    },{
+                        title: 'Name',
+                        field: 'name',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Amount',
+                        field: 'amount',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Quantity',
+                        field: 'quantity',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Unit',
+                        field: 'unit',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Category',
+                        field: 'expense_category',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'For',
+                        field: 'tunnels',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    }]
+                  });
+
+              });
+
+
             </script>
+
           </div>
         </div>
       </div>
 </div>
-        
+<style type="text/css">
+  .btn-sm .editable-submit {
+    margin-bottom: 10px;
+  }
+</style>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labell`by="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div class="row">
@@ -79,24 +138,7 @@
       <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Requests Submitted</div>
           <div class="panel-body">
             <ul>
-              <li class="left clearfix">
-                <span class="chat-img pull-left">
-                  <img src="http://placehold.it/80/30a5ff/fff" alt="User Avatar" class="img-circle" />
-                </span>
-                <div class="chat-body clearfix">
-                  <div class="header">
-                    <strong class="primary-font">Driller > John Doe</strong> <small class="text-muted">32 mins ago</small>   <span class="label label-warning">Pending</span>
-                  </div>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ante turpis, rutrum ut ullamcorper sed, dapibus ac nunc. Vivamus luctus convallis mauris, eu gravida tortor aliquam ultricies. 
-                  </p>
-                  <div>
-                    <h5>Amount: 20&nbsp;&nbsp;&nbsp;&nbsp;Type: Plant Request</h5>
-                    <h5>Quantity: 20&nbsp;&nbsp;&nbsp;&nbsp;Unit: Grams</h5>
-                  </div>
-                  <h4>Total: <b>Php 20.00</b></h4>
-                </div>
-              </li>
+             <%= render partial: "expenses_request", collection: @expenses %>
             </ul>
           </div>
     </div>
