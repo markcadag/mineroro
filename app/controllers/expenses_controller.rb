@@ -4,11 +4,12 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Expense.all.order('created_at DESC')
+    @expenses = Expense.where(mine_id: current_mine.id, status: 'approved').order('created_at DESC')
+    @expense_requests = Expense.where(mine_id: current_mine.id).order('created_at DESC')
     @tunnels = @current_mine.tunnels;
     respond_to do |format|
       format.html 
-      format.json { render json: @expenses.as_json(:include => [:tunnels] ) }
+      format.json { render json: @expenses.as_json(:include => [:tunnels, :user] ) }
     end
   end
 
@@ -34,8 +35,8 @@ class ExpensesController < ApplicationController
   # POST /expenses.json
   def create
     @expense = Expense.new(expense_params)
-    # @expense.user_id = current_user.id
-    @expense.mine_id = @current_mine.id
+    @expense.user = current_user
+    @expense.mine = @current_mine
     @tunnels = @current_mine.tunnels
     tunnels = params[:expense][:tunnels]
     tunnels.each do |tunnel|
