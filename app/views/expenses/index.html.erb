@@ -18,16 +18,19 @@
           <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Approved Expenses</div>
           <div class="panel-body">
             <div id="toolbar">
-            <button id="button" class="btn btn-primary">Delete Selection</button>
-        </div>
+              <button id="button" class="btn btn-primary">Delete</button>
+              <button id="button" class="btn btn-primary">Edit</button>
+            </div>
            <!--  <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/expenses.json">
             </table> -->
             <table id="table" id="table-style" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle"></table>
             <script>
 
                 $(function () {
+    
                    var $table = $('#table'),
                    $button = $('#button');
+
                    $button.click(function () {
 
                       var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
@@ -51,6 +54,10 @@
 
                   $table.bootstrapTable({
                     url: '/expenses.json',
+                    data: gon.expenses,
+                    onClickCell: function(e, value, row, $element){
+                       $("#myModal").modal();
+                    },
                     columns: [{
                         field: 'state',
                         checkbox: true,
@@ -119,7 +126,16 @@
                     }]
                   });
 
+                  //change into pusher or faye for better realtime app
+                  // function renewUsers(){
+                  //   $table.bootstrapTable('refresh');
+                  //   console.log('hey')
+                  // }
+                  
+                  // gon.watch(gon.expenses, {interval: 3000}, renewUsers)
               });
+
+            
 
             </script>
 
