@@ -7,7 +7,7 @@
 	</form>
 	<!-- mine_dashboard_index_path(@current_mine.id) -->
 	<ul class="nav menu">  
-		<li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="<%=  %>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>			
+		<li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="<%= dashboard_index_url %>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>			
 		<li class="<%= 'active' if params[:controller] == 'expenses' %>"><a href="<%= expenses_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Expenses</a></li>
 		<li class="parent <%= 'active' if params[:controller] == 'mining_operations' %>">
 			<a href="#">
