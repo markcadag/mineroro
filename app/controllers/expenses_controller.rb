@@ -6,6 +6,7 @@ class ExpensesController < ApplicationController
   def index
     @expenses = Expense.where(mine_id: current_mine.id, status: 'approved').order('created_at DESC')
     @expense_requests = Expense.where(mine_id: current_mine.id).order('created_at DESC')
+    gon.watch.expenses = @expenses
     @tunnels = @current_mine.tunnels;
     respond_to do |format|
       format.html 
