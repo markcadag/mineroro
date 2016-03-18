@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317122440) do
+ActiveRecord::Schema.define(version: 20160318003347) do
 
   create_table "expense_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160317122440) do
     t.string   "status",      limit: 255, default: "pending"
     t.integer  "user_id",     limit: 4
     t.integer  "mine_id",     limit: 4
+    t.float    "total",       limit: 53
   end
 
   add_index "expenses", ["mine_id"], name: "index_expenses_on_mine_id", using: :btree
