@@ -82,7 +82,7 @@
                         sortable: true,
                     },{
                         title: 'Category',
-                        field: 'expense_category',
+                        field: 'category',
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
@@ -92,11 +92,34 @@
                         align: 'center',
                         valign: 'middle',
                         sortable: true,
+                    },{
+                        title: 'Requester',
+                        field: 'user.first_name',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Created',
+                        field: 'created_at',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Updated',
+                        field: 'updated_at',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Total',
+                        field: 'total',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true,
                     }]
                   });
 
               });
-
 
             </script>
 
@@ -138,7 +161,7 @@
       <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Requests Submitted</div>
           <div class="panel-body">
             <ul>
-             <%= render partial: "expenses_request", collection: @expenses %>
+             <%= render partial: "expenses_request", collection: @expense_requests %>
             </ul>
           </div>
     </div>
