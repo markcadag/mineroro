@@ -4,7 +4,7 @@
   </span>
   <div class="chat-body clearfix">
     <div class="header">
-      <strong class="primary-font"> <%= expenses_request.name %> > <%= expenses_request.user.first_name %> </strong> <small class="text-muted">32 mins ago</small>
+      <strong class="primary-font"> <%= expenses_request.name %> > <%= expenses_request.user.first_name %> </strong> <small class="text-muted"><%= timeago_tag expenses_request.created_at, :nojs => true%><%=  %></small>
       <% if expenses_request.status == 'pending'%>
         <span class="label label-warning"> <%= expenses_request.status %></span>
       <% elsif expenses_request.status == 'approved' %>
@@ -17,9 +17,9 @@
        <%= expenses_request.description  %>
     </p>
     <div>
-      <h5>Amount: <%= expenses_request.amount %>&nbsp;&nbsp;&nbsp;&nbsp;Type:<%= expenses_request.category %></h5>
+      <h5>Amount: Php <%= number_with_delimiter(expenses_request.amount, :precision => 2, :delimiter => ',') %>&nbsp;&nbsp;&nbsp;&nbsp;Type:<%= expenses_request.category %></h5>
       <h5>Quantity: <%= expenses_request.quantity %>&nbsp;&nbsp;&nbsp;&nbsp;Unit: <%= expenses_request.unit %></h5>
     </div>
-    <h4>Total: <b><%= expenses_request.total %></b></h4>
+    <h4>Total: <b> Php <%= number_with_delimiter(expenses_request.total, :precision => 2, :delimiter => ',') %><%=  %></b></h4>
   </div>
 </li>

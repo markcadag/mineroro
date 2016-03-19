@@ -63,79 +63,102 @@
                         checkbox: true,
                         align: 'center',
                         valign: 'middle'
+
                     },{
                         title: 'Name',
                         field: 'name',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
                         sortable: true,
                     },{
                         title: 'Amount',
                         field: 'amount',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
+                        formatter: totalFormatter,
                         sortable: true,
                     },{
                         title: 'Quantity',
                         field: 'quantity',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
                         sortable: true,
                     },{
                         title: 'Unit',
                         field: 'unit',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
                         sortable: true,
                     },{
                         title: 'Category',
                         field: 'category',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
                         sortable: true,
                     },{
                         title: 'For',
                         field: 'tunnels',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
+                        formatter: forFormater,
                         sortable: true,
                     },{
                         title: 'Requester',
                         field: 'user.first_name',
-                        align: 'center',
+                        align: 'left',
+                        valign: 'middle',
+                        sortable: true,
+                    },{
+                        title: 'Description',
+                        field: 'description',
+                        align: 'left',
                         valign: 'middle',
                         sortable: true,
                     },{
                         title: 'Created',
                         field: 'created_at',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
+                        formatter: dateFormatter,
                         sortable: true,
                     },{
                         title: 'Updated',
                         field: 'updated_at',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
+                        formatter: dateFormatter,
                         sortable: true,
                     },{
                         title: 'Total',
                         field: 'total',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
+                        formatter: totalFormatter,
                         sortable: true,
                     }]
                   });
 
-                  //change into pusher or faye for better realtime app
-                  // function renewUsers(){
-                  //   $table.bootstrapTable('refresh');
-                  //   console.log('hey')
-                  // }
-                  
-                  // gon.watch(gon.expenses, {interval: 3000}, renewUsers)
-              });
+                  function totalFormatter(value) {
+                      return 'Php ' + numberWithCommas(value);
+                  }
 
-            
+                  function numberFormatter(value){
+                      return 'Php ' + numberWithCommas(value);
+                  }
+
+                  function dateFormatter(value) {
+                    return  value.slice(0,10); 
+                  }
+
+                  function forFormater(value) {
+                    var stringData ='';
+                    $.each(value,function(i,el) {
+                        stringData = stringData + el.name + ',';
+                    })
+                    return stringData;
+                  }
+
+              });
 
             </script>
 

@@ -24,4 +24,7 @@
 //= require editable/bootstrap-editable
 //= require bootstrap-table-editable
 //= require bootstrap-table-export
+//= require bootstrap-table-flat-json
+//= require rails-timeago
+//= require script_helper
 //= require_tree .
