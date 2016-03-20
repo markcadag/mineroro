@@ -35,7 +35,7 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.json
   def create
-    
+
     @expense = Expense.new(expense_params)
     @expense.user = current_user
     @expense.mine = @current_mine
@@ -54,8 +54,8 @@ class ExpensesController < ApplicationController
 
       if @expense.save
 
-        Pusher.trigger('test_channel', 'my_event', {
-            message: 'hello world'
+        Pusher.trigger('private-mine_channel', 'on_new_expense', {
+            message: 'New Expenses Added'
         })
 
         format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
