@@ -1,1 +1,1 @@
-$("#comments_<%=@comment.post.id %>").append("<%= escape_javascript(render :partial => 'posts/comment', :locals => { :comment => @comment }).html_safe %>");
+$("#expenses_request").prepend("<%= escape_javascript(render :partial => 'expenses_request', :locals => { :expenses_request => @expense }).html_safe %>");

@@ -47,6 +47,8 @@ gem 'rails-timeago', '~> 2.0'
 
 gem 'will_paginate', '~> 3.0.6'
 
+gem 'by_star', :git => "git://github.com/radar/by_star"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

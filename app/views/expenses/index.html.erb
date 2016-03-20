@@ -15,7 +15,7 @@
 <div class="row">
       <div class="col-lg-12">
         <div class="panel panel-default">
-          <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Approved Expenses</div>
+          <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Approved Expenses For the Month of <%= Time.now.month %></div>
           <div class="panel-body">
             <div id="toolbar">
               <button id="button" class="btn btn-primary">Delete</button>
@@ -30,7 +30,7 @@
     
                    var $table = $('#table'),
                    $button = $('#button');
-
+                   var jsonExpense;
                    $button.click(function () {
 
                       var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
@@ -55,8 +55,9 @@
                   $table.bootstrapTable({
                     url: '/expenses.json',
                     data: gon.expenses,
-                    onClickCell: function(e, value, row, $element){
-                       $("#myModal").modal();
+                    onClickRow: function(row, $element){
+                        jsonExpense = JSON.stringify(row);
+                        $("#myModal").modal();
                     },
                     columns: [{
                         field: 'state',
@@ -138,6 +139,7 @@
                     }]
                   });
 
+
                   function totalFormatter(value) {
                       return 'Php ' + numberWithCommas(value);
                   }
@@ -157,6 +159,7 @@
                     })
                     return stringData;
                   }
+             
 
               });
 
@@ -197,9 +200,9 @@
   </div>
   <div class="col-md-8">
     <div class="panel panel-default chat">
-      <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Requests Submitted</div>
+      <div class="panel-heading" id="accordion"><svg class="glyph stroked two-messages"><use xlink:href="#stroked-two-messages"></use></svg> Expenses Request</div>
           <div class="panel-body">
-            <ul>
+            <ul id='expenses_request'>
              <%= render partial: "expenses_request", collection: @expense_requests %>
             </ul>
           </div>
