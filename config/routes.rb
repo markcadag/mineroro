@@ -27,6 +27,9 @@ Rails.application.routes.draw do
 
 
   post "mine/session", :to=>"mines#save_mine_session"
+  
+  post "pusher/auth"
+
   delete 'expense/destroy_multiple', :to  => 'expenses#destroy_multiple'
 
 

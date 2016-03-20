@@ -35,6 +35,7 @@ class ExpensesController < ApplicationController
   # POST /expenses
   # POST /expenses.json
   def create
+    
     @expense = Expense.new(expense_params)
     @expense.user = current_user
     @expense.mine = @current_mine
@@ -50,7 +51,13 @@ class ExpensesController < ApplicationController
     end
 
     respond_to do |format|
+
       if @expense.save
+
+        Pusher.trigger('test_channel', 'my_event', {
+            message: 'hello world'
+        })
+
         format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
         format.json
         format.js

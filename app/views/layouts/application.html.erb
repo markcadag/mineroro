@@ -8,6 +8,44 @@
   <%= csrf_meta_tags %>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+  <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  <script>
+    // Enable pusher logging - don't include this in production
+    Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+
+    toastr.options = {
+      "debug": false,
+      "positionClass": "toast-bottom-left",
+      "onclick": null,
+      "fadeIn": 300,
+      "fadeOut": 1000,
+      "timeOut": 5000,
+      "extendedTimeOut": 1000
+    }
+
+    var pusher = new Pusher('d8f35e143eb01d6f2b63', {
+      cluster: 'ap1',
+      authEndpoint: '/pusher/auth',
+      auth: {
+        headers: {
+          'X-CSRF-Token': '<%= form_authenticity_token %>'
+        }
+      },
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('private-test_channel');
+    channel.bind('my_event', function(data) {
+      toastr.success(data.message)
+    });
+
+  </script>
 </head>
 <body>
 	<%= render 'shared/navbar' %>
