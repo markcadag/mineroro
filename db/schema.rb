@@ -11,22 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321064532) do
+ActiveRecord::Schema.define(version: 20160321132626) do
 
   create_table "attendances", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "mine_id",    limit: 4
-    t.integer  "tunnel_id",  limit: 4
-    t.string   "status",     limit: 255
-    t.integer  "miner_id",   limit: 4
+    t.integer  "user_id",         limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "mine_id",         limit: 4
+    t.integer  "tunnel_id",       limit: 4
+    t.string   "status",          limit: 255
+    t.integer  "miner_id",        limit: 4
+    t.datetime "attendance_date"
   end
 
   add_index "attendances", ["mine_id"], name: "index_attendances_on_mine_id", using: :btree
   add_index "attendances", ["miner_id"], name: "index_attendances_on_miner_id", using: :btree
   add_index "attendances", ["tunnel_id"], name: "index_attendances_on_tunnel_id", using: :btree
   add_index "attendances", ["user_id"], name: "index_attendances_on_user_id", using: :btree
+
+  create_table "check_attendances", force: :cascade do |t|
+    t.integer  "attendance_id",   limit: 4
+    t.integer  "miner_id",        limit: 4
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "attendance_type", limit: 255, default: "present"
+  end
+
+  add_index "check_attendances", ["attendance_id"], name: "index_check_attendances_on_attendance_id", using: :btree
+  add_index "check_attendances", ["miner_id"], name: "index_check_attendances_on_miner_id", using: :btree
 
   create_table "expense_types", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -124,6 +136,18 @@ ActiveRecord::Schema.define(version: 20160321064532) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
+  create_table "stored_operation_types", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "stored_statuses", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "stored_units", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -216,6 +240,8 @@ ActiveRecord::Schema.define(version: 20160321064532) do
   add_foreign_key "attendances", "mines"
   add_foreign_key "attendances", "tunnels"
   add_foreign_key "attendances", "users"
+  add_foreign_key "check_attendances", "attendances"
+  add_foreign_key "check_attendances", "miners"
   add_foreign_key "expenses", "mines"
   add_foreign_key "expenses", "users"
   add_foreign_key "inventories", "mines"
