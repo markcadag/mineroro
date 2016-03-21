@@ -4,10 +4,11 @@ class MiningOperationsController < ApplicationController
   # GET /mining_operations
   # GET /mining_operations.json
   def index
+    @mining_operation_today = MiningOperation.includes(:expenses).today
     @mining_operations = MiningOperation.where(mine_id: @current_mine.id, operation_type: params[:operation_type])
     respond_to do |format|
-      format.html { }
-      format.json { render json: @mining_operations }
+      format.html
+      format.json { render json: @mining_operations.as_json(:include => [:expenses]) }
     end
   end
 
@@ -24,7 +25,7 @@ class MiningOperationsController < ApplicationController
   # GET /mining_operations/1/edit
   def edit
   end
-
+  
   # POST /mining_operations
   # POST /mining_operations.json
   def create
