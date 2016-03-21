@@ -10,7 +10,8 @@
         <h1 class="page-header">Summary of Tunnel Operation for <%= Time.now.to_formatted_s(:long) %> </h1>
       </div>
     </div><!--/.row-->
-    
+  
+     <a href="#" data-toggle="modal" data-target="#myModal" data-remote="<%= edit_tunnel_operation_path(@tunnel_operation) %> #modal-edit-fields">
     <div class="row">
       <div class="col-xs-12 col-md-6 col-lg-3">
         <div class="panel panel-blue panel-widget ">
@@ -20,7 +21,7 @@
             </div>
             <div class="col-sm-9 col-lg-7 widget-right">
               <% if !@tunnel_operation.blank? %>
-                <div class="large"><%= @tunnel_operation.production_count %><span><small class="text-muted"> of 300</small></span></div>
+                <div class="large"><%= @tunnel_operation.production_count %><span><small class="text-muted"> of <%= @total_ores %></small></span></div>
                 <div class="text-muted">Produced <%= @tunnel_operation.production_name %> (sacks)</div>
               <% end %>
             </div>
@@ -65,7 +66,9 @@
             </div>
           </div>
         </div>
+
       </div>
+              </a>
 <!--   {
     "id": 1,
     "import_count": 2,
@@ -80,7 +83,24 @@
     "operation_type": "plant",
     "mine_id": 1
   } -->
-      <div class="col-lg-12">
+      
+</div><!--/.row-->
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labell`by="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+          <%= render 'edit_ticket_fields' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+<div class="col-lg-12">
         <div class="panel panel-default">
         <div class="panel-heading">
             <p>Monthly Report</p>
@@ -109,4 +129,4 @@
           </div>
         </div>
       </div>
-</div><!--/.row-->
+</div>
