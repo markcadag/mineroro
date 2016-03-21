@@ -28,10 +28,11 @@
 		<div class="panel-heading dark-overlay"><svg class="glyph stroked clipboard-with-paper"><use xlink:href="#stroked-clipboard-with-paper"></use></svg>Miners</div>
 			<div class="panel-body">
 				<ul class="todo-list">
-					<% @miners.each do |mine| %>
+					<% @miners.each do |miner| %>
 						<li style="padding: 10px;">
-							<div class="checkbox">
-								<label for="checkbox"><%= mine.first_name %> <%= mine.last_name%></label>
+							<div class="checkbox" id="attendance">
+								<input type="checkbox" id="<%= miner.id %>" />
+								<label for="checkbox"><%= miner.first_name %> <%= miner.last_name%></label>
 							</div>
 							<div class="pull-right action-buttons">
 								<button class="btn btn-default btn-md" id="btn-todo">Present</button>
@@ -42,12 +43,33 @@
 					<% end %>
 				</ul>
 			</div>
+			<div class="panel-footer">
+				<button class="btn btn-success btn-md" id="btn-save">Set All Present</button>
+				<button class="btn btn-success btn-md" id="btn-save">Save</button>
+			</div>
 	</div>				
 </div><!--/.col-->
 
 <script type="text/javascript">
   $(document).ready(function(){
     $('#calendar').datepicker();
+
+    $('#btn-save').click(function() {
+        var minerIds = [];
+        $('#attendance input:checked').each(function() {
+            minerIds.push(this.id);
+        });
+
+        $.ajax({
+            type: "PUT",
+            url: "/attendance/update_multiple",
+            data: { 'miner_ids': minerIds } ,
+            success:  function(g) {
+              alert('OK');
+            }
+        });
+
+    });
   });
 </script>
 <style type="text/css">
@@ -66,4 +88,12 @@
 		padding-top: 8px;
 	}
 
+	 .datepicker table tr td.active.active, .datepicker table tr td.active.active:hover {
+	 	background-color: #8ad919;
+	 }
+
+	 .datepicker table tr td.active.active{ 
+	 	background-color: #8ad919;
+	 }
+	 
 </style>
