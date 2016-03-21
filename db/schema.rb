@@ -11,17 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320055654) do
+ActiveRecord::Schema.define(version: 20160321051631) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "mine_id",    limit: 4
     t.integer  "tunnel_id",  limit: 4
+    t.string   "status",     limit: 255
+    t.integer  "miner_id",   limit: 4
   end
 
   add_index "attendances", ["mine_id"], name: "index_attendances_on_mine_id", using: :btree
+  add_index "attendances", ["miner_id"], name: "index_attendances_on_miner_id", using: :btree
   add_index "attendances", ["tunnel_id"], name: "index_attendances_on_tunnel_id", using: :btree
   add_index "attendances", ["user_id"], name: "index_attendances_on_user_id", using: :btree
 
@@ -70,6 +73,16 @@ ActiveRecord::Schema.define(version: 20160320055654) do
   end
 
   add_index "mines", ["user_id"], name: "index_mines_on_user_id", using: :btree
+
+  create_table "mining_operation_costs", force: :cascade do |t|
+    t.integer  "expense_id",          limit: 4
+    t.integer  "mining_operation_id", limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "mining_operation_costs", ["expense_id"], name: "index_mining_operation_costs_on_expense_id", using: :btree
+  add_index "mining_operation_costs", ["mining_operation_id"], name: "index_mining_operation_costs_on_mining_operation_id", using: :btree
 
   create_table "mining_operations", force: :cascade do |t|
     t.float    "import_count",   limit: 53
@@ -132,6 +145,26 @@ ActiveRecord::Schema.define(version: 20160320055654) do
   add_index "tunnel_expenses", ["expense_id"], name: "index_tunnel_expenses_on_expense_id", using: :btree
   add_index "tunnel_expenses", ["tunnel_id"], name: "index_tunnel_expenses_on_tunnel_id", using: :btree
 
+  create_table "tunnel_operations", force: :cascade do |t|
+    t.integer  "production_count", limit: 4
+    t.string   "production_name",  limit: 255
+    t.integer  "export_count",     limit: 4
+    t.string   "export_name",      limit: 255
+    t.string   "status",           limit: 255
+    t.integer  "stock_pile",       limit: 4
+    t.string   "stock_pile_name",  limit: 255
+    t.integer  "updated_by",       limit: 4
+    t.integer  "created_by",       limit: 4
+    t.integer  "tunnel_id",        limit: 4
+    t.integer  "mine_id",          limit: 4
+    t.string   "operation_type",   limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "tunnel_operations", ["mine_id"], name: "index_tunnel_operations_on_mine_id", using: :btree
+  add_index "tunnel_operations", ["tunnel_id"], name: "index_tunnel_operations_on_tunnel_id", using: :btree
+
   create_table "tunnels", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.integer  "mine_id",    limit: 4
@@ -168,6 +201,7 @@ ActiveRecord::Schema.define(version: 20160320055654) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "attendances", "miners"
   add_foreign_key "attendances", "mines"
   add_foreign_key "attendances", "tunnels"
   add_foreign_key "attendances", "users"
@@ -175,11 +209,15 @@ ActiveRecord::Schema.define(version: 20160320055654) do
   add_foreign_key "expenses", "users"
   add_foreign_key "miners", "mines"
   add_foreign_key "mines", "users"
+  add_foreign_key "mining_operation_costs", "expenses"
+  add_foreign_key "mining_operation_costs", "mining_operations"
   add_foreign_key "mining_operations", "mines"
   add_foreign_key "mining_operations", "tunnels"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "tunnel_expenses", "expenses"
   add_foreign_key "tunnel_expenses", "tunnels"
+  add_foreign_key "tunnel_operations", "mines"
+  add_foreign_key "tunnel_operations", "tunnels"
   add_foreign_key "tunnels", "mines"
 end
