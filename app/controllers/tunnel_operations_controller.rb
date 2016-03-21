@@ -4,7 +4,8 @@ class TunnelOperationsController < ApplicationController
   # GET /tunnel_operations
   # GET /tunnel_operations.json
   def index
-    @tunnel_operation = TunnelOperation.where(tunnel_id: params[:tunnel_id]).by_day.first
+    @tunnel_operation = TunnelOperation.where(tunnel_id: params[:tunnel_id], mine_id: current_mine.id).by_day.first
+    @total_ores = TunnelOperation.where(mine_id: current_mine.id).sum :production_count
     @tunnel_operations = TunnelOperation.where(tunnel_id: params[:tunnel_id]).by_month
     respond_to do |format|
       format.html
@@ -30,6 +31,8 @@ class TunnelOperationsController < ApplicationController
   # POST /tunnel_operations.json
   def create
     @tunnel_operation = TunnelOperation.new(tunnel_operation_params)
+    @tunnel_operation.stock_pile = (params[:production_count] - params[:export_count])
+    @tunnel_operation.stock_name = params[:production_name]
     respond_to do |format|
       if @tunnel_operation.save
         format.html { redirect_to @tunnel_operation, notice: 'Tunnel operation was successfully created.' }
@@ -73,6 +76,6 @@ class TunnelOperationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tunnel_operation_params
-      params.require(:tunnel_operation).permit(:production_count, :production_name, :export_count, :export_name, :status, :stock_pile, :stock_pile_name, :updated_by, :created_by, :tunnel_id, :mine_id, :operation_type)
+      params.require(:tunnel_operation).permit(:production_count, :production_name, :export_count, :export_name, :status, :updated_by, :created_by, :tunnel_id, :mine_id, :operation_type)
     end
 end
