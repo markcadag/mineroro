@@ -1,19 +1,32 @@
 class AttendancesController < ApplicationController
 
   def index
-    @attendace = Attendance.where(mine_id: current_mine.id).order('created_at DESC').by_month
-    @miners = Miner.includes(:attendances).where(mine_id: current_mine.id,)
+    @attendance = Attendance.where(mine_id: current_mine.id).order('created_at DESC').by_day
+    @miners = Miner.includes(:attendances).where(mine_id: current_mine.id).paginate(:page => params[:page])
     respond_to do |format|
       format.html 
-      format.json { render json: @miners.as_json() }
+      format.json { render json: @attendance.as_json() }
     end
   end
 
-  def update_multiple
-  	miners = params[:miner_ids]
-    miners.each do |miner|
-  		Attendance.where(miner_id: params[:miner_id], mine_id: current_mine.id).update_or_create(miner_id: params[:miner_id], mine_id: params[:mine_id], status: 'present')
-	  end
+  def generate_attendance
+    #check if attendance exist
+    @attendance = Attendance.new
+    @attendance.mine_id = current_mine.id
+    @attendance.tunnel_id = params[:tunnel_id]
+    @attendance.attendance_date = params[:attendance_date]
+    @attendance.miners = Miner.where(mine_id: current_mine.id)
+    if @attendance.save
+      format.html
+      format.json { render :show, status: :created, location: @role }
+    else
+      format.html { render :new }
+      format.json { render json: @attendance.errors, status: :unprocessable_entity }
+    end
+  end
+
+  def set_all_present
+    Attendance.where()
   end
 
   private
