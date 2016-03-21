@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :tunnel_operations
   resources :mining_operations
   resources :expenses
   resources :mines
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   post "pusher/auth"
 
   delete 'expense/destroy_multiple', :to  => 'expenses#destroy_multiple'
+  put 'attendance/update_multiple', :to  => 'attendances#update_multiple'
 
 
   # Example of regular route:
