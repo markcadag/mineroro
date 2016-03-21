@@ -31,7 +31,6 @@
 					<% @miners.each do |miner| %>
 						<li style="padding: 10px;">
 							<div class="checkbox" id="attendance">
-								<input type="checkbox" id="<%= miner.id %>" />
 								<label for="checkbox"><%= miner.first_name %> <%= miner.last_name%></label>
 							</div>
 							<div class="pull-right action-buttons">
@@ -42,6 +41,7 @@
 						</li>
 					<% end %>
 				</ul>
+				<%= will_paginate @miners %>
 			</div>
 			<div class="panel-footer">
 				<button class="btn btn-success btn-md" id="btn-save">Set All Present</button>
@@ -52,7 +52,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#calendar').datepicker();
+    $("#calendar").datepicker();
 
     $('#btn-save').click(function() {
         var minerIds = [];
