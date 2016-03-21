@@ -55,7 +55,7 @@ class ExpensesController < ApplicationController
       if @expense.save
 
         Pusher.trigger('private-mine_channel', 'on_new_expense', {
-            message: 'New Expenses Added'
+            message: current_user.first_name + " " + current_user.last_name + ' added a fund request'
         })
 
         format.html { redirect_to @expense, notice: 'Expense was successfully created.' }
