@@ -15,7 +15,6 @@ class Expense < ActiveRecord::Base
   	has_many :mines, :through => :request
 
   	has_many :tunnel_expenses, dependent: :destroy
-  	 # accepts_nested_attributes_for :drinks, :allow_destroy => true
   	has_many :tunnels, :through => :tunnel_expenses
 
 	has_many :mining_operation_cost
