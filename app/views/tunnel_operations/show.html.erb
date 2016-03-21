@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Production count:</strong>
+  <%= @tunnel_operation.production_count %>
+</p>
+
+<p>
+  <strong>Production name:</strong>
+  <%= @tunnel_operation.production_name %>
+</p>
+
+<p>
+  <strong>Export count:</strong>
+  <%= @tunnel_operation.export_count %>
+</p>
+
+<p>
+  <strong>Export name:</strong>
+  <%= @tunnel_operation.export_name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @tunnel_operation.status %>
+</p>
+
+<p>
+  <strong>Stock pile:</strong>
+  <%= @tunnel_operation.stock_pile %>
+</p>
+
+<p>
+  <strong>Stock pile name:</strong>
+  <%= @tunnel_operation.stock_pile_name %>
+</p>
+
+<p>
+  <strong>Updated by:</strong>
+  <%= @tunnel_operation.updated_by %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @tunnel_operation.created_by %>
+</p>
+
+<p>
+  <strong>Tunnel:</strong>
+  <%= @tunnel_operation.tunnel %>
+</p>
+
+<p>
+  <strong>Mine:</strong>
+  <%= @tunnel_operation.mine %>
+</p>
+
+<p>
+  <strong>Operation type:</strong>
+  <%= @tunnel_operation.operation_type %>
+</p>
+
+<%= link_to 'Edit', edit_tunnel_operation_path(@tunnel_operation) %> |
+<%= link_to 'Back', tunnel_operations_path %>

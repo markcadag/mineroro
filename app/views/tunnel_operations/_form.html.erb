@@ -1,0 +1,65 @@
+<%= form_for(@tunnel_operation) do |f| %>
+  <% if @tunnel_operation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tunnel_operation.errors.count, "error") %> prohibited this tunnel_operation from being saved:</h2>
+
+      <ul>
+      <% @tunnel_operation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :production_count %><br>
+    <%= f.number_field :production_count %>
+  </div>
+  <div class="field">
+    <%= f.label :production_name %><br>
+    <%= f.text_field :production_name %>
+  </div>
+  <div class="field">
+    <%= f.label :export_count %><br>
+    <%= f.number_field :export_count %>
+  </div>
+  <div class="field">
+    <%= f.label :export_name %><br>
+    <%= f.text_field :export_name %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br>
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :stock_pile %><br>
+    <%= f.number_field :stock_pile %>
+  </div>
+  <div class="field">
+    <%= f.label :stock_pile_name %><br>
+    <%= f.text_field :stock_pile_name %>
+  </div>
+  <div class="field">
+    <%= f.label :updated_by %><br>
+    <%= f.number_field :updated_by %>
+  </div>
+  <div class="field">
+    <%= f.label :created_by %><br>
+    <%= f.number_field :created_by %>
+  </div>
+  <div class="field">
+    <%= f.label :tunnel_id %><br>
+    <%= f.text_field :tunnel_id %>
+  </div>
+  <div class="field">
+    <%= f.label :mine_id %><br>
+    <%= f.text_field :mine_id %>
+  </div>
+  <div class="field">
+    <%= f.label :operation_type %><br>
+    <%= f.text_field :operation_type %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
