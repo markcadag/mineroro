@@ -1,49 +1,112 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Tunnel Operations</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Production count</th>
-      <th>Production name</th>
-      <th>Export count</th>
-      <th>Export name</th>
-      <th>Status</th>
-      <th>Stock pile</th>
-      <th>Stock pile name</th>
-      <th>Updated by</th>
-      <th>Created by</th>
-      <th>Tunnel</th>
-      <th>Mine</th>
-      <th>Operation type</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @tunnel_operations.each do |tunnel_operation| %>
-      <tr>
-        <td><%= tunnel_operation.production_count %></td>
-        <td><%= tunnel_operation.production_name %></td>
-        <td><%= tunnel_operation.export_count %></td>
-        <td><%= tunnel_operation.export_name %></td>
-        <td><%= tunnel_operation.status %></td>
-        <td><%= tunnel_operation.stock_pile %></td>
-        <td><%= tunnel_operation.stock_pile_name %></td>
-        <td><%= tunnel_operation.updated_by %></td>
-        <td><%= tunnel_operation.created_by %></td>
-        <td><%= tunnel_operation.tunnel %></td>
-        <td><%= tunnel_operation.mine %></td>
-        <td><%= tunnel_operation.operation_type %></td>
-        <td><%= link_to 'Show', tunnel_operation %></td>
-        <td><%= link_to 'Edit', edit_tunnel_operation_path(tunnel_operation) %></td>
-        <td><%= link_to 'Destroy', tunnel_operation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Tunnel operation', new_tunnel_operation_path %>
+<div class="row">
+      <ol class="breadcrumb">
+        <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+        <li class="active">Icons</li>
+      </ol>
+    </div><!--/.row-->
+    
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="page-header">Summary of Tunnel Operation for <%= Time.now.to_formatted_s(:long) %> </h1>
+      </div>
+    </div><!--/.row-->
+    
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-blue panel-widget ">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <% if !@tunnel_operation.blank? %>
+                <div class="large"><%= @tunnel_operation.production_count %><span><small class="text-muted"> of 300</small></span></div>
+                <div class="text-muted">Produced <%= @tunnel_operation.production_name %> (sacks)</div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-orange panel-widget">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked open folder"><use xlink:href="#stroked-folder"/></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <div class="large">52<span><small class="text-muted"> of 500</small></span></div>
+              <div class="text-muted">Site Fund Requests</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-teal panel-widget">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked folder"><use xlink:href="#stroked-folder"/></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <div class="large">Php 20k</div>
+              <div class="text-muted">Operation Cost</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <div class="panel panel-red panel-widget">
+          <div class="row no-padding">
+            <div class="col-sm-3 col-lg-5 widget-left">
+              <svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg>
+            </div>
+            <div class="col-sm-9 col-lg-7 widget-right">
+              <div class="large">25 sacks</div>
+              <div class="text-muted">Delivered to plant</div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--   {
+    "id": 1,
+    "import_count": 2,
+    "export_count": 3,
+    "export_unit": "ores",
+    "import_unit": "ores",
+    "status": "delivered",
+    "stash": "20",
+    "stash_name": "ores",
+    "created_at": "2016-03-15T23:00:46.000Z",
+    "updated_at": "2016-03-15T23:00:46.000Z",
+    "operation_type": "plant",
+    "mine_id": 1
+  } -->
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+        <div class="panel-heading">
+            <p>Monthly Report</p>
+          </div>
+          <div class="panel-body">
+            <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/tunnel_operations.json?tunnel_id=<%=params[:tunnel_id] %>&operation_type=all">
+                <thead>
+                <tr>
+                    <th data-field="production_count"data-sortable="true" >Production count</th>
+                    <th data-field="production_name" data-sortable="true" >Unit</th>
+                    <th data-field="stock_pile" data-sortable="true">Stock Pile</th>
+                    <th data-field="export_count" data-sortable="true">Delivered</th>
+                    <th data-field="operation_type" data-sortable="true">Operation Type</th>
+                    <th data-field="tunnel.name" data-sortable="true">Tunnel</th>
+                    <th data-field="created_at" data-sortable="true">Created</th>
+                    <!-- <th data-field="date_hired" data-sortable="true">Created by</th> -->
+                    <th data-field="updated_at" data-sortable="true">Updated</th>
+                    <!-- <th data-field="date_hired" data-sortable="true">Updated by</th> -->
+                    <th data-field="status" data-sortable="true">Status</th>
+                    <th data-field="operation_cost"  data-sortable="true"> Operation Cost</th>
+                </tr>
+                </thead>
+            </table>
+            <script>
+            </script>
+          </div>
+        </div>
+      </div>
+</div><!--/.row-->
