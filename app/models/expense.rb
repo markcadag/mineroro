@@ -18,8 +18,11 @@ class Expense < ActiveRecord::Base
   	 # accepts_nested_attributes_for :drinks, :allow_destroy => true
   	has_many :tunnels, :through => :tunnel_expenses
 
+	has_many :mining_operation_cost
+  	has_many :mine_operation, :through => :mining_operation_cost  	
 
   	def total_amount
     	self.total = self.amount.to_s.to_f * self.quantity.to_s.to_f
-  	end 
+  	end
+
 end
