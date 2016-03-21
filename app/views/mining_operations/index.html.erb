@@ -19,8 +19,10 @@
               <svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
             </div>
             <div class="col-sm-9 col-lg-7 widget-right">
-              <div class="large">120<span><small class="text-muted"> of 300</small></span></div>
-              <div class="text-muted">Produced Ore (sacks)</div>
+              <% if !@mining_operation_today.blank? %>
+                <div class="large"><%= mining_operation_today.import_count %><span><small class="text-muted"> of 300</small></span></div>
+                <div class="text-muted">Produced <%= mining_operation_today.import_unit %> (sacks)</div>
+              <% end %>
             </div>
           </div>
         </div>
@@ -87,48 +89,24 @@
             <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/mining_operations.json?operation_type=plant">
                 <thead>
                 <tr>
-                    <th data-field="import_count"data-sortable="true" >Sacks Count</th>
+                    <th data-field="import_count"data-sortable="true" >Production count</th>
                     <th data-field="import_unit" data-sortable="true" >Unit</th>
-                    <th data-field="stash" data-sortable="true">Stashed Count</th>
-                    <th data-field="address"  data-sortable="true">Address</th>
+                    <th data-field="stash" data-sortable="true">Stock Pile</th>
+                    <th data-field="stash" data-sortable="true">Delivered</th>
                     <th data-field="operation_type" data-sortable="true">Operation Type</th>
                     <th data-field="tunnel.name" data-sortable="true">Tunnel</th>
-                    <th data-field="date_hired" data-sortable="true">Date Hired</th>
+                    <th data-field="created_at" data-sortable="true">Created</th>
+                    <th data-field="date_hired" data-sortable="true">Created by</th>
+                    <th data-field="updated_at" data-sortable="true">Updated</th>
+                    <th data-field="date_hired" data-sortable="true">Updated by</th>
+                    <th data-field="date_hired" data-sortable="true">Status</th>
+                    <th data-field="operation_cost"  data-sortable="true"> Operation Cost</th>
                 </tr>
                 </thead>
             </table>
             <script>
-                // $(function () {
-                //     $('#hover, #striped, #condensed').click(function () {
-                //         var classes = 'table';
-            
-                //         if ($('#hover').prop('checked')) {
-                //             classes += ' table-hover';
-                //         }
-                //         if ($('#condensed').prop('checked')) {
-                //             classes += ' table-condensed';
-                //         }
-                //         $('#table-style').bootstrapTable('destroy')
-                //             .bootstrapTable({
-                //                 classes: classes,
-                //                 striped: $('#striped').prop('checked')
-                //             });
-                //     });
-                // });
-            
-                // function rowStyle(row, index) {
-                //     var classes = ['active', 'success', 'info', 'warning', 'danger'];
-            
-                //     if (index % 2 === 0 ) {
-                //         return {
-                //             classes: classes[2]
-                //         };
-                //     }
-                //     return {};
-                // }
             </script>
           </div>
         </div>
       </div>
-
-        </div><!--/.row-->
+</div><!--/.row-->
