@@ -1204,6 +1204,7 @@ fieldset[disabled] {
 	padding: 0;
 	margin: -15px;
 	background: $white;
+	list-style: none;
 	color: $color_storm_dust_approx;
 	.checkbox {
 		display: inline-block;
