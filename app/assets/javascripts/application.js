@@ -27,4 +27,5 @@
 //= require bootstrap-table-flat-json
 //= require rails-timeago
 //= require script_helper
+//= require bootstrap-datepicker
 //= require_tree .

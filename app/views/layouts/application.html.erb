@@ -39,12 +39,14 @@
       },
       encrypted: true
     });
+
     <% if user_signed_in? && @current_mine  %>
       var channel = pusher.subscribe('private-mine_channel');
       channel.bind('on_new_expense', function(data) {
         toastr.success(data.message)
       });
     <% end %>
+    
   </script>
 </head>
 <body>
