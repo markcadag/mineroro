@@ -10,7 +10,7 @@
 		<li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="<%= dashboard_index_url %>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>			
 		<li class="<%= 'active' if params[:controller] == 'expenses' %>"><a href="<%= expenses_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Expenses</a></li>
 		<li class="parent <%= 'active' if params[:controller] == 'mining_operations' %>">
-			<a href="#">
+			<a data-toggle="collapse" href="#sub-item-1">
 				<span data-toggle="collapse" href="#sub-item-1"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Mining Operations 
 			</a>
 			<ul class="children collapse <%= 'in' if params[:controller] == 'mining_operations' %>" id="sub-item-1">
@@ -18,13 +18,23 @@
 				<li><a href="<%= mining_operations_path(:operation_type => 'plant') %>"><svg class="glyph stroked calendar"><use xlink:href="#stroked-table"></use></svg> Plant Status</a></li>
 			</ul>
 		</li>
-		<li class="parent <%= 'active' if params[:controller] == 'miners' %>">
-			<a href="#">
-				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Miners 
+		<li class="parent <%= 'active' if params[:controller] == 'tunnel_operations' %>">
+			<a data-toggle="collapse" href="#sub-item-2">
+				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Tunnel Operations 
 			</a>
-			<ul class="children collapse <%= 'in' if params[:controller] == 'miners' %>" id="sub-item-2">
+			<ul class="children collapse <%= 'in' if params[:controller] == 'tunnel_operations' %>" id="sub-item-2">
+				<% @current_mine.tunnels.each do |tunnel| %>
+					<li><a href=<%= tunnel_operations_path(:tunnel_id => tunnel.id) %>><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> <%= tunnel.name %> </a></li>
+				<% end %>
+			</ul>
+		</li>
+		<li class="parent <%= 'active' if params[:controller] == 'miners'  || params[:controller] == 'attendances'%>">
+			<a data-toggle="collapse" href="#sub-item-3">
+				<span data-toggle="collapse" href="#sub-item-3"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Miners 
+			</a>
+			<ul class="children collapse <%= 'in' if params[:controller] == 'miners' ||  params[:controller] == 'attendances' %>" id="sub-item-3">
 					<li>
-					<a class="" href="#">
+					<a class="" href="<%= attendances_path %>">
 						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> View Attendance
 					</a>
 				</li>
@@ -35,7 +45,7 @@
 				</li>
 			</ul>
 		</li>
+		<li class="<%= 'active' if params[:controller] == 'inventory' %>"><a href="<%= inventories_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Inventory</a></li>
 		<li role="presentation" class="divider"></li>
-		<li><a href="login.html"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Login Page</a></li>
 	</ul>
 </div><!--/.sidebar-->
