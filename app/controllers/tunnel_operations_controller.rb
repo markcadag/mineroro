@@ -4,7 +4,12 @@ class TunnelOperationsController < ApplicationController
   # GET /tunnel_operations
   # GET /tunnel_operations.json
   def index
-    @tunnel_operations = TunnelOperation.all
+    @tunnel_operation = TunnelOperation.where(tunnel_id: params[:tunnel_id]).by_day.first
+    @tunnel_operations = TunnelOperation.where(tunnel_id: params[:tunnel_id]).by_month
+    respond_to do |format|
+      format.html
+      format.json { render json: @tunnel_operations.as_json(:include => [:tunnel => {:only => :name, :include => :expenses}] ) }
+    end
   end
 
   # GET /tunnel_operations/1
@@ -25,7 +30,6 @@ class TunnelOperationsController < ApplicationController
   # POST /tunnel_operations.json
   def create
     @tunnel_operation = TunnelOperation.new(tunnel_operation_params)
-
     respond_to do |format|
       if @tunnel_operation.save
         format.html { redirect_to @tunnel_operation, notice: 'Tunnel operation was successfully created.' }
