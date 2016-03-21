@@ -1,8 +1,8 @@
 class Attendance < ActiveRecord::Base
   	
-  	belongs_to :user
-  	belongs_to :miner
-
+	has_many :check_attendance
+	has_many :miners, :through => :check_attendance
+	
 	def self.update_or_create(attributes)
 	  	assign_or_new(attributes).save
 	end
