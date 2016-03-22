@@ -28,31 +28,48 @@
 		<div class="panel-heading dark-overlay"><svg class="glyph stroked clipboard-with-paper"><use xlink:href="#stroked-clipboard-with-paper"></use></svg>Miners</div>
 			<div class="panel-body">
 				<ul class="todo-list">
-					<% @miners.each do |miner| %>
+					<% @attendances.each do |attendance| %>
 						<li style="padding: 10px;">
 							<div class="checkbox" id="attendance">
-								<label for="checkbox"><%= miner.first_name %> <%= miner.last_name%></label>
+								<label for="checkbox"><%= attendance.miner.first_name %> <%= attendance.miner.last_name%></label>
+								<%= attendance.attendance_type %>
 							</div>
+				
 							<div class="pull-right action-buttons">
-								<button class="btn btn-default btn-md" id="btn-todo">Present</button>
-								<button class="btn btn-default btn-md" id="btn-todo">Absent</button>
+								<button class="btn btn-default btn-md <%= 'selected-present' if attendance.attendance_type == 'present'%>" id="btn-todo">Present</button>
+								<button class="btn btn-default btn-md <%= 'selected-absent' if attendance.attendance_type == 'present'%>" id="btn-todo">Absent</button>
 								<button class="btn btn-default btn-md" id="btn-todo">Late</button>
 							</div>
 						</li>
 					<% end %>
 				</ul>
-				<%= will_paginate @miners %>
+				<%= will_paginate @attendances %>
 			</div>
 			<div class="panel-footer">
-				<button class="btn btn-success btn-md" id="btn-save">Set All Present</button>
-				<button class="btn btn-success btn-md" id="btn-save">Save</button>
+				<button class="btn btn-success btn-md" id="btn-save">Set as Holiday</button>
 			</div>
 	</div>				
 </div><!--/.col-->
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    $("#calendar").datepicker();
+  $(document).ready(function() {
+
+  	var date = new Date("<%= params[:attendance_date] %>");
+
+    $("#calendar").datepicker("setDate" , formatDate(date));
+
+	$('#calendar').datepicker().on("changeDate", function(e) {
+    	var datePicked = formatDate(new Date(e.date));
+    	$.ajax({
+	    	url: '<%= attendance_generate_attendance_path %>',
+	        type: 'POST',
+	        data: { attendance_date: datePicked},
+            success: function(result) {
+            	window.location.href = '/attendances?attendance_date=' + datePicked;
+            }
+        });
+    });
+
 
     $('#btn-save').click(function() {
         var minerIds = [];
@@ -70,9 +87,17 @@
         });
 
     });
+
   });
 </script>
 <style type="text/css">
+
+	.selected-present {
+		background-color: #8ad919;
+		border-color: #8ad919;
+		color: white;
+	}
+
 	.datepicker-inline {
 		width: 100%;
 	}	
