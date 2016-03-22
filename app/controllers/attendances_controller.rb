@@ -1,32 +1,42 @@
 class AttendancesController < ApplicationController
+  
+  require 'date'
 
   def index
-    @attendance = Attendance.where(mine_id: current_mine.id).order('created_at DESC').by_day
-    @miners = Miner.includes(:attendances).where(mine_id: current_mine.id).paginate(:page => params[:page])
+    date =  Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
+    @attendance = Attendance.where(mine_id: current_mine.id, attendance_date: date).first
+    @attendances = CheckAttendance.joins(:miner).where(attendance_id: @attendance.id).paginate(:page => params[:page])
     respond_to do |format|
       format.html 
-      format.json { render json: @attendance.as_json() }
+      format.json { render json: @attendances.as_json(:include => [:miner]) }
     end
   end
 
   def generate_attendance
-    #check if attendance exist
-    @attendance = Attendance.new
-    @attendance.mine_id = current_mine.id
-    @attendance.tunnel_id = params[:tunnel_id]
-    @attendance.attendance_date = params[:attendance_date]
-    @attendance.miners = Miner.where(mine_id: current_mine.id)
-    if @attendance.save
-      format.html
-      format.json { render :show, status: :created, location: @role }
+    date =  Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
+    if !Attendance.exists?(attendance_date: date)
+        @attendance = Attendance.new
+        @attendance.mine_id = current_mine.id
+        @attendance.tunnel_id = params[:tunnel_id]
+        @attendance.attendance_date = Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
+        @attendance.miners = Miner.where(mine_id: current_mine.id)
+        respond_to do |format|
+          if @attendance.save
+              format.html { redirect_to :action => "index", :attendance_date => params[:attendance_date]}
+              format.json { render json: @attendance.as_json() }
+          else
+              format.html { render :new }
+              format.json { render json: @attendance.errors, status: :unprocessable_entity }
+          end
+        end
     else
-      format.html { render :new }
-      format.json { render json: @attendance.errors, status: :unprocessable_entity }
-    end
-  end
 
-  def set_all_present
-    Attendance.where()
+    respond_to do |format|
+        format.html { redirect_to :action => "index", :attendance_date => params[:attendance_date]}
+        format.json { head :ok }
+    end
+
+    end
   end
 
   private
