@@ -1,6 +1,6 @@
 class Attendance < ActiveRecord::Base
   	
-	has_many :check_attendance
+	has_many :check_attendance, dependent: :destroy
 	has_many :miners, :through => :check_attendance
 	
 	def self.update_or_create(attributes)
