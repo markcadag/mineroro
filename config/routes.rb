@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   post "pusher/auth"
 
   delete 'expense/destroy_multiple', :to  => 'expenses#destroy_multiple'
-  put 'attendance/update_multiple', :to  => 'attendances#update_multiple'
+  post 'attendance/generate_attendance', :to  => 'attendances#generate_attendance'
 
 
   # Example of regular route:
