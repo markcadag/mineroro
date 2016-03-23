@@ -77,7 +77,7 @@ class TunnelOperationsController < ApplicationController
 
     def check_tunnel_operation
       date = Time.now.strftime('%Y-%m-%d')
-      @tunnel_operation = TunnelOperation.find_or_create_by(mine_id: current_mine.id,tunnel_id: params[:tunnel_id], created_at: date)
+      @tunnel_operation = TunnelOperation.find_or_create_by(mine_id: current_mine.id,tunnel_id: params[:tunnel_id], tunnel_operation_date: date)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
