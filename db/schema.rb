@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160321132626) do
+ActiveRecord::Schema.define(version: 20160323043814) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -181,20 +181,21 @@ ActiveRecord::Schema.define(version: 20160321132626) do
   add_index "tunnel_expenses", ["tunnel_id"], name: "index_tunnel_expenses_on_tunnel_id", using: :btree
 
   create_table "tunnel_operations", force: :cascade do |t|
-    t.integer  "production_count", limit: 4
-    t.string   "production_name",  limit: 255
-    t.integer  "export_count",     limit: 4
-    t.string   "export_name",      limit: 255
-    t.string   "status",           limit: 255
-    t.integer  "stock_pile",       limit: 4
-    t.string   "stock_pile_name",  limit: 255
-    t.integer  "updated_by",       limit: 4
-    t.integer  "created_by",       limit: 4
-    t.integer  "tunnel_id",        limit: 4
-    t.integer  "mine_id",          limit: 4
-    t.string   "operation_type",   limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "production_count",      limit: 4
+    t.string   "production_name",       limit: 255
+    t.integer  "export_count",          limit: 4
+    t.string   "export_name",           limit: 255
+    t.string   "status",                limit: 255
+    t.integer  "stock_pile",            limit: 4
+    t.string   "stock_pile_name",       limit: 255
+    t.integer  "updated_by",            limit: 4
+    t.integer  "created_by",            limit: 4
+    t.integer  "tunnel_id",             limit: 4
+    t.integer  "mine_id",               limit: 4
+    t.string   "operation_type",        limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.datetime "tunnel_operation_date"
   end
 
   add_index "tunnel_operations", ["mine_id"], name: "index_tunnel_operations_on_mine_id", using: :btree
