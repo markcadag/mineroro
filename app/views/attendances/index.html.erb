@@ -36,9 +36,9 @@
 							</div>
 				
 							<div class="pull-right action-buttons">
-								<button class="btn btn-default btn-md <%= 'selected-present' if attendance.attendance_type == 'present'%>" id="btn-todo">Present</button>
-								<button class="btn btn-default btn-md <%= 'selected-absent' if attendance.attendance_type == 'present'%>" id="btn-todo">Absent</button>
-								<button class="btn btn-default btn-md" id="btn-todo">Late</button>
+								<button id='present-<%= attendance.id %>' class="btn btn-default btn-md <%= 'selected-present' if attendance.attendance_type == 'present'%>" onclick="updateAttendance('<%= attendance.id%>', 'present')">Present</button>
+								<button id='absent-<%= attendance.id %>' class="btn btn-default btn-md <%= 'selected-present' if attendance.attendance_type == 'absent'%>" onclick="updateAttendance('<%= attendance.id %>', 'absent')">Absent</button>
+								<button id='late-<%= attendance.id %>' class="btn btn-default btn-md <%= 'selected-present' if attendance.attendance_type == 'late'%>" onclick="updateAttendance('<%= attendance.id %>', 'late')">Late</button>
 							</div>
 						</li>
 					<% end %>
@@ -52,6 +52,7 @@
 </div><!--/.col-->
 
 <script type="text/javascript">
+
   $(document).ready(function() {
 
   	var date = new Date("<%= params[:attendance_date] %>");
@@ -80,15 +81,21 @@
         $.ajax({
             type: "PUT",
             url: "/attendance/update_multiple",
-            data: { 'miner_ids': minerIds } ,
-            success:  function(g) {
-              alert('OK');
-            }
+            data: { 'miner_ids': minerIds }
         });
 
     });
 
   });
+
+   function updateAttendance(attendance_id, attendance_type) {
+    	$.ajax({
+	        type: 'PUT',
+	        url: '/check_attendances/' + attendance_id,
+	        data: { check_attendance: { attendance_type: attendance_type } }
+        });
+	}
+
 </script>
 <style type="text/css">
 
