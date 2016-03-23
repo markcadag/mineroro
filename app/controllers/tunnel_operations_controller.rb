@@ -1,16 +1,17 @@
 class TunnelOperationsController < ApplicationController
   before_action :set_tunnel_operation, only: [:show, :edit, :update, :destroy]
-
+  before_action :check_tunnel_operation, only: [:index]
   # GET /tunnel_operations
   # GET /tunnel_operations.json
   def index
-    @tunnel_operation = TunnelOperation.where(tunnel_id: params[:tunnel_id], mine_id: current_mine.id).by_day.first
-    @total_ores = TunnelOperation.where(mine_id: current_mine.id).sum :production_count
+    # @tunnel_operation = TunnelOperation.where(tunnel_id: params[:tunnel_id], mine_id: current_mine.id).by_day.first
+    @total_ores = TunnelOperation.where(mine_id: current_mine.id).by_month.sum :production_count
     @tunnel_operations = TunnelOperation.where(tunnel_id: params[:tunnel_id]).by_month
     respond_to do |format|
       format.html
       format.json { render json: @tunnel_operations.as_json(:include => [:tunnel => {:only => :name, :include => :expenses}] ) }
     end
+    
   end
 
   # GET /tunnel_operations/1
@@ -72,6 +73,11 @@ class TunnelOperationsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tunnel_operation
       @tunnel_operation = TunnelOperation.find(params[:id])
+    end
+
+    def check_tunnel_operation
+      date = Time.now.strftime('%Y-%m-%d')
+      @tunnel_operation = TunnelOperation.find_or_create_by(mine_id: current_mine.id,tunnel_id: params[:tunnel_id], created_at: date)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
