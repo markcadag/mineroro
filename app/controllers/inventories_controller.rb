@@ -5,6 +5,7 @@ class InventoriesController < ApplicationController
   # GET /inventories.json
   def index
     @inventories = Inventory.where(mine_id: current_mine.id)
+    @inventory = Inventory.new
     respond_to do |format|
       format.html
       format.json { render json: @inventories }
