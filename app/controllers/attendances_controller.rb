@@ -2,9 +2,11 @@ class AttendancesController < ApplicationController
   
   require 'date'
 
+  before_action :create_or_find_attendace, only: [:index]
+
   def index
-    date =  Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
-    @attendance = Attendance.where(mine_id: current_mine.id, attendance_date: date).first
+    # date =  Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
+    # @attendance = Attendance.where(mine_id: current_mine.id, attendance_date: date).first
     @attendances = CheckAttendance.joins(:miner).where(attendance_id: @attendance.id).paginate(:page => params[:page])
     respond_to do |format|
       format.html 
@@ -44,6 +46,12 @@ class AttendancesController < ApplicationController
   def set_expense
   	@expense = Expense.find(params[:id])
   end
+
+  def create_or_find_attendace
+    date = Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
+    @attendance = Attendance.find_or_create_by(mine_id: current_mine.id, attendance_date: date)
+  end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
    def attendance_params
