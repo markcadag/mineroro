@@ -1,0 +1,4 @@
+$('#present-<%= @check_attendance.id %>').removeClass('selected-present');
+$('#absent-<%= @check_attendance.id %>').removeClass('selected-present');
+$('#late-<%= @check_attendance.id %>').removeClass('selected-present');
+$('#<%= @check_attendance.attendance_type %>-<%= @check_attendance.id %>').addClass('selected-present');
