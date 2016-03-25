@@ -10,7 +10,48 @@
     </div>
   <% end %>
     <div class="row">
-      <div class="col-md-5">
+    
+    <div class="col-md-12">
+      <div class="panel panel-default" style="margin-top: 20px;">
+          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> List Inventory</div>
+            <div class="panel-body">
+            <% if @inventories.empty? %>
+              <center  style="padding:20px;"><h4>Empty Inventory List</h4>
+              <small>Add new from new inventory form</small>
+              </center>
+            <% else %>
+               <table class="table-bordered table-condensed table-hover" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>Inventory Name</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Tunnel</th>
+                      <th>Created</th>
+                      <th>Updated</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @inventories.each do |inventory| %>
+                      <tr>
+                        <td><p><%= inventory.name %></p></td>
+                        <td><p>Php <%= inventory.amount %></p></td>
+                        <td><p><%= inventory.quantity %></p></td>
+                        <td><p>john@example.com</p></td>
+                        <td><p>Php <%= inventory.amount %></p></td>
+                        <td><p>Php <%= inventory.amount %></p></td>
+                        <td><%= link_to 'Edit', edit_inventory_path(inventory) %> <%= link_to 'Destroy', inventory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+              </table>
+              <%= will_paginate @attendances %>
+            <% end %>
+            </div>
+          </div>
+    </div>
+      <div class="col-md-6">
         <div class="panel panel-default" style="margin-top: 20px;">
           <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Inventory</div>
             <div class="panel-body">
@@ -66,30 +107,16 @@
         </div>
       </div>
     </div>
-    
-    <div class="col-md-7">
+
+    <div class="col-md-6">
       <div class="panel panel-default" style="margin-top: 20px;">
-          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> List Inventory</div>
-            <div class="panel-body">
-            <% if @inventories.empty? %>
-              <center  style="padding:20px;"><h4>Empty Inventory List</h4>
-              <small>Add new from new inventory form</small>
-              </center>
-            <% else %>
-              <% @inventories.each do |inventory| %>
-                <tr>
-                  <td><%= inventory.name %></td>
-                  <td><%= inventory.quantity %></td>
-                  <td><%= inventory.amount %></td>
-                  <td><%= link_to 'Show', inventory %></td>
-                  <td><%= link_to 'Edit', edit_inventory_path(inventory) %></td>
-                  <td><%= link_to 'Destroy', inventory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                </tr>
-              <% end %>
-            <% end %>
-            </div>
+        <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Activities</div>
+          <div class="panel-body">
+            
           </div>
+      </div>
     </div>
+    
   </div>
 
 <% end %>
