@@ -4,7 +4,7 @@ class InventoriesController < ApplicationController
   # GET /inventories
   # GET /inventories.json
   def index
-    @inventories = Inventory.where(mine_id: current_mine.id)
+    @inventories = Inventory.where(mine_id: current_mine.id, tunnel_id: params[:tunnel_id]).paginate(:page => params[:page])
     @inventory = Inventory.new
     respond_to do |format|
       format.html
