@@ -1,0 +1,37 @@
+<div class="col-md-6">
+	<div class="panel panel-default">
+		<div class="panel-heading dark-overlay"><svg class="glyph stroked clipboard-with-paper"><use xlink:href="#stroked-clipboard-with-paper"></use></svg>Miners</div>
+			<div class="panel-body">
+				<ul class="todo-list">
+					<% @expenses.each do |expense| %>
+						<li style="padding: 10px;">
+							<div class="checkbox" id="expense">
+								<label for="checkbox"><%= expense.description %> <%= expense.total %></label>
+							</div>
+				
+							<div class="pull-right action-buttons">
+								<button id='pending-<%= expense.id %>' class="btn btn-default btn-md <%= 'selected-present' if expense.status == 'pending'%>" onclick="updateExpenses('<%= expense.id%>', 'pending')">Present</button>
+								<button id='approved-<%= expense.id %>' class="btn btn-default btn-md <%= 'selected-present' if expense.status == 'approved'%>" onclick="updateExpenses('<%= expense.id %>', 'approved')">Absent</button>
+								<button id='disapproved-<%= expense.id %>' class="btn btn-default btn-md <%= 'selected-present' if expense.status == 'disapproved'%>" onclick="updateExpenses('<%= expense.id %>', 'disapproved')">Late</button>
+							</div>
+							<hr/>
+						</li>
+					<% end %>
+				</ul>
+				<%= will_paginate @expenses %>
+			</div>
+			<div class="panel-footer">
+				<button class="btn btn-success btn-md" id="btn-save">Set as Holiday</button>
+			</div>
+	</div>				
+</div><!--/.col-->
+
+<script type="text/javascript">
+	function updateExpenses(expense_id, status) {
+    	$.ajax({
+	        type: 'PUT',
+	        url: '/expenses/' + expense_id,
+	        data: { expense: { status: status } }
+        });
+	}
+</script>
