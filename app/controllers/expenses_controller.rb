@@ -4,7 +4,11 @@ class ExpensesController < ApplicationController
   # GET /expenses
   # GET /expenses.json
   def index
-    @expenses = Expense.where(mine_id: current_mine.id, status: 'approved').order('created_at DESC').by_month
+    if current_user.has_role?('admin', current_mine)
+      @expenses = Expense.where(mine_id: current_mine.id, status: 'pending').order('created_at DESC').by_month
+    else
+      @expenses = Expense.where(mine_id: current_mine.id, status: 'approved').order('created_at DESC').by_month
+    end
     @expense_requests = Expense.where(mine_id: current_mine.id).order('created_at DESC').by_month
     gon.watch.expenses = @expenses
     @tunnels = @current_mine.tunnels;
