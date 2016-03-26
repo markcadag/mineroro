@@ -34,7 +34,7 @@
 			</a>
 			<ul class="children collapse <%= 'in' if params[:controller] == 'miners' ||  params[:controller] == 'attendances' %>" id="sub-item-3">
 					<li>
-					<a class="" href="<%= attendances_path %>">
+					<a class="" href="<%= attendances_path(:attendance_date => Time.now.strftime('%m/%d/%Y')) %>">
 						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> View Attendance
 					</a>
 				</li>
