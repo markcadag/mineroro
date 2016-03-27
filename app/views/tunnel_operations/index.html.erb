@@ -106,7 +106,7 @@
             <p>Monthly Report</p>
           </div>
           <div class="panel-body">
-            <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/tunnel_operations.json?tunnel_id=<%=params[:tunnel_id] %>&operation_type=all">
+            <table data-toggle="table" id="table-style"  data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc" data-row-style="rowStyle" data-url="/tunnel/<%=params[:tunnel_id] %>/tunnel_operations.json?operation_type=<%= params[:operation_type] %>">
                 <thead>
                 <tr>
                     <th data-field="production_count"data-sortable="true" >Production count</th>
