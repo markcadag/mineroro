@@ -5,8 +5,8 @@ class TunnelOperationsController < ApplicationController
   # GET /tunnel_operations.json
   def index
     # @tunnel_operation = TunnelOperation.where(tunnel_id: params[:tunnel_id], mine_id: current_mine.id).by_day.first
-    @total_ores = TunnelOperation.where(mine_id: current_mine.id).by_month.sum :production_count
-    @tunnel_operations = TunnelOperation.where(tunnel_id: params[:tunnel_id]).by_month
+    @total_ores = TunnelOperation.where(mine_id: current_mine.id, tunnel_id: params[:tunnel_id]).by_month.sum :production_count
+    @tunnel_operations = TunnelOperation.where(tunnel_id: params[:tunnel_id], operation_type: params[:operation_type]).by_month
     respond_to do |format|
       format.html
       format.json { render json: @tunnel_operations.as_json(:include => [:tunnel => {:only => :name, :include => :expenses}] ) }
@@ -52,6 +52,7 @@ class TunnelOperationsController < ApplicationController
       if @tunnel_operation.update(tunnel_operation_params)
         format.html { redirect_to @tunnel_operation, notice: 'Tunnel operation was successfully updated.' }
         format.json { render :show, status: :ok, location: @tunnel_operation }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @tunnel_operation.errors, status: :unprocessable_entity }
@@ -77,7 +78,7 @@ class TunnelOperationsController < ApplicationController
 
     def check_tunnel_operation
       date = Time.now.strftime('%Y-%m-%d')
-      @tunnel_operation = TunnelOperation.find_or_create_by(mine_id: current_mine.id,tunnel_id: params[:tunnel_id], tunnel_operation_date: date)
+      @tunnel_operation = TunnelOperation.find_or_create_by(mine_id: current_mine.id,tunnel_id: params[:tunnel_id], operation_type: params[:operation_type], tunnel_operation_date: date)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
