@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323062255) do
+ActiveRecord::Schema.define(version: 20160327101424) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -85,9 +85,11 @@ ActiveRecord::Schema.define(version: 20160323062255) do
     t.integer  "mine_id",       limit: 4
     t.string   "address",       limit: 255
     t.string   "mobile_number", limit: 255
+    t.integer  "tunnel_id",     limit: 4
   end
 
   add_index "miners", ["mine_id"], name: "index_miners_on_mine_id", using: :btree
+  add_index "miners", ["tunnel_id"], name: "index_miners_on_tunnel_id", using: :btree
 
   create_table "mines", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -227,10 +229,12 @@ ActiveRecord::Schema.define(version: 20160323062255) do
     t.datetime "updated_at",                                      null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.integer  "tunnel_id",              limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["tunnel_id"], name: "index_users_on_tunnel_id", using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
@@ -250,6 +254,7 @@ ActiveRecord::Schema.define(version: 20160323062255) do
   add_foreign_key "inventories", "mines"
   add_foreign_key "inventories", "tunnels"
   add_foreign_key "miners", "mines"
+  add_foreign_key "miners", "tunnels"
   add_foreign_key "mines", "users"
   add_foreign_key "mining_operation_costs", "expenses"
   add_foreign_key "mining_operation_costs", "mining_operations"
@@ -262,4 +267,5 @@ ActiveRecord::Schema.define(version: 20160323062255) do
   add_foreign_key "tunnel_operations", "mines"
   add_foreign_key "tunnel_operations", "tunnels"
   add_foreign_key "tunnels", "mines"
+  add_foreign_key "users", "tunnels"
 end
