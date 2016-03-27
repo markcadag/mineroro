@@ -1,5 +1,5 @@
 <div id="modal-edit-fields" style="padding:20px;">
-    <%= form_for @tunnel_operation, :html => { :class => 'form-horizontal' } do |f| %> 
+    <%= form_for @tunnel_operation, remote: true, :html => { :class => 'form-horizontal' } do |f| %> 
    	<fieldset>
     <div class="field">
         <%= f.label 'Produced', :class => 'col-md-3 control-label' %>
