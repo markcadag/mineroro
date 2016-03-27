@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     resources :miners
   end
 
+  resources :tunnel do
+    resources :tunnel_operations
+  end
 
   post "mine/session", :to=>"mines#save_mine_session"
   
