@@ -5,11 +5,12 @@ class InventoriesController < ApplicationController
   # GET /inventories.json
   def index
     # , tunnel_id: params[:tunnel_id]
-    @inventories = Inventory.where(mine_id: current_mine.id).paginate(:page => params[:page])
+    @inventories = Inventory.includes(:item).where(mine_id: current_mine.id).paginate(:page => params[:page])
     @inventory = Inventory.new
     respond_to do |format|
       format.html
       format.json { render json: @inventories }
+      format.js
     end
   end
 
@@ -36,9 +37,11 @@ class InventoriesController < ApplicationController
       if @inventory.save
         format.html { redirect_to @inventory, notice: 'Inventory was successfully created.' }
         format.json { render :show, status: :created, location: @inventory }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @inventory.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -75,6 +78,6 @@ class InventoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inventory_params
-      params.require(:inventory).permit(:name, :quantity, :amount)
+      params.require(:inventory).permit(:quantity, :amount)
     end
 end

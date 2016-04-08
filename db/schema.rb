@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160327112009) do
+ActiveRecord::Schema.define(version: 20160407145556) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -40,6 +40,28 @@ ActiveRecord::Schema.define(version: 20160327112009) do
   add_index "check_attendances", ["attendance_id"], name: "index_check_attendances_on_attendance_id", using: :btree
   add_index "check_attendances", ["miner_id"], name: "index_check_attendances_on_miner_id", using: :btree
 
+  create_table "credit_invoices", force: :cascade do |t|
+    t.string   "title",         limit: 255
+    t.string   "code",          limit: 255
+    t.datetime "value_date"
+    t.datetime "due_date"
+    t.datetime "duration_from"
+    t.datetime "duration_to"
+    t.string   "remarks",       limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "expense_sub_types", force: :cascade do |t|
+    t.integer  "expense_type_id",       limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "name",                  limit: 255
+    t.string   "expense_sub_type_code", limit: 255
+  end
+
+  add_index "expense_sub_types", ["expense_type_id"], name: "index_expense_sub_types_on_expense_type_id", using: :btree
+
   create_table "expense_types", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -65,17 +87,56 @@ ActiveRecord::Schema.define(version: 20160327112009) do
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
 
   create_table "inventories", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "quantity",   limit: 4
-    t.float    "amount",     limit: 24
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "mine_id",    limit: 4
-    t.integer  "tunnel_id",  limit: 4
+    t.integer  "quantity",    limit: 4
+    t.float    "amount",      limit: 24
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "mine_id",     limit: 4
+    t.integer  "tunnel_id",   limit: 4
+    t.integer  "item_id",     limit: 4
+    t.string   "description", limit: 255
+    t.decimal  "total",                   precision: 8, scale: 2
   end
 
+  add_index "inventories", ["item_id"], name: "index_inventories_on_item_id", using: :btree
   add_index "inventories", ["mine_id"], name: "index_inventories_on_mine_id", using: :btree
   add_index "inventories", ["tunnel_id"], name: "index_inventories_on_tunnel_id", using: :btree
+
+  create_table "invoice_items", force: :cascade do |t|
+    t.string   "type",        limit: 255
+    t.integer  "quantity",    limit: 4
+    t.string   "description", limit: 255
+    t.decimal  "amount",                  precision: 10
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.integer  "invoice_id",  limit: 4
+    t.decimal  "toal_amount",             precision: 8,  scale: 2
+    t.string   "unit",        limit: 255
+  end
+
+  add_index "invoice_items", ["invoice_id"], name: "index_invoice_items_on_invoice_id", using: :btree
+
+  create_table "invoices", force: :cascade do |t|
+    t.string   "type",         limit: 255
+    t.decimal  "total_amount",             precision: 10
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "payee",        limit: 255
+    t.string   "particulars",  limit: 255
+    t.string   "invoice_code", limit: 255
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.integer  "mine_id",        limit: 4
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.string   "name",           limit: 255
+    t.decimal  "current_amount",             precision: 8, scale: 2
+    t.string   "item_code",      limit: 255
+    t.string   "description",    limit: 255
+  end
+
+  add_index "items", ["mine_id"], name: "index_items_on_mine_id", using: :btree
 
   create_table "miners", force: :cascade do |t|
     t.string   "first_name",    limit: 255
@@ -128,6 +189,40 @@ ActiveRecord::Schema.define(version: 20160327112009) do
 
   add_index "mining_operations", ["mine_id"], name: "index_mining_operations_on_mine_id", using: :btree
   add_index "mining_operations", ["tunnel_id"], name: "index_mining_operations_on_tunnel_id", using: :btree
+
+  create_table "plutus_accounts", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "type",       limit: 255
+    t.boolean  "contra"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "item_code",  limit: 255
+  end
+
+  add_index "plutus_accounts", ["name", "type"], name: "index_plutus_accounts_on_name_and_type", using: :btree
+
+  create_table "plutus_amounts", force: :cascade do |t|
+    t.string  "type",       limit: 255
+    t.integer "account_id", limit: 4
+    t.integer "entry_id",   limit: 4
+    t.decimal "amount",                 precision: 20, scale: 10
+  end
+
+  add_index "plutus_amounts", ["account_id", "entry_id"], name: "index_plutus_amounts_on_account_id_and_entry_id", using: :btree
+  add_index "plutus_amounts", ["entry_id", "account_id"], name: "index_plutus_amounts_on_entry_id_and_account_id", using: :btree
+  add_index "plutus_amounts", ["type"], name: "index_plutus_amounts_on_type", using: :btree
+
+  create_table "plutus_entries", force: :cascade do |t|
+    t.string   "description",              limit: 255
+    t.date     "date"
+    t.integer  "commercial_document_id",   limit: 4
+    t.string   "commercial_document_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plutus_entries", ["commercial_document_id", "commercial_document_type"], name: "index_entries_on_commercial_doc", using: :btree
+  add_index "plutus_entries", ["date"], name: "index_plutus_entries_on_date", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",          limit: 255
@@ -249,10 +344,14 @@ ActiveRecord::Schema.define(version: 20160327112009) do
   add_foreign_key "attendances", "users"
   add_foreign_key "check_attendances", "attendances"
   add_foreign_key "check_attendances", "miners"
+  add_foreign_key "expense_sub_types", "expense_types"
   add_foreign_key "expenses", "mines"
   add_foreign_key "expenses", "users"
+  add_foreign_key "inventories", "items"
   add_foreign_key "inventories", "mines"
   add_foreign_key "inventories", "tunnels"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "items", "mines"
   add_foreign_key "miners", "mines"
   add_foreign_key "miners", "tunnels"
   add_foreign_key "mines", "users"

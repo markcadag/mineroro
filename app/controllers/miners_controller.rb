@@ -4,13 +4,10 @@ class MinersController < ApplicationController
   # GET /roles
   # GET /roles.json
   def index
-    @miners = Miner.all
-    session[:mine_id] = 1
-    # session.clear
-    @mine = current_mine
+    @miners = Miner.includes(:tunnel).where(mine_id: current_mine.id)
      respond_to do |format|
       format.html
-      format.json { render json: @miners.as_json() }
+      format.json { render json: @miners.as_json(:include => [:tunnel]) }
     end
   end
 

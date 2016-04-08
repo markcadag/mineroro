@@ -20,6 +20,6 @@
       <h5>Amount: Php <%= number_with_delimiter(expenses_request.amount, :precision => 2, :delimiter => ',') %>&nbsp;&nbsp;&nbsp;&nbsp;Type:<%= expenses_request.category %></h5>
       <h5>Quantity: <%= expenses_request.quantity %>&nbsp;&nbsp;&nbsp;&nbsp;Unit: <%= expenses_request.unit %></h5>
     </div>
-    <h4>Total: <b> Php <%= number_with_delimiter(expenses_request.total, :precision => 2, :delimiter => ',') %><%=  %></b></h4>
+    <h5>Total: <b> Php <%= number_with_delimiter(expenses_request.total, :precision => 2, :delimiter => ',') %><%=  %></b></h5>
   </div>
 </li>

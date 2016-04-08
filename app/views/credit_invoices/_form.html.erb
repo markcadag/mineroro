@@ -1,0 +1,77 @@
+<div class="panel panel-default" style="margin-top: 20px;">
+  <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Inventory Purchase</div>
+      <div class="panel-body">
+<%= form_for(@credit_invoice) do |f| %>
+  <% if @credit_invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@credit_invoice.errors.count, "error") %> prohibited this credit_invoice from being saved:</h2>
+
+      <ul>
+      <% @credit_invoice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code , {:id => 'code'} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.collection_select :title, @liability,:item_code, :name, {prompt: true} ,{:id => 
+      'particulars', class: 'form-control', style: 'margin-bottom:15px;', :multiple => true} %>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :remarks %><br>
+    <%= f.text_field :remarks %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+</div>
+</div>
+
+
+<script type="text/javascript">
+
+  $('#particulars').select2({
+        createSearchChoice:function(term, data) { 
+          if ($(data).filter(function() { 
+              return this.text.localeCompare(term)===0; 
+          }).length===0) 
+          {return {id:term, text:term};} 
+        },
+        multiple: false
+      });
+
+  $('#particulars').on("select2:select", function (e) { 
+    log("select2:select", e); 
+  });
+
+  function log (name, evt) {
+  if (!evt) {
+    var args = "{}";
+  } else {
+    var args = JSON.stringify(evt.params, function (key, value) {
+      if (value && value.nodeName) return "[DOM node]";
+      if (value instanceof $.Event) return "[$.Event]";
+      return value;
+    });
+  }
+  // console.log(evt.params.data.id);
+  $('#code').val(evt.params.data.id);
+  // var $e = $("<li>" + name + " -> " + args + "</li>");
+  // // $eventLog.append($e);
+  // $e.animate({ opacity: 1 }, 10000, 'linear', function () {
+  //   $e.animate({ opacity: 0 }, 2000, 'linear', function () {
+  //     $e.remove();
+  //   });
+  // });
+}
+
+</script>

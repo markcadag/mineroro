@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @credit_invoice.title %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @credit_invoice.code %>
+</p>
+
+<p>
+  <strong>Value date:</strong>
+  <%= @credit_invoice.value_date %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @credit_invoice.due_date %>
+</p>
+
+<p>
+  <strong>Duration from:</strong>
+  <%= @credit_invoice.duration_from %>
+</p>
+
+<p>
+  <strong>Duration to:</strong>
+  <%= @credit_invoice.duration_to %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @credit_invoice.remarks %>
+</p>
+
+<%= link_to 'Edit', edit_credit_invoice_path(@credit_invoice) %> |
+<%= link_to 'Back', credit_invoices_path %>

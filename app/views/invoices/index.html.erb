@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Invoices</h1>
+  
+
+  <table class="table table-bordered table-condensed table-hover" style="width: 100%">
+  <thead>
+    <tr>
+      <th>Account Number</th>
+      <th>Account Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= link_to 'Show', invoice %></td>
+        <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+        <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+  <%= f.fields_for :invoice_items do |builder| %>
+    <%= builder.number_field :quantity %>
+    <%= builder.text_field :unit %>
+    <%= builder.text_area :description %>
+    <%= builder.number_field :amount %>
+  <% end %>
+
+
+<%= link_to 'New Invoice', new_invoice_path %>

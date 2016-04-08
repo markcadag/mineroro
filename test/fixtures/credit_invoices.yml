@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  code: MyString
+  value_date: 2016-04-07 06:09:30
+  due_date: 2016-04-07 06:09:30
+  duration_from: 2016-04-07 06:09:30
+  duration_to: 2016-04-07 06:09:30
+  remarks: MyString
+
+two:
+  title: MyString
+  code: MyString
+  value_date: 2016-04-07 06:09:30
+  due_date: 2016-04-07 06:09:30
+  duration_from: 2016-04-07 06:09:30
+  duration_to: 2016-04-07 06:09:30
+  remarks: MyString

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :invoices
+  resources :credit_invoices
+  resources :expense_sub_types
   resources :inventories
   resources :tunnel_operations
   resources :mining_operations
@@ -9,6 +12,7 @@ Rails.application.routes.draw do
   resources :dashboard
   resources :teams
   resources :attendances
+  resources :items
   resources :check_attendances
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -18,7 +22,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     root :to => 'devise/sessions#new'
   end
-
 
   resources :users do
     resources :mines
@@ -40,7 +43,7 @@ Rails.application.routes.draw do
   delete 'expense/destroy_multiple', :to  => 'expenses#destroy_multiple'
   post 'attendance/generate_attendance', :to  => 'attendances#generate_attendance'
 
-
+  mount Plutus::Engine => "/plutus", :as => "plutus"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

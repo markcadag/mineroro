@@ -1,0 +1,110 @@
+<%= form_for(@invoice) do |f| %>
+  <% if @invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+      <% @invoice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="col-md-6">
+      <div class="panel panel-default" style="margin-top: 20px;">
+          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg>New Cash Invoice</div>
+            <div class="panel-body">
+
+  <div class="col-md-4">
+    <div class="field">
+      <%= f.label :payee %><br/>
+      <%= f.text_field :payee, {:style => "width:100%;"} %>
+    </div>
+    <div class="field">
+     <%= f.label :particulars %>
+     <%= f.text_field :particulars, {:style => "width:100%;"} %>
+    </div>
+  </div>
+
+  <div class="col-md-offset-4 col-md-4">
+    <div class="field">
+      <%= f.label :date %><br/>
+      <%= f.text_field :created_at %>
+    </div>
+    <div class="field">
+      <%= f.label :no %><br/>
+      <%= f.text_field :invoice_code %>
+    </div>
+  </div>
+  <hr/>
+  <div class="col-md-12" style="margin-top: 20px;">
+        <hr>
+        <%= f.fields_for :invoice_items do |builder| %>
+        <div class="field">
+         <%= f.label :particulars %><br/>
+          <%= f.collection_select :unit, @liability,:item_code, :name, {prompt: true}, {:id => 'unit', class: 'form-control', style: 'margin-bottom:15px;'} %>
+        </div>
+        <div class="field">
+          <%= f.label :description %><br/>
+          <%= builder.text_area :description, {:style => "width:100%;"} %>
+        </div>
+        <hr>
+        <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+<% end %>
+  </div>
+  </div>
+  </div>
+
+   <div class="col-md-6">
+      <div class="panel panel-default" style="margin-top: 20px;">
+          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Cash Voucher This Month</div>
+            <div class="panel-body">
+    </div>
+    </div>
+    </div>
+
+<script type="text/javascript">
+
+  $('#particulars').select2({
+        createSearchChoice:function(term, data) { 
+          if ($(data).filter(function() { 
+              return this.text.localeCompare(term)===0; 
+          }).length===0) 
+          {return {id:term, text:term};} 
+        },
+        multiple: false
+      });
+
+  $('#particulars').on("select2:select", function (e) { 
+    log("select2:select", e); 
+  });
+
+  function log (name, evt) {
+  if (!evt) {
+    var args = "{}";
+  } else {
+    var args = JSON.stringify(evt.params, function (key, value) {
+      if (value && value.nodeName) return "[DOM node]";
+      if (value instanceof $.Event) return "[$.Event]";
+      return value;
+    });
+  }
+  // console.log(evt.params.data.id);
+  $('#code').val(evt.params.data.id);
+  // var $e = $("<li>" + name + " -> " + args + "</li>");
+  // // $eventLog.append($e);
+  // $e.animate({ opacity: 1 }, 10000, 'linear', function () {
+  //   $e.animate({ opacity: 0 }, 2000, 'linear', function () {
+  //     $e.remove();
+  //   });
+  // });
+}
+
+</script>

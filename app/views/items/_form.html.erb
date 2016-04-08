@@ -1,0 +1,42 @@
+<div class="panel panel-default" style="margin-top: 20px;">
+  <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Item</div>
+      <div class="panel-body">
+        <%= form_for item, remote: true, :html => { :class => 'form-horizontal' } do |f| %> 
+            <% if item.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+              <ul>
+                  <% item.errors.full_messages.each do |message| %>
+                      <li><%= message %></li>
+                  <% end %>
+              </ul>
+            </div>
+        <% end %>
+          <fieldset>
+             <div class="form-group" style="margin-top: 15px;">
+              <div class="field">
+                <%= f.label :name ,:class => 'col-md-3 control-label'  %>
+                <div class="col-md-9">
+                   <%= f.text_field :name , {style: 'width:100%;',  class: 'form-control'} %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="field">
+                <%= f.label :description ,:class => 'col-md-3 control-label'  %>
+                <div class="col-md-9">
+                    <%= f.text_area  :description, {style: 'width:100%;',  class: 'form-control'} %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12 widget-right">
+                  <%= f.submit 'Add Item', :class => 'btn btn-primary btn-md pull-right' %>
+                </div>
+            </div>
+            </fieldset>
+        <% end %>
+      </div>
+</div>
