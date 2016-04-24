@@ -10,50 +10,61 @@
       </ul>
     </div>
   <% end %>
-  <div class="col-md-6">
+  <div class="col-md-7">
       <div class="panel panel-default" style="margin-top: 20px;">
           <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg>New Cash Invoice</div>
             <div class="panel-body">
 
-  <div class="col-md-4">
+  <div class="col-md-6">
     <div class="field">
       <%= f.label :payee %><br/>
-      <%= f.text_field :payee, {:style => "width:100%;"} %>
-    </div>
+      <%= f.text_field :payee, {:style => "width:100%;",:class => 'form-control'} %>
+    </div><br/>
     <div class="field">
-     <%= f.label :particulars %>
-     <%= f.text_field :particulars, {:style => "width:100%;"} %>
+     <%= f.label :description %>
+     <%= f.text_field :particulars, {:style => "width:100%;",:class => 'form-control'} %>
     </div>
   </div>
 
-  <div class="col-md-offset-4 col-md-4">
+  <div class="col-md-6">
+    <div class="field">
+      <%= f.label :invoice_number %><br/>
+      <%= f.text_field :invoice_code, {:style => "width:100%;",:class => 'form-control', :value => @invoice.invoice_code}%>
+    </div><br/>
     <div class="field">
       <%= f.label :date %><br/>
-      <%= f.text_field :created_at %>
+      <!-- <input id='invoice_date' type="text" data-provide='datepicker' class='form-control' name="invoice[date]"> -->
     </div>
-    <div class="field">
-      <%= f.label :no %><br/>
-      <%= f.text_field :invoice_code %>
-    </div>
-  </div>
-  <hr/>
-  <div class="col-md-12" style="margin-top: 20px;">
-        <hr>
-        <%= f.fields_for :invoice_items do |builder| %>
-        <div class="field">
-         <%= f.label :particulars %><br/>
-          <%= f.collection_select :unit, @liability,:item_code, :name, {prompt: true}, {:id => 'unit', class: 'form-control', style: 'margin-bottom:15px;'} %>
-        </div>
-        <div class="field">
-          <%= f.label :description %><br/>
-          <%= builder.text_area :description, {:style => "width:100%;"} %>
-        </div>
-        <hr>
-        <% end %>
   </div>
 
+  <div class="col-md-12" style="margin-top: 20px;" id="invoice-items">
+      <hr/>
+        <%= f.label 'Add Credit' %> 
+        <%= f.fields_for :invoice_items do |builder| %>
+          <%= render  :partial => 'invoice_item_fields', :locals => { f: builder } %>
+        <% end %>
+       
+        <div class="links" style="margin-top:15px;">
+          Credit Total: P2000.00 <%= link_to_add_association 'Add More Credit', f, :invoice_items, :class => "btn btn-warning btn-xs" %>
+        </div>
+  </div>
+
+
+   <div class="col-md-12" style="margin-top: 20px;" id="debit-items">
+      <hr/>
+        <%= f.label 'Add Debit' %> 
+        <%= f.fields_for :debit_invoices do |builder| %>
+          <%= render  :partial => 'debit_invoice_fields', :locals => { f: builder } %>
+        <% end %>
+       
+        <div class="links" style="margin-top:15px;">
+          Debit Total: P2000.00 <%= link_to_add_association 'Add More Debit', f, :debit_invoices, :class => "btn btn-warning btn-xs" %>
+        </div>
+  </div>
+
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Create Invoice', :class => 'btn btn-primary btn-md pull-right' %>
   </div>
 
 
@@ -71,8 +82,8 @@
     </div>
 
 <script type="text/javascript">
-
-  $('#particulars').select2({
+  
+  $('.selection-c').select2({
         createSearchChoice:function(term, data) { 
           if ($(data).filter(function() { 
               return this.text.localeCompare(term)===0; 
@@ -81,21 +92,38 @@
         },
         multiple: false
       });
+  
+  //  $('#invoice-items')
+  //     .on('cocoon:before-insert', function(e,task_to_be_added) {
+  //       task_to_be_added.fadeIn('slow');
+  //     })
+  //     .on('cocoon:after-insert', function(e, added_task) {
+  //       added_task.find( "select" ).select2();
+  //       // e.g. set the background of inserted task
+  //       // added_task.css("background","red");
+  //     })
+  //     .on('cocoon:before-remove', function(e, task) {
+  //       // allow some time for the animation to complete
+  //       $(this).data('remove-timeout', 1000);
+  //       task.fadeOut('slow');
+  //     });
 
-  $('#particulars').on("select2:select", function (e) { 
-    log("select2:select", e); 
-  });
+  // $('#particulars').on("select2:select", function (e) { 
+  //   log("select2:select", e); 
+  // });
 
-  function log (name, evt) {
-  if (!evt) {
-    var args = "{}";
-  } else {
-    var args = JSON.stringify(evt.params, function (key, value) {
-      if (value && value.nodeName) return "[DOM node]";
-      if (value instanceof $.Event) return "[$.Event]";
-      return value;
-    });
-  }
+  //  $('.datepicker').datepicker();
+
+  // function log (name, evt) {
+  // if (!evt) {
+  //   var args = "{}";
+  // } else {
+  //   var args = JSON.stringify(evt.params, function (key, value) {
+  //     if (value && value.nodeName) return "[DOM node]";
+  //     if (value instanceof $.Event) return "[$.Event]";
+  //     return value;
+  //   });
+  // }
   // console.log(evt.params.data.id);
   $('#code').val(evt.params.data.id);
   // var $e = $("<li>" + name + " -> " + args + "</li>");
@@ -108,3 +136,12 @@
 }
 
 </script>
+
+<style type="text/css">
+
+  .select2-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+</style>

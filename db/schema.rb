@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407145556) do
+ActiveRecord::Schema.define(version: 20160423071856) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 20160407145556) do
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
+
+  create_table "debit_invoices", force: :cascade do |t|
+    t.decimal  "amount",                   precision: 10
+    t.string   "account_name", limit: 255
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "invoice_id",   limit: 4
+  end
+
+  add_index "debit_invoices", ["invoice_id"], name: "index_debit_invoices_on_invoice_id", using: :btree
 
   create_table "expense_sub_types", force: :cascade do |t|
     t.integer  "expense_type_id",       limit: 4
@@ -103,27 +113,28 @@ ActiveRecord::Schema.define(version: 20160407145556) do
   add_index "inventories", ["tunnel_id"], name: "index_inventories_on_tunnel_id", using: :btree
 
   create_table "invoice_items", force: :cascade do |t|
-    t.string   "type",        limit: 255
-    t.integer  "quantity",    limit: 4
-    t.string   "description", limit: 255
-    t.decimal  "amount",                  precision: 10
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.integer  "invoice_id",  limit: 4
-    t.decimal  "toal_amount",             precision: 8,  scale: 2
-    t.string   "unit",        limit: 255
+    t.string   "particular_type", limit: 255
+    t.integer  "quantity",        limit: 4
+    t.string   "description",     limit: 255
+    t.decimal  "amount",                      precision: 10
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+    t.integer  "invoice_id",      limit: 4
+    t.decimal  "total_amount",                precision: 8,  scale: 2
+    t.string   "unit",            limit: 255
+    t.string   "account_name",    limit: 255
   end
 
   add_index "invoice_items", ["invoice_id"], name: "index_invoice_items_on_invoice_id", using: :btree
 
   create_table "invoices", force: :cascade do |t|
-    t.string   "type",         limit: 255
-    t.decimal  "total_amount",             precision: 10
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.string   "payee",        limit: 255
-    t.string   "particulars",  limit: 255
-    t.string   "invoice_code", limit: 255
+    t.string   "particular_type", limit: 255
+    t.decimal  "total_amount",                precision: 10
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "payee",           limit: 255
+    t.string   "particulars",     limit: 255
+    t.string   "invoice_code",    limit: 255
   end
 
   create_table "items", force: :cascade do |t|
@@ -324,12 +335,10 @@ ActiveRecord::Schema.define(version: 20160407145556) do
     t.datetime "updated_at",                                      null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
-    t.integer  "tunnel_id",              limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["tunnel_id"], name: "index_users_on_tunnel_id", using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
@@ -344,6 +353,7 @@ ActiveRecord::Schema.define(version: 20160407145556) do
   add_foreign_key "attendances", "users"
   add_foreign_key "check_attendances", "attendances"
   add_foreign_key "check_attendances", "miners"
+  add_foreign_key "debit_invoices", "invoices"
   add_foreign_key "expense_sub_types", "expense_types"
   add_foreign_key "expenses", "mines"
   add_foreign_key "expenses", "users"
@@ -366,5 +376,4 @@ ActiveRecord::Schema.define(version: 20160407145556) do
   add_foreign_key "tunnel_operations", "mines"
   add_foreign_key "tunnel_operations", "tunnels"
   add_foreign_key "tunnels", "mines"
-  add_foreign_key "users", "tunnels"
 end

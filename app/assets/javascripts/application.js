@@ -26,6 +26,7 @@
 //= require bootstrap-table-export
 //= require bootstrap-table-flat-json
 //= require rails-timeago
+//= require cocoon
 //= require script_helper
 //= require bootstrap-datepicker
 //= require_tree .
