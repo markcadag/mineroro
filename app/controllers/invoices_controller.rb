@@ -19,6 +19,7 @@ class InvoicesController < ApplicationController
     @liability = Plutus::Account.all
     @invoice.invoice_items.build
     @invoice.debit_invoices.build
+    @entries = Plutus::Entry.limit(100).by_month.order('date DESC')
   end
 
   # GET /invoices/1/edit
