@@ -2,7 +2,6 @@
   <% if @invoice.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
-
       <ul>
       <% @invoice.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,76 +9,115 @@
       </ul>
     </div>
   <% end %>
-  <div class="col-md-7">
-      <div class="panel panel-default" style="margin-top: 20px;">
-          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg>New Cash Invoice</div>
-            <div class="panel-body">
 
-  <div class="col-md-6">
-    <div class="field">
-      <%= f.label :payee %><br/>
-      <%= f.text_field :payee, {:style => "width:100%;",:class => 'form-control'} %>
-    </div><br/>
-    <div class="field">
-     <%= f.label :description %>
-     <%= f.text_field :particulars, {:style => "width:100%;",:class => 'form-control'} %>
-    </div>
-  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default" style="margin-top: 20px;">
+      <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg>New Cash Invoice</div>
+        <div class="panel-body">
 
-  <div class="col-md-6">
-    <div class="field">
-      <%= f.label :invoice_number %><br/>
-      <%= f.text_field :invoice_code, {:style => "width:100%;",:class => 'form-control', :value => @invoice.invoice_code}%>
-    </div><br/>
-    <div class="field">
-      <%= f.label :date %><br/>
-      <!-- <input id='invoice_date' type="text" data-provide='datepicker' class='form-control' name="invoice[date]"> -->
-    </div>
-  </div>
+          <div class="col-md-6">
+            <div class="field">
+              <%= f.label :payee %><br/>
+              <%= f.text_field :payee, {:style => "width:100%;",:class => 'form-control'} %>
+            </div><br/>
+            <div class="field">
+             <%= f.label :description %>
+             <%= f.text_field :particulars, {:style => "width:100%;",:class => 'form-control'} %>
+            </div>
+          </div>
 
-  <div class="col-md-12" style="margin-top: 20px;" id="invoice-items">
-      <hr/>
-        <%= f.label 'Add Credit' %> 
-        <%= f.fields_for :invoice_items do |builder| %>
-          <%= render  :partial => 'invoice_item_fields', :locals => { f: builder } %>
+          <div class="col-md-6">
+            <div class="field">
+              <%= f.label :invoice_number %><br/>
+              <%= f.text_field :invoice_code, {:style => "width:100%;",:class => 'form-control', :value => @invoice.invoice_code}%>
+            </div><br/>
+            <div class="field">
+              <%= f.label :date %><br/>
+              <!-- <input id='invoice_date' type="text" data-provide='datepicker' class='form-control' name="invoice[date]"> -->
+            </div>
+          </div>
+
+          <div class="col-md-12" style="margin-top: 20px;" id="invoice-items">
+              <hr/>
+              <%= f.label 'Add Credit' %> 
+              <%= f.fields_for :invoice_items do |builder| %>
+                <%= render  :partial => 'invoice_item_fields', :locals => { f: builder } %>
+              <% end %>
+              <div class="links" style="margin-top:15px;">
+                Credit Total: P2000.00 <%= link_to_add_association 'Add More Credit', f, :invoice_items, :class => "btn btn-warning btn-xs" %>
+              </div>
+          </div>
+
+          <div class="col-md-12" style="margin-top: 20px;" id="debit-items">
+              <hr/>
+              <%= f.label 'Add Debit' %> 
+              <%= f.fields_for :debit_invoices do |builder| %>
+                <%= render  :partial => 'debit_invoice_fields', :locals => { f: builder } %>
+              <% end %>
+              <div class="links" style="margin-top:15px;">
+                Debit Total: P2000.00 <%= link_to_add_association 'Add More Debit', f, :debit_invoices, :class => "btn btn-warning btn-xs" %>
+              </div>
+          </div>
+
+          <div class="actions">
+            <%= f.submit 'Create Invoice', :class => 'btn btn-primary btn-md pull-right' %>
+          </div>
+
         <% end %>
-       
-        <div class="links" style="margin-top:15px;">
-          Credit Total: P2000.00 <%= link_to_add_association 'Add More Credit', f, :invoice_items, :class => "btn btn-warning btn-xs" %>
+      </div>
+     </div>
+  </div>
+
+  <div class="col-md-8">
+    <div class="panel panel-default" style="margin-top: 20px;">
+      <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Cash Voucher This Month</div>
+        <div class="panel-body" style="padding-bottom: 40px;">
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th>Debits</th>
+                <th>Credits</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @entries.each do |entry| %>
+              <tr class="<%= cycle("even", "odd") -%>">
+                <td><%=h entry.description %></td>
+                <td></td>
+                <td></td>
+                <td><%=h entry.created_at %></td>
+              </tr>
+              <% entry.debit_amounts.each do |debit_amount| %>
+                <tr class="<%= cycle("odd", "odd") -%>">
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{debit_amount.account.name}" %></td>
+                  <td><%=h debit_amount.amount.round(2) %></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              <% end %>
+              <% entry.credit_amounts.each do |credit_amount| %>
+                <tr class="<%= cycle("odd", "odd") -%>">
+                  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{credit_amount.account.name}" %></td>
+                  <td></td>
+                  <td><%=h credit_amount.amount.round(2) %></td>
+                  <td></td>
+                </tr>
+              <% end %>
+              <tr class="<%= cycle("odd", "odd") -%>">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+
         </div>
-  </div>
-
-
-   <div class="col-md-12" style="margin-top: 20px;" id="debit-items">
-      <hr/>
-        <%= f.label 'Add Debit' %> 
-        <%= f.fields_for :debit_invoices do |builder| %>
-          <%= render  :partial => 'debit_invoice_fields', :locals => { f: builder } %>
-        <% end %>
-       
-        <div class="links" style="margin-top:15px;">
-          Debit Total: P2000.00 <%= link_to_add_association 'Add More Debit', f, :debit_invoices, :class => "btn btn-warning btn-xs" %>
-        </div>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit 'Create Invoice', :class => 'btn btn-primary btn-md pull-right' %>
-  </div>
-
-
-<% end %>
-  </div>
-  </div>
-  </div>
-
-   <div class="col-md-6">
-      <div class="panel panel-default" style="margin-top: 20px;">
-          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Cash Voucher This Month</div>
-            <div class="panel-body">
     </div>
-    </div>
-    </div>
+  </div>
 
 <script type="text/javascript">
   
