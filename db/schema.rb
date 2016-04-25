@@ -335,10 +335,12 @@ ActiveRecord::Schema.define(version: 20160423071856) do
     t.datetime "updated_at",                                      null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.integer  "tunnel_id",              limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["tunnel_id"], name: "index_users_on_tunnel_id", using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
@@ -376,4 +378,5 @@ ActiveRecord::Schema.define(version: 20160423071856) do
   add_foreign_key "tunnel_operations", "mines"
   add_foreign_key "tunnel_operations", "tunnels"
   add_foreign_key "tunnels", "mines"
+  add_foreign_key "users", "tunnels"
 end
