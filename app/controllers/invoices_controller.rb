@@ -14,12 +14,14 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/new
   def new
+
     @invoice = Invoice.new
     @credit_invoice = CreditInvoice.new
-    @liability = Plutus::Account.all
     @invoice.invoice_items.build
     @invoice.debit_invoices.build
     @entries = Plutus::Entry.limit(100).by_month.order('date DESC')
+    @credit_lists = Plutus::Account.where(:type => ["Plutus::Liability", "Plutus::Equity", "Plutus::Revenue"])
+    @debit_lists = Plutus::Account.where(:type => ["Plutus::Asset", "Plutus::Expense"])
   end
 
   # GET /invoices/1/edit
@@ -79,7 +81,7 @@ class InvoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:payee, :particulars, :invoice_code, :date, invoice_items_attributes: [:amount, :account_name, :_destroy], debit_invoices_attributes:  [:amount, :account_name, :_destroy])
+      params.require(:invoice).permit(:payee, :particulars, :created_at,  :invoice_code, :date, invoice_items_attributes: [:amount, :account_name, :_destroy], debit_invoices_attributes:  [:amount, :account_name, :_destroy])
     end
 
     def debit_invoice_params

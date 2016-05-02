@@ -1,5 +1,5 @@
 <div class="nested-fields field">
-    <%= f.collection_select :account_name, @liability,:name, :name, {prompt: true} ,{:id => 'particulars', class: 'selection-c form-control', style: 'margin-bottom:15px;'} %>
+    <%= f.collection_select :account_name, @debit_lists,:name, :name, {prompt: true} ,{:id => 'particulars', class: 'selection-c form-control', style: 'margin-bottom:15px;'} %>
     <%= f.number_field :amount, {:id => 'particulars', class: 'form-control', style: 'margin-bottom:15px;'} %>
     <div>
       <%= link_to_remove_association "remove", f, :class => "btn btn-danger btn-xs" %>
