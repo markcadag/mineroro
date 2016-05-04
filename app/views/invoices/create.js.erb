@@ -1,0 +1,14 @@
+$('#table-body').prepend("<tr class='<%= cycle('odd', 'odd') -%>'><td></td><td></td><td></td><td></td></tr>");
+
+//crebit
+<% @entry.credit_amounts.each do |credit_amount| %>
+	$('#table-body').prepend("<tr class='<%= cycle('odd', 'odd') -%>'><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= credit_amount.account.name %></td><td></td><td><%=credit_amount.amount.round(2) %></td><td></td></tr>");
+<% end %>
+
+//dedit
+<% @entry.debit_amounts.each do |debit_amount| %>
+	$('#table-body').prepend("<tr class='<%= cycle('odd', 'odd') -%>'><td>&nbsp;&nbsp;&nbsp;&nbsp;<%= debit_amount.account.name %></td><td><%= debit_amount.amount.round(2) %></td><td></td><td></td></tr>");                
+<% end %>
+
+//desc
+$('#table-body').prepend("<tr class='<%= cycle('even', 'odd') -%>'><td><%= @entry.description %></td><td></td><td></td><td><%= @entry.created_at %></td></tr>");

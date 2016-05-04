@@ -19,7 +19,7 @@ class InvoicesController < ApplicationController
     @credit_invoice = CreditInvoice.new
     @invoice.invoice_items.build
     @invoice.debit_invoices.build
-    @entries = Plutus::Entry.limit(100).by_month.order('date DESC')
+    @entries = Plutus::Entry.limit(100).by_month.order('created_at DESC').limit(10)
     @credit_lists = Plutus::Account.where(:type => ["Plutus::Liability", "Plutus::Equity", "Plutus::Revenue"])
     @debit_lists = Plutus::Account.where(:type => ["Plutus::Asset", "Plutus::Expense"])
   end
@@ -34,14 +34,19 @@ class InvoicesController < ApplicationController
     @invoice = Invoice.new(invoice_params)
     respond_to do |format|
       if @invoice.save
-         entry = Plutus::Entry.new(
+         @entry = Plutus::Entry.new(
             :description => @invoice.particulars,
             :commercial_document => @invoice,
             :debits =>  debit_invoice_params,
             :credits => invoice_items_params )
-          entry.save!
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
-        format.json { render :show, status: :created, location: @invoice }
+        if @entry.save!
+          format.html
+          format.json { render :show, status: :created, location: @invoice }
+          format.js
+        else
+          format.html { render :new }
+          format.js
+        end
       else
         format.html { render :new }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
