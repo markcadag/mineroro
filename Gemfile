@@ -61,6 +61,8 @@ gem 'jquery-ui-rails', '~> 4.2.1'
 
 gem 'cocoon'
 
+gem 'aws-sdk'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
