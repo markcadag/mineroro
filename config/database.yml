@@ -57,3 +57,4 @@ production:
   host: mineoroinstance.cmpjub5w2jfe.ap-southeast-1.rds.amazonaws.com
   port: 3306
   pool: 5
+  socket: /var/run/mysqld/mysql.sock
