@@ -49,6 +49,16 @@ test:
 #
 production:
   <<: *default
-  database: mineoro_production
-  username: mineoro
+  database: mineoroinstance
+  username: root
   password: <%= ENV['MINEORO_DATABASE_PASSWORD'] %>
+
+production:
+  adapter: mysql2
+  database: mineoroinstance
+  username: root
+  password: cherrymobile1
+  encoding: unicode
+  host: mineoroinstance.cmpjub5w2jfe.ap-southeast-1.rds.amazonaws.com
+  port: 3306
+  pool: 5
