@@ -17,7 +17,7 @@
 				<div class="panel panel-blue panel-widget ">
 					<div class="row no-padding">
 						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked bag"><use xlink:href="#stroked-bag"></use></svg>
+							<%= fa_icon "folder-o", class: 'fa-fa fa-4x' %>
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
 							<div class="large"><%= @total_sacks_today %><span><small class="text-muted"> of 300</small></span></div>
@@ -30,7 +30,7 @@
 				<div class="panel panel-orange panel-widget">
 					<div class="row no-padding">
 						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked open folder"><use xlink:href="#stroked-folder"/></svg>
+							<%= fa_icon "list-alt", class: 'fa-fa fa-4x' %>
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
 							<div class="large"><%= @total_fund_req_site_today %><span><small class="text-muted"> of 500</small></span></div>
@@ -43,7 +43,7 @@
 				<div class="panel panel-teal panel-widget">
 					<div class="row no-padding">
 						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked folder"><use xlink:href="#stroked-folder"/></svg>
+							<%= fa_icon "list", class: 'fa-fa fa-4x' %>
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
 							<div class="large"><%= @total_fund_req_plant_today  %> <span><small class="text-muted"> of 200</small></span></div>
@@ -56,7 +56,7 @@
 				<div class="panel panel-red panel-widget">
 					<div class="row no-padding">
 						<div class="col-sm-3 col-lg-5 widget-left">
-							<svg class="glyph stroked basket "><use xlink:href="#stroked-basket"/></svg>
+							<%= fa_icon "inbox", class: 'fa-fa fa-4x' %>
 						</div>
 						<div class="col-sm-9 col-lg-7 widget-right">
 							<div class="large"><%= @total_yield %> g</div>

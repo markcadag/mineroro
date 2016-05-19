@@ -63,6 +63,8 @@ gem 'cocoon'
 
 gem 'aws-sdk'
 
+gem 'font-awesome-rails'
+
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 
