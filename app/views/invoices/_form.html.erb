@@ -1,3 +1,4 @@
+<div style="padding-left:200px; padding-right:200px">
 <%= form_for(@invoice, remote: true) do |f| %>
   <% if @invoice.errors.any? %>
     <div id="error_explanation">
@@ -10,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="col-md-4">
+  <div class="col-md-12">
     <div class="panel panel-default" style="margin-top: 20px;">
       <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg>New Cash Invoice</div>
         <div class="panel-body">
@@ -68,7 +69,7 @@
      </div>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-12">
     <div class="panel panel-default" style="margin-top: 20px;">
       <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Cash Voucher This Month</div>
         <div class="panel-body" style="padding-bottom: 40px;">
@@ -118,7 +119,7 @@
         </div>
     </div>
   </div>
-
+</div>
 <script type="text/javascript">
   
   $('.selection-c').select2({
