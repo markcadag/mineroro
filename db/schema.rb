@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423071856) do
+ActiveRecord::Schema.define(version: 20160521031905) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -158,6 +158,9 @@ ActiveRecord::Schema.define(version: 20160423071856) do
     t.string   "address",       limit: 255
     t.string   "mobile_number", limit: 255
     t.integer  "tunnel_id",     limit: 4
+    t.string   "position",      limit: 255
+    t.boolean  "is_active"
+    t.datetime "date_hired"
   end
 
   add_index "miners", ["mine_id"], name: "index_miners_on_mine_id", using: :btree
@@ -335,12 +338,10 @@ ActiveRecord::Schema.define(version: 20160423071856) do
     t.datetime "updated_at",                                      null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
-    t.integer  "tunnel_id",              limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["tunnel_id"], name: "index_users_on_tunnel_id", using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
@@ -378,5 +379,4 @@ ActiveRecord::Schema.define(version: 20160423071856) do
   add_foreign_key "tunnel_operations", "mines"
   add_foreign_key "tunnel_operations", "tunnels"
   add_foreign_key "tunnels", "mines"
-  add_foreign_key "users", "tunnels"
 end
