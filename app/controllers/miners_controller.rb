@@ -1,5 +1,6 @@
 class MinersController < ApplicationController
   before_action :set_miner, only: [:show, :edit, :update, :destroy]
+  before_action :set_tunnel, only: [:new, :edit]
   # before_action :set_mine, only: [:index]
   # GET /roles
   # GET /roles.json
@@ -19,7 +20,6 @@ class MinersController < ApplicationController
   # GET /roles/new
   def new
     @miner = Miner.new
-    @tunnels = Tunnel.where(mine_id: current_mine.id)
   end
 
   # GET /roles/1/edit
@@ -71,6 +71,10 @@ class MinersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_miner
       @miner = Miner.find(params[:id])
+    end
+
+    def set_tunnel
+      @tunnels = Tunnel.where(mine_id: current_mine.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
