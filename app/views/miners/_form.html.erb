@@ -21,8 +21,40 @@
     <%= f.text_field :last_name %>
   </div>
 
+  <div class="field">
+    <%= f.label :position %><br>
+    <%= f.text_field :position %>
+  </div>
+
+  <div class="field">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :mobile_number %><br>
+    <%= f.text_field :mobile_number %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tunnel %><br>
+    <%= f.collection_select :tunnel_id, @tunnels ,:id, :name, {prompt: true}, {:id => 'tunnels', style: 'margin-bottom:15px;'} %>
+  </div><br>
+
+  <div class="field">
+     <%= f.label :date_hired %><br/>
+      <input id='invoice_date' type="text" data-provide='datepicker' name="date_hired">
+  </div>
+
 
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+
+   $(document).ready(function() { $("#tunnels").select2(); });
+
+</script>
