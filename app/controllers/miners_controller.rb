@@ -19,6 +19,7 @@ class MinersController < ApplicationController
   # GET /roles/new
   def new
     @miner = Miner.new
+    @tunnels = Tunnel.where(mine_id: current_mine.id)
   end
 
   # GET /roles/1/edit
@@ -30,6 +31,7 @@ class MinersController < ApplicationController
   def create
     @miner = Miner.new(miner_params)
     @miner.mine = current_mine
+    @miner.date_hired = params[:date_hired]
     respond_to do |format|
       if @miner.save
         format.html { redirect_to @miner, notice: 'Miner was successfully created.' }
@@ -73,6 +75,6 @@ class MinersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def miner_params
-      params.require(:miner).permit(:first_name, :last_name, :mine_id)
+      params.require(:miner).permit(:first_name, :last_name, :mine_id, :position, :tunnel_id, :mobile_number, :address, :date_hired)
     end
 end
