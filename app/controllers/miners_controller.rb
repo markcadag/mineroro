@@ -29,6 +29,7 @@ class MinersController < ApplicationController
   # POST /roles.json
   def create
     @miner = Miner.new(miner_params)
+    @miner.mine = current_mine
     respond_to do |format|
       if @miner.save
         format.html { redirect_to @miner, notice: 'Miner was successfully created.' }
