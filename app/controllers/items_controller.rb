@@ -1,12 +1,12 @@
 class ItemsController < ApplicationController
-  before_action :set_Item, only: [:show, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   # GET /items
   # GET /items.json
   def index
     # , tunnel_id: params[:tunnel_id]
     @items = Item.where(mine_id: current_mine.id).paginate(:page => params[:page])
-    @Item = Item.new
+    @item = Item.new
     respond_to do |format|
       format.html
       format.json { render json: @items }
@@ -21,26 +21,28 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
-    @Item = Item.new
+    @items = Item.where(mine_id: current_mine.id).paginate(:page => params[:page])
+    @item = Item.new
   end
 
   # GET /items/1/edit
   def edit
+    @items = Item.where(mine_id: current_mine.id).paginate(:page => params[:page])
   end
 
   # POST /items
   # POST /items.json
   def create
-    @Item = Item.new(Item_params)
-
+    @item = Item.new(item_params)
+    @item.mine = current_mine
     respond_to do |format|
-      if @Item.save
-        format.html { redirect_to @Item, notice: 'Item was successfully created.' }
-        format.json { render :show, status: :created, location: @Item }
+      if @item.save
+        format.html { redirect_to @item, notice: 'Item was successfully created.' }
+        format.json { render :show, status: :created, location: @item }
         format.js
       else
         format.html { render :new }
-        format.json { render json: @Item.errors, status: :unprocessable_entity }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
         format.js
       end
     end
@@ -50,12 +52,12 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     respond_to do |format|
-      if @Item.update(Item_params)
-        format.html { redirect_to @Item, notice: 'Item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @Item }
+      if @item.update(item_params)
+        format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+        format.json { render :show, status: :ok, location: @item }
       else
         format.html { render :edit }
-        format.json { render json: @Item.errors, status: :unprocessable_entity }
+        format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -63,21 +65,21 @@ class ItemsController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.json
   def destroy
-    @Item.destroy
+    @item.destroy
     respond_to do |format|
-      format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
+      format.html { redirect_to new_item_url, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_Item
-      @Item = Item.find(params[:id])
+    def set_item
+      @item = Item.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def Item_params
-      params.require(:Item).permit(:quantity, :amount)
+    def item_params
+      params.require(:item).permit(:name, :description, :quantity, :current_amount)
     end
 end
