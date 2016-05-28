@@ -1,42 +1,124 @@
-<div class="panel panel-default" style="margin-top: 20px;">
-  <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Item</div>
-      <div class="panel-body">
-        <%= form_for item, remote: true, :html => { :class => 'form-horizontal' } do |f| %> 
-            <% if item.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
-              <ul>
-                  <% item.errors.full_messages.each do |message| %>
-                      <li><%= message %></li>
-                  <% end %>
-              </ul>
+<div class="row">
+    
+    <div class="col-md-12">
+      <div class="panel panel-default" style="margin-top: 20px;">
+          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> List of Items</div>
+            <div class="panel-body">
+            <% if @items.empty? %>
+              <center  style="padding:20px;"><h4>Empty Item List</h4>
+              <small>Add new from new item form</small>
+              </center>
+            <% else %>
+               <table class="table-bordered table-condensed table-hover" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>Item Code</th> 
+                      <th>Item Name</th> 
+                      <th>Item Price</th>
+                      <th>Description</th> 
+                      <th>Created</th>
+                      <th>Updated</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @items.each do |item| %>
+                      <tr>
+                        <td><p><%= item.item_code %></p></td>
+                        <td><p><%= item.name %></p></td>
+                        <td><p>Php <%= item.current_amount %></p></td>
+                        <td><p>Php <%= item.description %></p></td>
+                        <td><p><%= item.created_at %></p></td>
+                        <td><p><%= item.updated_at %></p></td>
+                        <td><%= link_to 'Edit', edit_item_path(item) %> <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+              </table>
+              <%= will_paginate @items %>
+            <% end %>
             </div>
-        <% end %>
-          <fieldset>
-             <div class="form-group" style="margin-top: 15px;">
-              <div class="field">
-                <%= f.label :name ,:class => 'col-md-3 control-label'  %>
-                <div class="col-md-9">
-                   <%= f.text_field :name , {style: 'width:100%;',  class: 'form-control'} %>
+          </div>
+    </div>
+    
+    <div class="col-md-6">
+     <div class="panel panel-default" style="margin-top: 20px;">
+        <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Item</div>
+        <div class="panel-body">
+          <%= form_for(@item, remote: true, :html => { :class => 'form-horizontal' } ) do |f| %>
+              <% if @item.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+                <ul>
+                    <% @item.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+              </div>
+          <% end %>
+            <fieldset>
+               <div class="form-group" style="margin-top: 15px;">
+                <div class="field">
+                  <%= f.label :name ,:class => 'col-md-3 control-label'  %>
+                  <div class="col-md-9">
+                     <%= f.text_field :name , {style: 'width:100%;',  class: 'form-control'} %>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <div class="field">
-                <%= f.label :description ,:class => 'col-md-3 control-label'  %>
-                <div class="col-md-9">
-                    <%= f.text_area  :description, {style: 'width:100%;',  class: 'form-control'} %>
+              <div class="form-group" style="margin-top: 15px;">
+                <div class="field">
+                  <%= f.label 'Amount' ,:class => 'col-md-3 control-label'  %>
+                  <div class="col-md-9">
+                     <%= f.number_field :current_amount , {style: 'width:100%;',  class: 'form-control'} %>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="form-group">
-                <div class="col-md-12 widget-right">
-                  <%= f.submit 'Add Item', :class => 'btn btn-primary btn-md pull-right' %>
+              <div class="form-group">
+                <div class="field">
+                  <%= f.label :description ,:class => 'col-md-3 control-label'  %>
+                  <div class="col-md-9">
+                      <%= f.text_area  :description, {style: 'width:100%;',  class: 'form-control'} %>
+                  </div>
                 </div>
-            </div>
-            </fieldset>
-        <% end %>
+              </div>
+
+              <div class="form-group">
+                  <div class="col-md-12 widget-right">
+                    <%= f.submit 'Add Item', :class => 'btn btn-primary btn-md pull-right' %>
+                  </div>
+              </div>
+              </fieldset>
+          <% end %>
+        </div>
       </div>
-</div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="panel panel-default" style="margin-top: 20px;">
+        <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Activities</div>
+          <div class="panel-body">
+            
+          </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <style type="text/css">
+  </style>
+
+  <script type="text/javascript">
+      $('select').select2({
+        createSearchChoice:function(term, data) { 
+          if ($(data).filter(function() { 
+              return this.text.localeCompare(term)===0; 
+          }).length===0) 
+          {return {id:term, text:term};} 
+        },
+        multiple: false
+      });
+  </script>
+
+
