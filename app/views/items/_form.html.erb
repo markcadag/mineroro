@@ -30,7 +30,7 @@
                         <td><p>Php <%= item.description %></p></td>
                         <td><p><%= item.created_at %></p></td>
                         <td><p><%= item.updated_at %></p></td>
-                        <td><%= link_to 'Edit', edit_item_path(item) %> <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                        <td><%= link_to 'Edit', edit_item_path(item) + "#form-view" %> <%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                       </tr>
                     <% end %>
                   </tbody>
@@ -41,7 +41,7 @@
           </div>
     </div>
     
-    <div class="col-md-6">
+    <div class="col-md-6" id="form-view">
      <div class="panel panel-default" style="margin-top: 20px;">
         <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Item</div>
         <div class="panel-body">
@@ -86,7 +86,7 @@
 
               <div class="form-group">
                   <div class="col-md-12 widget-right">
-                    <%= f.submit 'Add Item', :class => 'btn btn-primary btn-md pull-right' %>
+                    <%= f.submit 'Add Item', :id  => 'btn-action',:class => 'btn btn-primary btn-md pull-right' %>
                   </div>
               </div>
               </fieldset>
