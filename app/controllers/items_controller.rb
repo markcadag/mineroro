@@ -21,7 +21,13 @@ class ItemsController < ApplicationController
 
   # GET /items/new
   def new
-    @items = Item.where(mine_id: current_mine.id).paginate(:page => params[:page])
+
+    if params[:q].present?
+      @items = Item.where(mine_id: current_mine.id).paginate(:page => params[:page]).where("name like ?", "%" + params[:q] + "%")
+    else
+       @items = Item.where(mine_id: current_mine.id).paginate(:page => params[:page])
+    end
+
     @item = Item.new
   end
 
