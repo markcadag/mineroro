@@ -12,3 +12,5 @@ $('#table-body').prepend("<tr class='<%= cycle('odd', 'odd') -%>'><td></td><td><
 
 //desc
 $('#table-body').prepend("<tr class='<%= cycle('even', 'odd') -%>'><td><%= @entry.description %></td><td></td><td></td><td><%= @entry.created_at %></td></tr>");
+
+toastr.success("Entry " + "\"<%=  @entry.description %>\"" + " added ");
