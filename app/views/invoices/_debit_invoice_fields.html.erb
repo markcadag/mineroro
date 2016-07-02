@@ -1,8 +1,28 @@
 <div class="nested-fields field">
-    <%= f.collection_select :account_name, @debit_lists,:name, :name, {prompt: true} ,{:id => 'particulars', class: 'selection-c form-control', style: 'margin-bottom:15px;'} %>
-    <%= f.number_field :amount, {:id => 'particulars', class: 'form-control', style: 'margin-bottom:15px;'} %>
+	<div class="col-md-6" style="padding: 0px;">
+		<p>Particulars</p>
+    	<%= f.collection_select :account_name, @debit_lists,:name, :name, {prompt: true} ,{:id => 'particulars', class: 'selection-c form-control', style: 'margin-bottom:15px;'} %>
+    </div>
+    <div class="col-md-6">
+    	<p>Amount</p>
+    	<%= f.number_field :amount, {:id => 'particulars', class: 'form-control', style: 'margin-bottom:15px;'} %>
+   	</div>
     <div>
       <%= link_to_remove_association "remove", f, :class => "btn btn-danger btn-xs" %>
     </div>
     <br/>
 </div>
+
+<script type="text/javascript">
+	
+	$('.selection-c').select2({
+        createSearchChoice:function(term, data) { 
+          if ($(data).filter(function() { 
+              return this.text.localeCompare(term)===0; 
+          }).length===0) 
+          {return {id:term, text:term};} 
+        },
+        multiple: false
+  });
+	
+</script>
