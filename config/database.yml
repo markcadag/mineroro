@@ -9,13 +9,25 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
+
+#ubuntu
+# default: &default
+#   adapter: mysql2
+#   encoding: utf8
+#   username: root
+#   password: 8202097
+#   pool: 5
+#   socket: /var/run/mysqld/mysqld.sock
+
+#osx
 default: &default
   adapter: mysql2
   encoding: utf8
-  username: root
-  password: 8202097  
   pool: 5
-  socket: /var/run/mysqld/mysqld.sock
+  username: root
+  password:
+  socket: /tmp/mysql.sock
+
 
 credentials: &credentials
 
