@@ -1,0 +1,45 @@
+<%= form_for(@fixed_asset) do |f| %>
+  <% if @fixed_asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fixed_asset.errors.count, "error") %> prohibited this fixed_asset from being saved:</h2>
+
+      <ul>
+      <% @fixed_asset.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_field :category %>
+  </div>
+  <div class="field">
+    <%= f.label :date_purchased %><br>
+    <%= f.datetime_select :date_purchased %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.number_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.number_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :remarks %><br>
+    <%= f.text_field :remarks %>
+  </div>
+  <div class="field">
+    <%= f.label :item_code %><br>
+    <%= f.text_field :item_code %>
+  </div>
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

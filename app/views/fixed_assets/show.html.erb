@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @fixed_asset.category %>
+</p>
+
+<p>
+  <strong>Date purchased:</strong>
+  <%= @fixed_asset.date_purchased %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @fixed_asset.quantity %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @fixed_asset.amount %>
+</p>
+
+<p>
+  <strong>Remarks:</strong>
+  <%= @fixed_asset.remarks %>
+</p>
+
+<p>
+  <strong>Item code:</strong>
+  <%= @fixed_asset.item_code %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @fixed_asset.location %>
+</p>
+
+<%= link_to 'Edit', edit_fixed_asset_path(@fixed_asset) %> |
+<%= link_to 'Back', fixed_assets_path %>
