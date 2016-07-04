@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521031905) do
+ActiveRecord::Schema.define(version: 20160703023912) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -135,7 +135,10 @@ ActiveRecord::Schema.define(version: 20160521031905) do
     t.string   "payee",           limit: 255
     t.string   "particulars",     limit: 255
     t.string   "invoice_code",    limit: 255
+    t.integer  "vendor_id",       limit: 4
   end
+
+  add_index "invoices", ["vendor_id"], name: "index_invoices_on_vendor_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.integer  "mine_id",        limit: 4
@@ -338,10 +341,12 @@ ActiveRecord::Schema.define(version: 20160521031905) do
     t.datetime "updated_at",                                      null: false
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
+    t.integer  "tunnel_id",              limit: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["tunnel_id"], name: "index_users_on_tunnel_id", using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id", limit: 4
@@ -349,6 +354,15 @@ ActiveRecord::Schema.define(version: 20160521031905) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
+
+  create_table "vendors", force: :cascade do |t|
+    t.string   "name",          limit: 255
+    t.string   "address",       limit: 255
+    t.string   "contact",       limit: 255
+    t.string   "vendor_number", limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   add_foreign_key "attendances", "miners"
   add_foreign_key "attendances", "mines"
@@ -364,6 +378,7 @@ ActiveRecord::Schema.define(version: 20160521031905) do
   add_foreign_key "inventories", "mines"
   add_foreign_key "inventories", "tunnels"
   add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoices", "vendors"
   add_foreign_key "items", "mines"
   add_foreign_key "miners", "mines"
   add_foreign_key "miners", "tunnels"
@@ -379,4 +394,5 @@ ActiveRecord::Schema.define(version: 20160521031905) do
   add_foreign_key "tunnel_operations", "mines"
   add_foreign_key "tunnel_operations", "tunnels"
   add_foreign_key "tunnels", "mines"
+  add_foreign_key "users", "tunnels"
 end

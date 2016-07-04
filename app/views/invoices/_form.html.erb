@@ -18,8 +18,8 @@
 
           <div class="col-md-6">
             <div class="field">
-              <%= f.label :payee %><br/>
-              <%= f.text_field :payee, {:style => "width:100%;",:class => 'form-control'} %>
+              <%= f.label :payee %>
+              <%= f.collection_select :vendor_id, Vendor.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
             </div><br/>
             <div class="field">
              <%= f.label :description %>
