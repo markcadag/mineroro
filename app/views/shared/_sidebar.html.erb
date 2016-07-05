@@ -6,12 +6,12 @@
 		</div>
 	</form>
 	<!-- mine_dashboard_index_path(@current_mine.id) -->
-	<ul class="nav menu">  
-		<li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="<%= dashboard_index_url %>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>			
+	<ul class="nav menu">
+		<li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="<%= dashboard_index_url %>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
 		<li class="<%= 'active' if params[:controller] == 'expenses' %>"><a href="<%= expenses_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Fund Request</a></li>
 		<li class="parent <%= 'active' if params[:operation_type] == 'site' %>">
 			<a data-toggle="collapse" href="#sub-item-4">
-				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Todays Site Operation 
+				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Todays Site Operation
 			</a>
 			<ul class="children collapse <%= 'in' if params[:operation_type] == 'site' %>" id="sub-item-4">
 				<% @current_mine.tunnels.each do |tunnel| %>
@@ -31,7 +31,7 @@
 		</li>
 		<li class="parent <%= 'active' if params[:controller] == 'miners'  || params[:controller] == 'attendances'%>">
 			<a data-toggle="collapse" href="#sub-item-3">
-				<span data-toggle="collapse" href="#sub-item-3"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Miners 
+				<span data-toggle="collapse" href="#sub-item-3"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Miners
 			</a>
 			<ul class="children collapse <%= 'in' if params[:controller] == 'miners' ||  params[:controller] == 'attendances' %>" id="sub-item-3">
 					<li>
@@ -47,13 +47,14 @@
 			</ul>
 		</li>
 		<li class="<%= 'active' if params[:controller] == 'inventories' %>"><a href="<%= inventories_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Inventory</a></li>
+		<li class="<%= 'active' if params[:controller] == 'vendor' %>"><a href="<%= vendors_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Manage Vendors</a></li>
 
-		<li class="<%= 'active' if params[:controller] == 'items' %>"><a href="<%= new_item_url %>"><svg class="glyph stroked notepad "><use 
+		<li class="<%= 'active' if params[:controller] == 'items' %>"><a href="<%= new_item_url %>"><svg class="glyph stroked notepad "><use
 		xlink:href="#stroked-notepad"/></svg>Items</a></li>
 
 		<li class="parent <%= 'active' if params[:controller] == 'invoices'  || params[:controller] == 'invoices'%>">
 			<a data-toggle="collapse" href="#sub-item-5">
-				<span data-toggle="collapse" href="#sub-item-5"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Vouchers 
+				<span data-toggle="collapse" href="#sub-item-5"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Vouchers
 			</a>
 			<ul class="children collapse <%= 'in' if params[:controller] == 'invoices' ||  params[:controller] == 'invoices' %>" id="sub-item-5">
 				<li>
@@ -70,6 +71,6 @@
 		</li>
 
 		<li role="presentation" class="divider"></li>
-		
+
 	</ul>
 </div><!--/.sidebar-->
