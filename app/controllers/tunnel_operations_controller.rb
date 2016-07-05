@@ -11,7 +11,7 @@ class TunnelOperationsController < ApplicationController
       format.html
       format.json { render json: @tunnel_operations.as_json(:include => [:tunnel => {:only => :name, :include => :expenses}] ) }
     end
-    
+
   end
 
   # GET /tunnel_operations/1
@@ -77,9 +77,10 @@ class TunnelOperationsController < ApplicationController
     end
 
     def check_tunnel_operation
-      date = Time.now.strftime('%Y-%m-%d')
-      production_name = params[:operation_type] == 'plant' ? 'gm' : 'sacks' 
-      @tunnel_operation = TunnelOperation.find_or_create_by(mine_id: current_mine.id,tunnel_id: params[:tunnel_id], 
+      # date = Time.now.strftime('%Y-%m-%d')
+      date = DateTime.now.to_date
+      production_name = params[:operation_type] == 'plant' ? 'gm' : 'sacks'
+      @tunnel_operation = TunnelOperation.find_or_create_by(mine_id: current_mine.id,tunnel_id: params[:tunnel_id],
         operation_type: params[:operation_type], tunnel_operation_date: date, production_name: production_name)
     end
 
