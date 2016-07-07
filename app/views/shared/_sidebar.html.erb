@@ -46,11 +46,36 @@
 				</li>
 			</ul>
 		</li>
-		<li class="<%= 'active' if params[:controller] == 'inventories' %>"><a href="<%= inventories_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Inventory</a></li>
-		<li class="<%= 'active' if params[:controller] == 'vendor' %>"><a href="<%= vendors_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Manage Vendors</a></li>
 
-		<li class="<%= 'active' if params[:controller] == 'items' %>"><a href="<%= new_item_url %>"><svg class="glyph stroked notepad "><use
-		xlink:href="#stroked-notepad"/></svg>Items</a></li>
+
+		<li class="parent <%= 'active' if params[:controller] == 'inventories'  || params[:controller] == 'items'|| params[:controller] == 'fixed_assets' || params[:controller] == 'in_category'%>">
+
+			<a data-toggle="collapse" href="#sub-item-9">
+				<span data-toggle="collapse" href="#sub-item-9"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-clipboard-with-paper"></use></svg></span> Manage Inventories
+			</a>
+			<ul class="children collapse <%= 'in' if params[:controller] == 'inventories' ||  params[:controller] == 'items' %>" id="sub-item-9">
+				<li>
+					<a href="<%= new_inventory_path %>">
+						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"/></svg> Inventory
+					</a>
+				</li>
+				<li>
+					<a class="" href="<%= new_item_path %>">
+						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Inventory Items
+					</a>
+				</li>
+				<li>
+					<a class="" href="<%= in_categories_path %>">
+						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Inventory Category
+					</a>
+				</li>
+				<li>
+					<a class="" href="<%= fixed_assets_path %>">
+						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Fixed Assetes
+					</a>
+				</li>
+			</ul>
+		</li>
 
 		<li class="parent <%= 'active' if params[:controller] == 'invoices'  || params[:controller] == 'invoices'%>">
 			<a data-toggle="collapse" href="#sub-item-5">
@@ -60,6 +85,11 @@
 				<li>
 					<a class="" href="<%= new_invoice_path %>">
 						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Cash Voucher
+					</a>
+				</li>
+				<li>
+					<a class="" href="<%= vendors_path %>">
+					<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-clipboard-with-paper"/></svg>Manage Vendors
 					</a>
 				</li>
 				<li>
