@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707122634) do
+ActiveRecord::Schema.define(version: 20160707124145) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -115,17 +115,21 @@ ActiveRecord::Schema.define(version: 20160707122634) do
   end
 
   create_table "inventories", force: :cascade do |t|
-    t.integer  "quantity",    limit: 4
-    t.float    "amount",      limit: 24
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-    t.integer  "mine_id",     limit: 4
-    t.integer  "tunnel_id",   limit: 4
-    t.integer  "item_id",     limit: 4
-    t.string   "description", limit: 255
-    t.decimal  "total",                   precision: 8, scale: 2
+    t.integer  "quantity",       limit: 4
+    t.float    "amount",         limit: 24
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "mine_id",        limit: 4
+    t.integer  "tunnel_id",      limit: 4
+    t.integer  "item_id",        limit: 4
+    t.string   "description",    limit: 255
+    t.decimal  "total",                      precision: 8, scale: 2
+    t.integer  "category_id",    limit: 4
+    t.integer  "in_category_id", limit: 4
   end
 
+  add_index "inventories", ["category_id"], name: "index_inventories_on_category_id", using: :btree
+  add_index "inventories", ["in_category_id"], name: "index_inventories_on_in_category_id", using: :btree
   add_index "inventories", ["item_id"], name: "index_inventories_on_item_id", using: :btree
   add_index "inventories", ["mine_id"], name: "index_inventories_on_mine_id", using: :btree
   add_index "inventories", ["tunnel_id"], name: "index_inventories_on_tunnel_id", using: :btree
@@ -390,6 +394,7 @@ ActiveRecord::Schema.define(version: 20160707122634) do
   add_foreign_key "expense_sub_types", "expense_types"
   add_foreign_key "expenses", "mines"
   add_foreign_key "expenses", "users"
+  add_foreign_key "inventories", "in_categories"
   add_foreign_key "inventories", "items"
   add_foreign_key "inventories", "mines"
   add_foreign_key "inventories", "tunnels"
