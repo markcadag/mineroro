@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing In Categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @in_categories.each do |in_category| %>
+      <tr>
+        <td><%= in_category.name %></td>
+        <td><%= link_to 'Show', in_category %></td>
+        <td><%= link_to 'Edit', edit_in_category_path(in_category) %></td>
+        <td><%= link_to 'Destroy', in_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New In category', new_in_category_path %>
