@@ -21,6 +21,7 @@ class InventoriesController < ApplicationController
 
   # GET /inventories/new
   def new
+    @inventories = Inventory.paginate(:page => params[:page])
     @inventory = Inventory.new
   end
 
@@ -78,6 +79,6 @@ class InventoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def inventory_params
-      params.require(:inventory).permit(:quantity, :amount)
+      params.require(:inventory).permit(:quantity, :amount, :category_id, :item_id)
     end
 end
