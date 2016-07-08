@@ -13,6 +13,7 @@
                   <thead>
                     <tr>
                       <th>Item</th>
+                      <th>Category</th>
                       <th>Price</th>
                       <th>Quantity</th>
                       <th>Total Price</th>
@@ -25,6 +26,7 @@
                     <% @inventories.each do |inventory| %>
                       <tr>
                         <td><p><%= inventory.item.item_code %> <%= inventory.item.name %></p></td>
+                        <td><p><%= inventory.in_category.name %></p></td>
                         <td><p><%= inventory.amount %></p></td>
                         <td><p><%= inventory.quantity %></p></td>
                         <td><p><%= inventory.amount * inventory.quantity %></p></td>
@@ -71,7 +73,7 @@
                 <div class="field">
                   <%= f.label :category ,:class => 'col-md-3 control-label'  %>
                   <div class="col-md-9">
-                    <%= f.collection_select :category_id, InCategory.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
+                    <%= f.collection_select :in_category_id, InCategory.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
                   </div>
                 </div>
               </div>
