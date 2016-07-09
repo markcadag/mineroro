@@ -1,5 +1,5 @@
 class AttendancesController < ApplicationController
-  
+
   require 'date'
 
   before_action :create_or_find_attendace, only: [:index]
@@ -9,13 +9,13 @@ class AttendancesController < ApplicationController
     # @attendance = Attendance.where(mine_id: current_mine.id, attendance_date: date).first
     @attendances = CheckAttendance.joins(:miner).where(attendance_id: @attendance.id).paginate(:page => params[:page])
     respond_to do |format|
-      format.html 
+      format.html
       format.json { render json: @attendances.as_json(:include => [:miner]) }
     end
   end
 
   def generate_attendance
-    date =  Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
+    date =  Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d').to_time
     if !Attendance.exists?(attendance_date: date)
       @attendance = Attendance.new
       @attendance.mine_id = current_mine.id
@@ -46,7 +46,8 @@ class AttendancesController < ApplicationController
   end
 
   def create_or_find_attendace
-    date = Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d')
+    # date = Date.today.to_time
+    date = Time.strptime(params[:attendance_date], '%m/%d/%Y').strftime('%Y-%m-%d').to_time
     @attendance = Attendance.find_or_initialize_by(mine_id: current_mine.id, attendance_date: date)
     if @attendance.new_record?
        @attendance.miners = Miner.where(mine_id: current_mine.id)
