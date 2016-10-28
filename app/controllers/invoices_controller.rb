@@ -36,25 +36,20 @@ class InvoicesController < ApplicationController
     @invoice.vendor_id = params[:invoice][:vendor_id]
 
     respond_to do |format|
-      if @invoice.save
          @entry = Plutus::Entry.new(
             :description => @invoice.particulars,
             :commercial_document => @invoice,
             :debits =>  debit_invoice_params,
             :credits => invoice_items_params )
-        if @entry.save!
+        if @invoice.save!
+          @entry.save!
           format.html
           format.json { render :show, status: :created, location: @invoice }
           format.js
         else
-          @invoice.destroy!
           format.html { render :new }
           format.js
         end
-      else
-        format.html { render :new }
-        format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
     end
   end
 
