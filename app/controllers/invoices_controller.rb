@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_entry, only: [:destroy, :update]
   # GET /invoices
   # GET /invoices.json
   def index
@@ -27,6 +27,12 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/1/edit
   def edit
+    @invoice.invoice_items.build
+    @invoice.debit_invoices.build
+    @entries = Plutus::Entry.limit(100).by_month.order('created_at DESC').limit(10)
+    @credit_lists = Plutus::Account.where(:type => ["Plutus::Liability", "Plutus::Equity", "Plutus::Revenue"])
+    @debit_lists = Plutus::Account.where(:type => ["Plutus::Asset", "Plutus::Expense"])
+    @vendors = Vendor.all
   end
 
   # POST /invoices
@@ -70,17 +76,32 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
-    @invoice.destroy
-    respond_to do |format|
-      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
-      format.json { head :no_content }
+
+    if @entry.destroy
+      @invoice.destroy
+      respond_to do |format|
+        format.html { redirect_to new_invoice_path }
+        format.js
+      end
+     
     end
+
+    # if @invoice.destroy!
+    #   format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # else
+
+    # end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice
       @invoice = Invoice.find(params[:id])
+    end
+
+    def set_entry
+      @entry = Plutus::Entry.where(commercial_document: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="col-md-offset-2 col-md-8 col-sm-12">
+  <div class="col-md-offset-1 col-md-9 col-sm-12">
     <div class="panel panel-default" style="margin-top: 20px;">
       <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg>New Cash Invoice</div>
         <div class="panel-body">
@@ -69,7 +69,7 @@
      </div>
   </div>
 
-  <div class="col-md-offset-2 col-md-8 col-sm-12">
+  <div class="col-md-offset-1 col-md-9 col-sm-12">
     <div class="panel panel-default" style="margin-top: 20px;">
       <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Cash Voucher This Month</div>
         <div class="panel-body" style="padding-bottom: 40px;">
@@ -80,6 +80,7 @@
                 <th>Debits</th>
                 <th>Credits</th>
                 <th>Date</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="table-body">
@@ -89,11 +90,13 @@
                 <td></td>
                 <td></td>
                 <td><%=h entry.created_at %></td>
+                <td><%= link_to 'DELETE', invoice_path(:id => entry.commercial_document_id), method: :delete, data: { confirm: 'Are you sure?' } %> <%= link_to 'EDIT INV', edit_invoice_path(entry.commercial_document_id) + "#form-view" %></td>
               </tr>
               <% entry.debit_amounts.each do |debit_amount| %>
                 <tr class="<%= cycle("odd", "odd") -%>">
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;<%=h "#{debit_amount.account.name}" %></td>
                   <td><%=h debit_amount.amount.round(2) %></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                 </tr>
@@ -104,9 +107,11 @@
                   <td></td>
                   <td><%=h credit_amount.amount.round(2) %></td>
                   <td></td>
+                  <td></td>
                 </tr>
               <% end %>
               <tr class="<%= cycle("odd", "odd") -%>">
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -180,5 +185,20 @@
     width: 100%;
     margin-bottom: 15px;
   }
+
+  .mySpecialClass
+{
+    border: 1px solid red;
+}
+
+  .select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 34px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
 
 </style>
