@@ -63,10 +63,10 @@ test:
 #
 production:
   adapter: mysql2
-  database: mineoroinstance
-  username: mineoroinstance
+  database: mineoroinstance2
+  username: mineoroinstance2
   password: 0916302484
-  host: mineoroinstance.cmpjub5w2jfe.ap-southeast-1.rds.amazonaws.com
+  host: mineoroinstance2.cmpjub5w2jfe.ap-southeast-1.rds.amazonaws.com
   port: 3306
   pool: 5
   socket: /var/run/mysqld/mysql.sock
