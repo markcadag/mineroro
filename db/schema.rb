@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708001939) do
+ActiveRecord::Schema.define(version: 20161123124006) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20160708001939) do
     t.string   "position",      limit: 255
     t.boolean  "is_active"
     t.datetime "date_hired"
+    t.string   "name",          limit: 255
   end
 
   add_index "miners", ["mine_id"], name: "index_miners_on_mine_id", using: :btree
@@ -312,8 +313,10 @@ ActiveRecord::Schema.define(version: 20160708001939) do
     t.integer  "team_id",    limit: 4
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "miner_id",   limit: 4
   end
 
+  add_index "team_members", ["miner_id"], name: "index_team_members_on_miner_id", using: :btree
   add_index "team_members", ["team_id"], name: "index_team_members_on_team_id", using: :btree
   add_index "team_members", ["user_id"], name: "index_team_members_on_user_id", using: :btree
 
@@ -423,6 +426,7 @@ ActiveRecord::Schema.define(version: 20160708001939) do
   add_foreign_key "mining_operation_costs", "mining_operations"
   add_foreign_key "mining_operations", "mines"
   add_foreign_key "mining_operations", "tunnels"
+  add_foreign_key "team_members", "miners"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"
   add_foreign_key "tunnel_expenses", "expenses"

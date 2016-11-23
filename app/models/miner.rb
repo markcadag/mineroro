@@ -9,4 +9,8 @@ class Miner < ActiveRecord::Base
 	has_many :check_attendance
 	has_many :attendances, :through => :check_attendance
 
+
+	has_many :team_members
+	has_many :teams, :through => :team_members
+
 end

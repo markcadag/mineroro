@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :team_members
   resources :personnel_categories
   resources :personnels
   resources :in_categories

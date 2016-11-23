@@ -1,0 +1,117 @@
+<div class="row">
+
+    <div class="col-md-12">
+      <div class="panel panel-default" style="margin-top: 20px;">
+          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Members</div>
+            <div class="panel-body">
+            <% if @team_members.empty? %>
+              <center  style="padding:20px;"><h4>Empty Members List</h4>
+              <small>Manage Members</small>
+              </center>
+            <% else %>
+               <table class="table-bordered table-condensed table-hover" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>Team Name</th>
+                      <th>Members</th>
+                      <th>Created</th>
+                      <th>Updated</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @team_members.each do |team_member| %>
+                      <tr>
+                        <td><p><%= team_member.team.name %></p></td>
+                        <td>
+                          <p>
+                            <% team_member.team.miners.each do |miner| %>
+                                <%= miner.name %>,
+                            <% end %> 
+                          </p>
+                        </td>
+                        <td><p><%= team_member.created_at  %></p></td>
+                        <td><p><%= team_member.updated_at %></p></td>
+                        <td><%= link_to 'Destroy', team_member, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+              </table>
+              <%= will_paginate @team_members %>
+            <% end %>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-md-6" id="form-view">
+     <div class="panel panel-default" style="margin-top: 20px;">
+        <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> New Item</div>
+        <div class="panel-body">
+          <%= form_for(@team_member, remote: true, :html => { :class => 'form-horizontal' } ) do |f| %>
+              <% if @team_member.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+                <ul>
+                    <% @team_member.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
+              </div>
+          <% end %>
+            <fieldset>
+
+              <div class="form-group" style="margin-top: 15px;">
+                <div class="field">
+                  <%= f.label 'Team Name' ,:class => 'col-md-3 control-label'  %>
+                  <div class="col-md-9">
+                    <%= f.collection_select :team_id, Team.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
+                  </div>
+                </div>
+              </div>
+
+               <div class="form-group" style="margin-top: 15px;">
+                <div class="field">
+                  <%= f.label 'Miner' ,:class => 'col-md-3 control-label'  %>
+                  <div class="col-md-9">
+                    <%= f.collection_select :miner_id, Miner.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                  <div class="col-md-12 widget-right">
+                    <%= f.submit 'Add To Team', :id  => 'btn-action',:class => 'btn btn-primary btn-md pull-right' %>
+                  </div>
+              </div>
+              </fieldset>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-default" style="margin-top: 20px;">
+        <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Activities</div>
+          <div class="panel-body">
+
+          </div>
+      </div>
+    </div>
+
+  </div>
+
+  <style type="text/css">
+  </style>
+
+  <script type="text/javascript">
+      $('select').select2({
+        createSearchChoice:function(term, data) {
+          if ($(data).filter(function() {
+              return this.text.localeCompare(term)===0;
+          }).length===0)
+          {return {id:term, text:term};}
+        },
+        multiple: false
+      });
+  </script>

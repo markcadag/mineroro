@@ -1,0 +1,85 @@
+<%= form_for(@inventory) do |f| %>
+  <% if @inventory.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@inventory.errors.count, "error") %> prohibited this inventory from being saved:</h2>
+      <ul>
+      <% @inventory.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="row">
+    
+    <div class="col-md-12">
+      <div class="panel panel-default" style="margin-top: 20px;">
+          <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> List Inventory</div>
+            <div class="panel-body">
+            <% if @inventories.empty? %>
+              <center  style="padding:20px;"><h4>Empty Inventory List</h4>
+              <small>Add new from new inventory form</small>
+              </center>
+            <% else %>
+               <table class="table-bordered table-condensed table-hover" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>Inventory Name</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Tunnel</th>
+                      <th>Created</th>
+                      <th>Updated</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @inventories.each do |inventory| %>
+                      <tr>
+                        <td><p><%= inventory.item.name %></p></td>
+                        <td><p>Php <%= inventory.amount %></p></td>
+                        <td><p><%= inventory.quantity %></p></td>
+                        <td><p>john@example.com</p></td>
+                        <td><p>Php <%= inventory.amount %></p></td>
+                        <td><p>Php <%= inventory.amount %></p></td>
+                        <td><%= link_to 'Edit', edit_inventory_path(inventory) %> <%= link_to 'Destroy', inventory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+              </table>
+              <%= will_paginate @attendances %>
+            <% end %>
+            </div>
+          </div>
+    </div>
+    
+    <div class="col-md-6">
+      <%= render partial: 'form', locals: {inventory: Inventory.new} %>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="panel panel-default" style="margin-top: 20px;">
+        <div class="panel-heading"><svg class="glyph stroked email"><use xlink:href="#stroked-email"></use></svg> Activities</div>
+          <div class="panel-body">
+            
+          </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <style type="text/css">
+  </style>
+
+  <script type="text/javascript">
+      $('select').select2({
+        createSearchChoice:function(term, data) { 
+          if ($(data).filter(function() { 
+              return this.text.localeCompare(term)===0; 
+          }).length===0) 
+          {return {id:term, text:term};} 
+        },
+        multiple: false
+      });
+  </script>
+
+<% end %>
