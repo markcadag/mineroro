@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123124006) do
+ActiveRecord::Schema.define(version: 20161124064136) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -245,6 +245,43 @@ ActiveRecord::Schema.define(version: 20161123124006) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "plant_millings", force: :cascade do |t|
+    t.integer  "team_id",           limit: 4
+    t.datetime "milled_from"
+    t.datetime "milled_to"
+    t.float    "ore_count",         limit: 24
+    t.float    "ore_weight",        limit: 24
+    t.float    "refined_output",    limit: 24
+    t.string   "reference_number",  limit: 255
+    t.datetime "date_sold"
+    t.float    "sold_quantity",     limit: 24
+    t.float    "unit_price",        limit: 24
+    t.float    "revenue",           limit: 24
+    t.float    "jdt_trading_share", limit: 24
+    t.float    "plant_charge",      limit: 24
+    t.float    "gross_sale",        limit: 24
+    t.float    "corp_share",        limit: 24
+    t.float    "royalty_share",     limit: 24
+    t.float    "miner_share",       limit: 24
+    t.float    "contractor_share",  limit: 24
+    t.float    "pioneer_share",     limit: 24
+    t.float    "msebua_share",      limit: 24
+    t.float    "community_fund",    limit: 24
+    t.string   "remarks",           limit: 255
+    t.string   "notes",             limit: 255
+    t.integer  "mine_id",           limit: 4
+    t.integer  "updated_by",        limit: 4
+    t.integer  "created_by",        limit: 4
+    t.string   "control_number",    limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "tunnel_id",         limit: 4
+  end
+
+  add_index "plant_millings", ["mine_id"], name: "index_plant_millings_on_mine_id", using: :btree
+  add_index "plant_millings", ["team_id"], name: "index_plant_millings_on_team_id", using: :btree
+  add_index "plant_millings", ["tunnel_id"], name: "index_plant_millings_on_tunnel_id", using: :btree
+
   create_table "plutus_accounts", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "type",       limit: 255
@@ -426,6 +463,9 @@ ActiveRecord::Schema.define(version: 20161123124006) do
   add_foreign_key "mining_operation_costs", "mining_operations"
   add_foreign_key "mining_operations", "mines"
   add_foreign_key "mining_operations", "tunnels"
+  add_foreign_key "plant_millings", "mines"
+  add_foreign_key "plant_millings", "teams"
+  add_foreign_key "plant_millings", "tunnels"
   add_foreign_key "team_members", "miners"
   add_foreign_key "team_members", "teams"
   add_foreign_key "team_members", "users"

@@ -1,0 +1,251 @@
+<%= form_for(@plant_milling) do |f| %>
+  <% if @plant_milling.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@plant_milling.errors.count, "error") %> prohibited this plant_milling from being saved:</h2>
+
+      <ul>
+      <% @plant_milling.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :control_number %><br>
+              <%= f.text_field :control_number %>
+            </div>
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :milled_from %><br>
+              <%= f.datetime_select :milled_from %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :milled_to %><br>
+              <%= f.datetime_select :milled_to %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :mine_id %><br>
+              <%= f.collection_select :mine_id, Mine.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
+            </div>
+          </td>
+          <td>
+            <%= f.label :tunnel_id %><br>
+            <%= f.collection_select :tunnel_id, Tunnel.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
+      
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :team_id %><br>
+            <%= f.collection_select :team_id, Team.all, :id, :name, {include_blank: false}, {class: 'form-control', style: 'width:100%;'} %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :ore_count %><br>
+              <%= f.text_field :ore_count %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :ore_weight %><br>
+              <%= f.text_field :ore_weight %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :refined_output %><br>
+              <%= f.text_field :refined_output %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+</table>
+<br/>
+<table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :reference_number %><br>
+              <%= f.text_field :reference_number %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :date_sold %><br>
+              <%= f.datetime_select :date_sold %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label 'Sold quantity (grams)' %><br>
+              <%=  f.number_field :sold_quantity,:id => 'sold_quantity', step: :any  %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :unit_price %><br>
+              <%=  f.number_field :unit_price,:id => 'unit_price', step: :any  %>
+            </div>
+          </td>
+          <td>
+             <div class="field">
+              <%= f.label :revenue %><br>
+              <%= f.text_field :revenue, :id => 'revenue',  :readonly => true %>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :jdt_trading_share %><br>
+              <%=  f.number_field :jdt_trading_share,:id => 'jdt_trading_share', step: :any,  :readonly => true  %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :plant_charge %><br>
+                <%=  f.number_field :plant_charge,:id => 'plant_charge', step: :any  %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :gross_sale %><br>
+               <%=  f.number_field :gross_sale,:id => 'gross_sale', step: :any,  :readonly => true  %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+</table>
+<br/>
+<table class="table">
+      <tbody>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :corp_share %><br>
+              <%=  f.number_field :corp_share,:id => 'corp_share', step: :any,  :readonly => true  %>
+            </div>
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :royalty_share %><br>
+              <%=  f.number_field :royalty_share,:id => 'royalty_share', step: :any,  :readonly => true  %>
+            </div>
+          </td>
+          <td>
+             <div class="field">
+                <%= f.label :miner_share %><br>
+                <%=  f.number_field :miner_share,:id => 'miner_share', step: :any,  :readonly => true  %>
+              </div>
+          </td>
+          <td>
+              <div class="field">
+                <%= f.label :contractor_share %><br>
+                <%=  f.number_field :contractor_share,:id => 'contractor_share', step: :any,  :readonly => true  %>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <div class="field">
+              <%= f.label :pioneer_share %><br>
+              <%=  f.number_field :pioneer_share,:id => 'pioneer_share', step: :any,  :readonly => true  %>
+            </div>
+           
+          </td>
+          <td>
+            <div class="field">
+              <%= f.label :msebua_share %><br>
+              <%=  f.number_field :msebua_share,:id => 'msebua_share', step: :any,  :readonly => true  %>
+            </div>
+          </td>
+          <td>
+             <div class="field">
+              <%= f.label :community_fund %><br>
+               <%=  f.number_field :community_fund,:id => 'community_fund', step: :any,  :readonly => true  %>
+            </div>
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :remarks %><br>
+              <%= f.text_field :remarks %>
+            </div>
+          </td>
+          <td>        
+            <div class="field">
+              <%= f.label :notes %><br>
+              <%= f.text_field :notes %>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+</table>
+
+
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<br/>
+<script type="text/javascript">
+
+  $("#sold_quantity").keyup(multiply);
+  $("#unit_price").keyup(multiply);
+  $("#plant_charge").keyup(multiply);
+
+  function multiply() {
+    $('#revenue').val($("#sold_quantity").val() * $("#unit_price").val());
+    $('#jdt_trading_share').val($('#revenue').val() * 0.05);
+    $('#gross_sale').val($('#revenue').val() - $('#jdt_trading_share').val() - $('#plant_charge').val() );
+    $('#corp_share').val($('#gross_sale').val() * .5 );
+    $('#royalty_share').val($('#gross_sale').val() * .15 );
+    $('#miner_share').val($('#gross_sale').val() * .27 );
+    $('#contractor_share').val($('#gross_sale').val() * .03 );
+    $('#pioneer_share').val($('#gross_sale').val() * .03 );
+    $('#msebua_share').val($('#gross_sale').val() * .03 );
+    $('#community_fund').val($('#gross_sale').val() * .01 );
+  }
+
+
+
+
+
+
+</script>
+
+
+
+
+</script>

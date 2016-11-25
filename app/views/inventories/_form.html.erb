@@ -29,7 +29,7 @@
                         <td><p><%= inventory.in_category.name %></p></td>
                         <td><p><%= inventory.amount %></p></td>
                         <td><p><%= inventory.quantity %></p></td>
-                        <td><p><%= inventory.amount * inventory.quantity %></p></td>
+                        <td><p><%= inventory.amount %></p></td>
                         <td><p><%= inventory.created_at  %></p></td>
                         <td><p><%= inventory.updated_at %></p></td>
                         <td><%= link_to 'Edit', edit_inventory_path(inventory) + "#form-view" %> <%= link_to 'Destroy', inventory, method: :delete, data: { confirm: 'Are you sure?' } %></td>

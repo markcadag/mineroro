@@ -1,0 +1,2 @@
+module PlantMillingsHelper
+end

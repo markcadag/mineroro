@@ -1,0 +1,59 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team_id: 
+  milled_from: 2016-11-24 13:49:39
+  milled_to: 2016-11-24 13:49:39
+  ore_count: 1.5
+  ore_weight: 1.5
+  refined_output: 1.5
+  reference_number: MyString
+  date_sold: 2016-11-24 13:49:39
+  sold_quantity: 1.5
+  unit_price: 1.5
+  revenue: 1.5
+  jdt_trading_share: 1.5
+  plant_charge: 1.5
+  gross_sale: 1.5
+  corp_share: 1.5
+  royalty_share: 1.5
+  miner_share: 1.5
+  contractor_share: 1.5
+  pioneer_share: 1.5
+  msebua_share: 1.5
+  community_fund: 1.5
+  remarks: MyString
+  notes: MyString
+  mine_id: 
+  updated_by: 1
+  created_by: 1
+  control_number: MyString
+
+two:
+  team_id: 
+  milled_from: 2016-11-24 13:49:39
+  milled_to: 2016-11-24 13:49:39
+  ore_count: 1.5
+  ore_weight: 1.5
+  refined_output: 1.5
+  reference_number: MyString
+  date_sold: 2016-11-24 13:49:39
+  sold_quantity: 1.5
+  unit_price: 1.5
+  revenue: 1.5
+  jdt_trading_share: 1.5
+  plant_charge: 1.5
+  gross_sale: 1.5
+  corp_share: 1.5
+  royalty_share: 1.5
+  miner_share: 1.5
+  contractor_share: 1.5
+  pioneer_share: 1.5
+  msebua_share: 1.5
+  community_fund: 1.5
+  remarks: MyString
+  notes: MyString
+  mine_id: 
+  updated_by: 1
+  created_by: 1
+  control_number: MyString
