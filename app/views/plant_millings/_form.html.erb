@@ -168,13 +168,13 @@
           </td>
           <td>
              <div class="field">
-                <%= f.label :miner_share %><br>
+                <%= f.label "Miner share (27%)", :id => 'label_miner_share' %><br>
                 <%=  f.number_field :miner_share,:id => 'miner_share', step: :any,  :readonly => true  %>
               </div>
           </td>
           <td>
               <div class="field">
-                <%= f.label :contractor_share %><br>
+                <%= f.label "Contractor share (3%)", :id => 'label_contractor_share' %><br>
                 <%=  f.number_field :contractor_share,:id => 'contractor_share', step: :any,  :readonly => true  %>
               </div>
           </td>
@@ -230,6 +230,11 @@
 <br/>
 <script type="text/javascript">
 
+  var miner_share = .27;
+  var contractor_share = .03;
+
+  initView($('#plant_milling_production_type').val());
+
   $("#sold_quantity").keyup(multiply);
   $("#unit_price").keyup(multiply);
   $("#plant_charge").keyup(multiply);
@@ -240,19 +245,61 @@
     $('#gross_sale').val($('#revenue').val() - $('#jdt_trading_share').val() - $('#plant_charge').val() );
     $('#corp_share').val($('#gross_sale').val() * .5 );
     $('#royalty_share').val($('#gross_sale').val() * .15 );
-    $('#miner_share').val($('#gross_sale').val() * .27 );
-    $('#contractor_share').val($('#gross_sale').val() * .03 );
+    $('#miner_share').val($('#gross_sale').val() * miner_share);
+    $('#contractor_share').val($('#gross_sale').val() * contractor_share );
     $('#pioneer_share').val($('#gross_sale').val() * .03 );
     $('#msebua_share').val($('#gross_sale').val() * .03 );
     $('#community_fund').val($('#gross_sale').val() * .01 );
   }
 
+  $('#plant_milling_production_type').on('change', function() {
+    initView(this.value);
+  });
 
+  function initView(value) {
 
+    switch(value) {
 
+      case "plant":
+        miner_share = .27;
+        contractor_share = .03
+        $("#contractor_share").show();
+        $('#label_contractor_share').show();
+        break;
+      case "ball_mill":
+        miner_share = .30;
+        contractor_share = 0;
+        $("#contractor_share").hide();
+        $('#label_contractor_share').hide();
+        break;
+      case "rod_mill":
+        miner_share = .30;
+        contractor_share = 0;
+        $("#contractor_share").hide();
+        $('#label_contractor_share').hide();
+        break;
+      default:
+        miner_share = .30;
+        contractor_share = 0;
+    }
 
+    $('#contractor_share').val($('#gross_sale').val() * contractor_share );
+    $('#miner_share').val($('#gross_sale').val() * miner_share);
+
+    $('#label_contractor_share').text("Contractor share (" + (contractor_share * 100) + "%)");
+    $('#label_miner_share').text("Miner share (" + (miner_share * 100) + "%)");
+ 
+  }
 
 </script>
+
+<style type="text/css">
+
+  input[readonly] {
+      background-color: #d3d3d3;
+  }
+
+</style>
 
 
 
