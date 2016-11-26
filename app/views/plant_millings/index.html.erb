@@ -1,24 +1,25 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Plant Millings</h1>
-
-<table>
+<div class="table-responsive">
+<table  class="table-bordered table-condensed table-hover" style="width: 100%">
   <thead>
     <tr>
+      <th>Reference number</th>
       <th>Team</th>
+      <th>Control number</th>
       <th>Milled from</th>
       <th>Milled to</th>
       <th>Ore count</th>
       <th>Ore weight</th>
       <th>Refined output</th>
-      <th>Reference number</th>
       <th>Date sold</th>
       <th>Sold quantity</th>
       <th>Unit price</th>
       <th>Revenue</th>
+      <th>Gross sale</th>
       <th>Jdt trading share</th>
       <th>Plant charge</th>
-      <th>Gross sale</th>
       <th>Corp share</th>
       <th>Royalty share</th>
       <th>Miner share</th>
@@ -31,28 +32,27 @@
       <th>Mine</th>
       <th>Updated by</th>
       <th>Created by</th>
-      <th>Control number</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @plant_millings.each do |plant_milling| %>
       <tr>
-        <td><%= plant_milling.team %></td>
-        <td><%= plant_milling.milled_from %></td>
-        <td><%= plant_milling.milled_to %></td>
+        <td><%= plant_milling.reference_number %></td>
+        <td><%= plant_milling.team.name %></td>
+        <td><%= plant_milling.control_number %></td>
+        <td><%= plant_milling.milled_from.to_s(:short) %></td>
+        <td><%= plant_milling.milled_to.to_s(:short) %></td>
         <td><%= plant_milling.ore_count %></td>
         <td><%= plant_milling.ore_weight %></td>
         <td><%= plant_milling.refined_output %></td>
-        <td><%= plant_milling.reference_number %></td>
-        <td><%= plant_milling.date_sold %></td>
+        <td><%= plant_milling.date_sold.to_s(:short) %></td>
         <td><%= plant_milling.sold_quantity %></td>
         <td><%= plant_milling.unit_price %></td>
         <td><%= plant_milling.revenue %></td>
+        <td><%= plant_milling.gross_sale %></td>
         <td><%= plant_milling.jdt_trading_share %></td>
         <td><%= plant_milling.plant_charge %></td>
-        <td><%= plant_milling.gross_sale %></td>
         <td><%= plant_milling.corp_share %></td>
         <td><%= plant_milling.royalty_share %></td>
         <td><%= plant_milling.miner_share %></td>
@@ -62,10 +62,9 @@
         <td><%= plant_milling.community_fund %></td>
         <td><%= plant_milling.remarks %></td>
         <td><%= plant_milling.notes %></td>
-        <td><%= plant_milling.mine %></td>
+        <td><%= plant_milling.mine.name %></td>
         <td><%= plant_milling.updated_by %></td>
         <td><%= plant_milling.created_by %></td>
-        <td><%= plant_milling.control_number %></td>
         <td><%= link_to 'Show', plant_milling %></td>
         <td><%= link_to 'Edit', edit_plant_milling_path(plant_milling) %></td>
         <td><%= link_to 'Destroy', plant_milling, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -73,7 +72,25 @@
     <% end %>
   </tbody>
 </table>
+</div>
 
-<br>
+<style type="text/css">
+
+  table {
+    background-color: white;
+  }
+
+  td {
+      max-width:100%;
+      white-space:nowrap;
+  }
+
+  th {
+      max-width:100%;
+      white-space:nowrap;
+  }
+
+
+</style>
 
 <%= link_to 'New Plant milling', new_plant_milling_path %>
