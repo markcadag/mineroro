@@ -8,8 +8,8 @@
 	<!-- mine_dashboard_index_path(@current_mine.id) -->
 	<ul class="nav menu">
 		<li class="<%= 'active' if params[:controller] == 'dashboard' %>"><a href="<%= dashboard_index_url %>"><svg class="glyph stroked dashboard-dial"><use xlink:href="#stroked-dashboard-dial"></use></svg> Dashboard</a></li>
-		<li class="<%= 'active' if params[:controller] == 'expenses' %>"><a href="<%= expenses_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Fund Request</a></li>
-		<li class="parent <%= 'active' if params[:operation_type] == 'site' %>">
+		<!-- <li class="<%= 'active' if params[:controller] == 'expenses' %>"><a href="<%= expenses_path %>"><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper"/></svg> Fund Request</a></li> -->
+		<!-- <li class="parent <%= 'active' if params[:operation_type] == 'site' %>">
 			<a data-toggle="collapse" href="#sub-item-4">
 				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Todays Site Operation
 			</a>
@@ -18,7 +18,7 @@
 					<li><a href=<%= tunnel_tunnel_operations_path(tunnel,:operation_type => 'site') %>><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> <%= tunnel.name %> </a></li>
 				<% end %>
 			</ul>
-		</li>
+		</li> -->
 		<li class="parent <%= 'active' if params[:operation_type] == 'plant' %>">
 			<a data-toggle="collapse" href="#sub-item-2">
 				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Gold Processing
@@ -76,7 +76,7 @@
 			</ul>
 		</li>
 
-		<li class="parent <%= 'active' if params[:controller] == 'invoices'  || params[:controller] == 'invoices'%>">
+		<!-- <li class="parent <%= 'active' if params[:controller] == 'invoices'  || params[:controller] == 'invoices'%>">
 			<a data-toggle="collapse" href="#sub-item-5">
 				<span data-toggle="collapse" href="#sub-item-5"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Vouchers
 			</a>
@@ -94,6 +94,24 @@
 				<li>
 					<a class="" href="<%= plutus_path %>">
 						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Reports
+					</a>
+				</li>
+			</ul>
+		</li> -->
+
+		<li class="parent <%= 'active' if params[:controller] == 'tunnels'  || params[:controller] == 'tunnels'%>">
+			<a data-toggle="collapse" href="#sub-item-6">
+				<span data-toggle="collapse" href="#sub-item-6"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Site Management
+			</a>
+			<ul class="children collapse <%= 'in' if params[:controller] == 'tunnels' ||  params[:controller] == 'tunnels' %>" id="sub-item-6">
+				<li>
+					<a class="" href="<%= tunnels_path %>">
+						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Manage Tunnels
+					</a>
+				</li>
+				<li>
+					<a class="" href="<%= teams_path %>">
+						<svg class="glyph stroked chevron-right"><use xlink:href="#stroked-chevron-right"></use></svg> Manage Miner Team
 					</a>
 				</li>
 			</ul>

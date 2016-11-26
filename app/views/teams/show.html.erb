@@ -1,4 +1,9 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_mine_path(@mine) %> |
-<%= link_to 'Back', mines_path %>
+<p>
+  <strong>Name:</strong>
+  <%= @team.name %>
+</p>
+
+<%= link_to 'Edit', edit_team_path(@team) %> 
+<%= link_to 'Back', teams_path %>

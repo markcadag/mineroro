@@ -13,29 +13,26 @@
     </div>
   </div><!--/.row-->
 
+
    <div class="row">
-      <a href="#">
+
+   <% @teams.each do |team| %>
+      <a href="<%= edit_team_path(team) %>">
         <div class="col-md-4">
           <div class="panel panel-info">
             <div class="panel-body" style="padding: 50px;">
-              <center><h3>Team Zaldy</h3></center>
-                <center><small>2 members</small></center>
+              <center><h3><%= team.name %></h3></center>
+                <center><small><%= team.team_members.size %> Members</small></center>
+                 <center><small><%= link_to 'update', edit_team_path(team)%></small> <small><%= link_to 'delete', team, method: :delete, data: { confirm: 'Are you sure?' } %></small> </center>
             </div>
           </div>
         </div>
       </a>
-      <a href="#">
-        <div class="col-md-4">
-          <div class="panel panel-info">
-            <div class="panel-body" style="padding: 50px;">
-              <center><h3>Team Zaldy</h3></center>
-                <center><small>2 members</small></center>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div><!-- /.row -->
+      <% end %>
+    </div>
 
 
+
+<%= link_to 'New Miner Team', new_team_path %>
 
 <br>
