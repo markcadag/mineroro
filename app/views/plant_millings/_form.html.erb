@@ -21,7 +21,10 @@
             </div>
           </td>
           <td>
-            
+            <div class="field">
+              <%= f.label :production_type %><br>
+               <%= f.select(:production_type, PlantMilling.production_types.keys.map {|production_type| [production_type.titleize,production_type]},:selected => @plant_milling.production_type) %>
+            </div>
           </td>
           <td>
             
@@ -90,6 +93,12 @@
             <div class="field">
               <%= f.label :reference_number %><br>
               <%= f.text_field :reference_number %>
+            </div>
+          </td>
+          <td>
+             <div class="field">
+              <%= f.label :product_state %><br>
+               <%= f.select(:product_state, PlantMilling.product_states.keys.map {|product_state| [product_state.titleize,product_state]},:selected => @plant_milling.product_state ) %>
             </div>
           </td>
         </tr>

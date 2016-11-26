@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124064136) do
+ActiveRecord::Schema.define(version: 20161126044133) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -273,9 +273,11 @@ ActiveRecord::Schema.define(version: 20161124064136) do
     t.integer  "updated_by",        limit: 4
     t.integer  "created_by",        limit: 4
     t.string   "control_number",    limit: 255
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "tunnel_id",         limit: 4
+    t.integer  "production_type",   limit: 4,   default: 2
+    t.integer  "product_state",     limit: 4,   default: 1
   end
 
   add_index "plant_millings", ["mine_id"], name: "index_plant_millings_on_mine_id", using: :btree
