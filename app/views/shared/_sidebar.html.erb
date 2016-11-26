@@ -24,10 +24,9 @@
 				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Gold Processing
 			</a>
 			<ul class="children collapse <%= 'in' if params[:operation_type] == 'plant' %>" id="sub-item-2">
-				<% @current_mine.tunnels.each do |tunnel| %>
-					<li><a href=<%= tunnel_tunnel_operations_path(tunnel,:operation_type => 'plant') %>><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> <%= tunnel.name %> </a></li>
-				<% end %>
-			</ul>
+				<li><a href=<%= plant_millings_url %>><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Sales Report </a></li>
+			
+   			</ul>
 		</li>
 		<li class="parent <%= 'active' if params[:controller] == 'miners'  || params[:controller] == 'attendances'%>">
 			<a data-toggle="collapse" href="#sub-item-3">
