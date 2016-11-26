@@ -21,7 +21,7 @@
 		</li> -->
 		<li class="parent <%= 'active' if params[:operation_type] == 'plant' %>">
 			<a data-toggle="collapse" href="#sub-item-2">
-				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Gold Processing
+				<span data-toggle="collapse" href="#sub-item-2"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Reports 
 			</a>
 			<ul class="children collapse <%= 'in' if params[:operation_type] == 'plant' %>" id="sub-item-2">
 				<li><a href=<%= plant_millings_url %>><svg class="glyph stroked line-graph"><use xlink:href="#stroked-line-graph"></use></svg> Sales Report </a></li>
@@ -76,7 +76,7 @@
 			</ul>
 		</li>
 
-		<!-- <li class="parent <%= 'active' if params[:controller] == 'invoices'  || params[:controller] == 'invoices'%>">
+		<li class="parent <%= 'active' if params[:controller] == 'invoices'  || params[:controller] == 'invoices'%>">
 			<a data-toggle="collapse" href="#sub-item-5">
 				<span data-toggle="collapse" href="#sub-item-5"><svg class="glyph stroked chevron-down"><use xlink:href="#stroked-chevron-down"></use></svg></span> Vouchers
 			</a>
@@ -97,7 +97,7 @@
 					</a>
 				</li>
 			</ul>
-		</li> -->
+		</li>
 
 		<li class="parent <%= 'active' if params[:controller] == 'tunnels'  || params[:controller] == 'tunnels'%>">
 			<a data-toggle="collapse" href="#sub-item-6">
