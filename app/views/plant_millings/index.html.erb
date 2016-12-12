@@ -87,19 +87,19 @@
         <td><%= plant_milling.refined_output %></td>
         <td><%= plant_milling.reference_number %></td>
         <td><%= plant_milling.date_sold.to_s(:short) %></td>
-        <td><%= plant_milling.sold_quantity %></td>
-        <td><%= plant_milling.unit_price %></td>
-        <td><%= plant_milling.revenue %></td>
-        <td><%= plant_milling.gross_sale %></td>
-        <td><%= plant_milling.jdt_trading_share %></td>
-        <td><%= plant_milling.plant_charge %></td>
-        <td><%= plant_milling.corp_share %></td>
-        <td><%= plant_milling.royalty_share %></td>
-        <td><%= plant_milling.miner_share %></td>
-        <td><%= plant_milling.contractor_share %></td>
-        <td><%= plant_milling.pioneer_share %></td>
-        <td><%= plant_milling.msebua_share %></td>
-        <td><%= plant_milling.community_fund %></td>
+        <td><%= number_to_currency(plant_milling.sold_quantity,:precision => 2, :unit => "") || 0  %></td>
+        <td><%= number_to_currency(plant_milling.unit_price,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.revenue,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.gross_sale,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.jdt_trading_share,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.plant_charge,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.corp_share,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.royalty_share,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.miner_share,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.contractor_share,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.pioneer_share,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.msebua_share,:precision => 2, :unit => "") || 0 %></td>
+        <td><%= number_to_currency(plant_milling.community_fund,:precision => 2, :unit => "") || 0 %></td>
         <td><%= plant_milling.remarks %></td>
         <td><%= plant_milling.notes %></td>
         <td><%= plant_milling.mine.name %></td>
@@ -113,23 +113,23 @@
     <% end %>
     <tr style="background-color: #d3d3d3">
          <td colspan="4"><b>Total</b></td>
-         <td><%= @plant_millings.sum('ore_count') %></td>
-         <td><%= @plant_millings.sum('ore_weight') %></td>
-         <td><%= @plant_millings.sum('refined_output') %></td>
+         <td><%= number_to_currency(@plant_millings.sum('ore_count'),:precision => 2, :unit => "") || 0 %> gm</td>
+         <td><%= number_to_currency(@plant_millings.sum('ore_weight'),:precision => 2,:unit => "") || 0 %> gm</td>
+         <td><%= number_to_currency(@plant_millings.sum('refined_output'),:precision => 2,:unit => "") || 0 %> gm</td>
          <td colspan="2"></td>
-         <td><%= @plant_millings.sum('sold_quantity') %></td>
+         <td><%= number_to_currency(@plant_millings.sum('sold_quantity'),:precision => 2, :unit => "₱ ") || 0 %></td>
          <td colspan="1"></td>
-         <td><%= @plant_millings.sum('revenue') %></td>
-         <td><%= @plant_millings.sum('gross_sale') %></td>
-         <td><%= @plant_millings.sum('jdt_trading_share') %></td>
-         <td><%= @plant_millings.sum('plant_charge') %></td>
-         <td><%= @plant_millings.sum('corp_share') %></td>
-         <td><%= @plant_millings.sum('royalty_share') %></td>
-         <td><%= @plant_millings.sum('miner_share') %></td>
-         <td><%= @plant_millings.sum('contractor_share') %></td>
-         <td><%= @plant_millings.sum('pioneer_share') %></td>
-         <td><%= @plant_millings.sum('msebua_share') %></td>
-         <td><%= @plant_millings.sum('community_fund') %></td>
+         <td><%= number_to_currency(@plant_millings.sum('revenue'),:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('gross_sale'),:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('jdt_trading_share'),:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('plant_charge'),:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('corp_share'),:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('royalty_share'),:precision => 2, :unit => "₱ ") || 0  %></td>
+         <td><%= number_to_currency(@plant_millings.sum('miner_share'),:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('contractor_share'),:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('pioneer_share') ,:precision => 2, :unit => "₱ ") || 0 %></td>
+         <td><%= number_to_currency(@plant_millings.sum('msebua_share') ,:precision => 2, :unit => "₱ ") || 0%></td>
+         <td><%= number_to_currency(@plant_millings.sum('community_fund') ,:precision => 2, :unit => "₱ ") || 0  %></td>
          <td colspan="8"></td>
     </tr>
   </tbody>
