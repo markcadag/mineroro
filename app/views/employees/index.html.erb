@@ -1,0 +1,38 @@
+<h1>Listing Employees</h1>
+
+<table class="table">
+  <thead>
+      <th>&nbsp;Name</th>
+      <th>Address</th>
+      <th>Birthday</th>
+      <th>Mobile number</th>
+      <th>Employee type</th>
+      <th>Employee status</th>
+      <th>Salary</th>
+      <th colspan="3">Action</th>
+  </thead>
+
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr class="unread">
+        <td class="view-message"><%= employee.name %></td>
+        <td class="view-message"><%= employee.address %></td>
+        <td class="view-message "><%= employee.birthday %></td>
+        <td class="view-message"><%= employee.mobile_number %></td>
+        <td class="view-message"><%= employee.employee_type.titleize %></td>
+        <td class="view-message"><%= employee.employee_status %></td>
+        <td class="view-message"><%= employee.salary %></td>
+        <td><%= link_to 'Show', employee %></td>
+        <td><%= link_to 'Edit', edit_employee_path(employee) %></td>
+        <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<style type="text/css">
+ 
+</style>
+
+
+<%= link_to 'New Employee', new_employee_path %>

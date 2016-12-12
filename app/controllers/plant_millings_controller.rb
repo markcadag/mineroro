@@ -1,10 +1,12 @@
 class PlantMillingsController < ApplicationController
   before_action :set_plant_milling, only: [:show, :edit, :update, :destroy]
-
+  has_scope :production_type
+  has_scope :date_sold, :using => [:start_date, :milled_to], :type => :hash
+  before_filter :authenticate_user!
   # GET /plant_millings
   # GET /plant_millings.json
   def index
-    @plant_millings = PlantMilling.all
+    @plant_millings = apply_scopes(PlantMilling).all
   end
 
   # GET /plant_millings/1

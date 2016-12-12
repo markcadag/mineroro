@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @payroll_datum.employee %>
+</p>
+
+<p>
+  <strong>Payroll:</strong>
+  <%= @payroll_datum.payroll %>
+</p>
+
+<p>
+  <strong>Salary:</strong>
+  <%= @payroll_datum.salary %>
+</p>
+
+<p>
+  <strong>Deduction:</strong>
+  <%= @payroll_datum.deduction %>
+</p>
+
+<p>
+  <strong>Net:</strong>
+  <%= @payroll_datum.net %>
+</p>
+
+<%= link_to 'Edit', edit_payroll_datum_path(@payroll_datum) %> |
+<%= link_to 'Back', payroll_data_path %>

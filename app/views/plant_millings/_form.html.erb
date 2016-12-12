@@ -156,7 +156,7 @@
         <tr>
           <td>
             <div class="field">
-              <%= f.label "Corporation Share (50%)" %><br>
+              <%= f.label "Corporation Share (50%)", :id => 'label_corp_share' %><br>
               <%=  f.number_field :corp_share,:id => 'corp_share', step: :any,  :readonly => true  %>
             </div>
           </td>
@@ -232,6 +232,7 @@
 
   var miner_share = .27;
   var contractor_share = .03;
+  var corp_share = .5;
 
   initView($('#plant_milling_production_type').val());
 
@@ -243,7 +244,7 @@
     $('#revenue').val($("#sold_quantity").val() * $("#unit_price").val());
     $('#jdt_trading_share').val($('#revenue').val() * 0.05);
     $('#gross_sale').val($('#revenue').val() - $('#jdt_trading_share').val() - $('#plant_charge').val() );
-    $('#corp_share').val($('#gross_sale').val() * .5 );
+    $('#corp_share').val($('#gross_sale').val() * corp_share );
     $('#royalty_share').val($('#gross_sale').val() * .15 );
     $('#miner_share').val($('#gross_sale').val() * miner_share);
     $('#contractor_share').val($('#gross_sale').val() * contractor_share );
@@ -263,20 +264,38 @@
       case "plant":
         miner_share = .27;
         contractor_share = .03
+        corp_share = .5;
         $("#contractor_share").show();
         $('#label_contractor_share').show();
+        $("#label_miner_share").show();
+        $('#miner_share').show();
         break;
       case "ball_mill":
         miner_share = .30;
         contractor_share = 0;
+        corp_share = .5;
         $("#contractor_share").hide();
         $('#label_contractor_share').hide();
+        $("#label_miner_share").show();
+        $('#miner_share').show();
         break;
       case "rod_mill":
         miner_share = .30;
         contractor_share = 0;
+        corp_share = .5;
         $("#contractor_share").hide();
         $('#label_contractor_share').hide();
+        $("#label_miner_share").show();
+        $('#miner_share').show();
+        break;
+      case "waste":
+        miner_share = 0;
+        contractor_share = .03;
+        corp_share = .77;
+        $("#label_miner_share").hide();
+        $('#miner_share').hide();
+        $("#contractor_share").show();
+        $('#label_contractor_share').show();
         break;
       default:
         miner_share = .30;
@@ -288,6 +307,7 @@
 
     $('#label_contractor_share').text("Contractor share (" + (contractor_share * 100) + "%)");
     $('#label_miner_share').text("Miner share (" + (miner_share * 100) + "%)");
+    $('#label_corp_share').text("Corporation share (" + (corp_share * 100) + "%)");
  
   }
 

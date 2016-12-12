@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reference number:</strong>
+  <%= @payroll.reference_number %>
+</p>
+
+<p>
+  <strong>Payroll date:</strong>
+  <%= @payroll.payroll_date %>
+</p>
+
+<%= link_to 'Edit', edit_payroll_path(@payroll) %> |
+<%= link_to 'Back', payrolls_path %>

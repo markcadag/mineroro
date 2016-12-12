@@ -1,6 +1,7 @@
 class MinesController < ApplicationController
   before_action :set_mine, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!
+  before_action :authenticate_user!
   # GET /mines
   # GET /mines.json
   def index

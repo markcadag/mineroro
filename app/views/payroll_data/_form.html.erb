@@ -1,0 +1,37 @@
+<%= form_for(@payroll_datum) do |f| %>
+  <% if @payroll_datum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payroll_datum.errors.count, "error") %> prohibited this payroll_datum from being saved:</h2>
+
+      <ul>
+      <% @payroll_datum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :employee_id %><br>
+    <%= f.text_field :employee_id %>
+  </div>
+  <div class="field">
+    <%= f.label :payroll_id %><br>
+    <%= f.text_field :payroll_id %>
+  </div>
+  <div class="field">
+    <%= f.label :salary %><br>
+    <%= f.text_field :salary %>
+  </div>
+  <div class="field">
+    <%= f.label :deduction %><br>
+    <%= f.text_field :deduction %>
+  </div>
+  <div class="field">
+    <%= f.label :net %><br>
+    <%= f.text_field :net %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -28,4 +28,5 @@
 //= require cocoon
 //= require script_helper
 //= require bootstrap-datepicker
+//= require jquery_nested_form
 //= require_tree .

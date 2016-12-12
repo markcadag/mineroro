@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161126044133) do
+ActiveRecord::Schema.define(version: 20161129071253) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -61,6 +61,18 @@ ActiveRecord::Schema.define(version: 20161126044133) do
   end
 
   add_index "debit_invoices", ["invoice_id"], name: "index_debit_invoices_on_invoice_id", using: :btree
+
+  create_table "employees", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.string   "address",         limit: 255
+    t.date     "birthday"
+    t.string   "mobile_number",   limit: 255
+    t.integer  "employee_type",   limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.float    "salary",          limit: 24
+    t.integer  "employee_status", limit: 4
+  end
 
   create_table "expense_sub_types", force: :cascade do |t|
     t.integer  "expense_type_id",       limit: 4
@@ -229,6 +241,26 @@ ActiveRecord::Schema.define(version: 20161126044133) do
 
   add_index "mining_operations", ["mine_id"], name: "index_mining_operations_on_mine_id", using: :btree
   add_index "mining_operations", ["tunnel_id"], name: "index_mining_operations_on_tunnel_id", using: :btree
+
+  create_table "payroll_data", force: :cascade do |t|
+    t.integer  "employee_id", limit: 4
+    t.integer  "payroll_id",  limit: 4
+    t.float    "salary",      limit: 24
+    t.float    "deduction",   limit: 24
+    t.float    "net",         limit: 24
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "payroll_data", ["employee_id"], name: "index_payroll_data_on_employee_id", using: :btree
+  add_index "payroll_data", ["payroll_id"], name: "index_payroll_data_on_payroll_id", using: :btree
+
+  create_table "payrolls", force: :cascade do |t|
+    t.string   "reference_number", limit: 255
+    t.date     "payroll_date"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
 
   create_table "personnel_categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -465,6 +497,8 @@ ActiveRecord::Schema.define(version: 20161126044133) do
   add_foreign_key "mining_operation_costs", "mining_operations"
   add_foreign_key "mining_operations", "mines"
   add_foreign_key "mining_operations", "tunnels"
+  add_foreign_key "payroll_data", "employees"
+  add_foreign_key "payroll_data", "payrolls"
   add_foreign_key "plant_millings", "mines"
   add_foreign_key "plant_millings", "teams"
   add_foreign_key "plant_millings", "tunnels"

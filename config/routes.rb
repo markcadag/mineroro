@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :payroll_data
+  resources :payrolls
+  resources :employees
   resources :plant_millings
   resources :team_members
   resources :tunnels

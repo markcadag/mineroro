@@ -1,4 +1,46 @@
-<h1>Listing Plant Millings</h1>
+<h1>Listing Plant Millings</h1> 
+
+
+
+<!-- Production type
+<select id="production_type">
+  <option value="ball_mill">Ball mill</option>
+  <option value="plant">Plant</option>
+</select>
+ -->
+
+<%= form_tag plant_millings_path, :method => 'get' do %>
+  <p>
+    <table class="table-bordered table-condensed table-hover">
+      <tbody>
+        <tr>
+          <td>
+            Production Type:
+            <select name="production_type">
+            <option  selected value> All </option>
+              <option value="0">Ball Mill</option>
+              <option value="1">Rod Mill</option>
+              <option value="2">Plant</option>
+              <option value="3">Waste</option>
+            </select>
+          </td>
+        <!--   <td>
+            From:
+            <input name="date_sold[start_date]" type="text" id="datepickerfrom"></p> 
+          </td>
+          <td>
+              To:
+              <input name="date_sold[end_date]" type="text" id="datepickerto"></p>
+          </td> -->
+          <td>
+               <%= submit_tag "Search", :name => nil %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </p>
+<% end %>
+
 <div class="table-responsive">
 <table  class="table-bordered table-condensed table-hover" style="width: 100%">
   <thead>
@@ -112,5 +154,14 @@
 
 
 </style>
+
+<script type="text/javascript">
+  $('#menu_select').bind('change', function() {
+     window.location.pathname = $(this).val() });
+  $( "#datepickerto" ).datepicker({ dateFormat: 'dd-mm-yy' });
+  $( "#datepickerfrom" ).datepicker({ dateFormat: 'dd-mm-yy' });
+</script>
+
+
 
 <%= link_to 'New Plant milling', new_plant_milling_path %>

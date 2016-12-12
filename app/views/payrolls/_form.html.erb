@@ -1,0 +1,54 @@
+<%= nested_form_for(@payroll) do |f| %>
+  <% if @payroll.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payroll.errors.count, "error") %> prohibited this payroll from being saved:</h2>
+
+      <ul>
+      <% @payroll.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :reference_number %><br>
+    <%= f.text_field :reference_number %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :payroll_date %><br>
+    <%= f.date_select :payroll_date %>
+  </div>
+
+  <%= f.fields_for :payroll_datums do |builder| %>
+    <p>
+      <%= render "payroll_datum_fields", :f => builder %>
+      <%= builder.link_to_remove "Remove this payroll" %>
+    </p>
+  <% end %>
+  <p><%= f.link_to_add "Add a payroll", :payroll_datums %></p>
+  <p><%= f.submit "Submit" %></p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+
+<% end %>
+
+<script type="text/javascript">
+  function remove_fields(link) {
+  $(link).previous("input[type=hidden]").value = "1";
+  $(link).up(".fields").hide();
+}
+
+function add_fields(link, association, content) {
+  var new_id = new Date().getTime();
+  var regexp = new RegExp("new_" + association, "g")
+  $(link).up().insert({
+    before: content.replace(regexp, new_id)
+  });
+}
+
+
+</script>

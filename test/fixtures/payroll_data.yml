@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee_id: 
+  payroll_id: 
+  salary: 1.5
+  deduction: 1.5
+  net: 1.5
+
+two:
+  employee_id: 
+  payroll_id: 
+  salary: 1.5
+  deduction: 1.5
+  net: 1.5
