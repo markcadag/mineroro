@@ -71,6 +71,6 @@ class PlantMillingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def plant_milling_params
-      params.require(:plant_milling).permit(:team_id, :milled_from, :milled_to, :ore_count, :ore_weight, :refined_output, :reference_number, :date_sold, :sold_quantity, :unit_price, :revenue, :jdt_trading_share, :plant_charge, :gross_sale, :corp_share, :royalty_share, :miner_share, :contractor_share, :pioneer_share, :msebua_share, :community_fund, :remarks, :notes, :mine_id, :updated_by, :created_by, :control_number, :tunnel_id, :production_type, :product_state)
+      params.require(:plant_milling).permit(:team_id, :milled_from, :milled_to, :ore_count, :ore_weight, :refined_output, :reference_number, :date_sold, :sold_quantity, :unit_price, :revenue, :jdt_trading_share, :plant_charge, :gross_sale, :corp_share, :royalty_share, :miner_share, :contractor_share, :pioneer_share, :msebua_share, :community_fund, :remarks, :notes, :mine_id, :updated_by, :created_by, :control_number, :tunnel_id, :production_type, :product_state, :who_sold)
     end
 end
