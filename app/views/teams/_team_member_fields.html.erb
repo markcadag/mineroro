@@ -1,0 +1,37 @@
+<br/>
+<div class="row">
+<div class="field col-md-2">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field col-md-2">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name %>
+  	</div>
+
+  <div class="field col-md-2">
+    <%= f.label :position %><br>
+    <%= f.text_field :position %>
+  </div>
+
+  <div class="field col-md-2">
+    <%= f.label :address %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div class="field col-md-2">
+    <%= f.label :mobile_number %><br>
+    <%= f.text_field :mobile_number %>
+  </div>
+
+  <div class="field col-md-2">
+     <%= f.label :date_hired %><br/>
+      <input id='invoice_date' type="text" data-provide='datepicker' name="date_hired">
+  </div>
+  <br/>
+  <div class="field col-md-2">
+      <%= f.link_to_remove "Remove this miner" %>
+  </div>
+</div>
+<hr/>

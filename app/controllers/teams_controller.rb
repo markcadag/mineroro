@@ -15,10 +15,15 @@ class TeamsController < ApplicationController
   # GET /roles/new
   def new
     @team = Team.new
+    3.times do
+      miner = @team.miners.build
+    end
   end
 
   # GET /roles/1/edit
   def edit
+    @team = Team.find(params[:id])
+
   end
 
   # POST /roles
@@ -27,7 +32,7 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
 
     respond_to do |format|
-      if @team.save
+      if @team.save!
         format.html { redirect_to @team, notice: 'Team was successfully created.' }
         format.json { render :show, status: :created, location: @team }
       else
@@ -41,7 +46,7 @@ class TeamsController < ApplicationController
   # PATCH/PUT /roles/1.json
   def update
     respond_to do |format|
-      if @team.update(team_params)
+      if @team.update!(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
         format.json { render :show, status: :ok, location: @team }
       else
@@ -69,6 +74,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name)
+      params.require(:team).permit(:name, miners_attributes: [:id,:first_name, :last_name, :position, :address, :mobile_number, :date_hired, :_destroy])
     end
 end
