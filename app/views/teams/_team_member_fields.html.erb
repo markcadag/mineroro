@@ -25,6 +25,8 @@
     <%= f.text_field :mobile_number %>
   </div>
 
+    <%= f.hidden_field :mine_id, :value => @current_mine.id %>
+
   <div class="field col-md-2">
      <%= f.label :date_hired %><br/>
       <input id='invoice_date' type="text" data-provide='datepicker' name="date_hired">
