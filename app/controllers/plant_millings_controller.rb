@@ -7,6 +7,13 @@ class PlantMillingsController < ApplicationController
   # GET /plant_millings.json
   def index
     @plant_millings = apply_scopes(PlantMilling).all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @plant_millings.to_csv }
+      format.xlsx {
+        send_data apply_scopes(PlantMilling).to_xlsx.to_stream.read
+      }
+    end
   end
 
   # GET /plant_millings/1

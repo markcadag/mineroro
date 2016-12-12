@@ -19,22 +19,19 @@
             <select name="production_type">
             <option  selected value> All </option>
               <option value="0">Ball Mill</option>
-              <option value="1">Rod Mill</option>
               <option value="2">Plant</option>
               <option value="3">Waste</option>
             </select>
           </td>
-        <!--   <td>
-            From:
-            <input name="date_sold[start_date]" type="text" id="datepickerfrom"></p> 
+          <td>
+            <%= submit_tag "Search", :name => nil %>
           </td>
           <td>
-              To:
-              <input name="date_sold[end_date]" type="text" id="datepickerto"></p>
-          </td> -->
-          <td>
-               <%= submit_tag "Search", :name => nil %>
-          </td>
+             <%= link_to "Download as csv", plant_millings_path(format: "csv") %> 
+           </td> 
+           <td>
+            <%= link_to 'Download as .xlsx', plant_millings_path(format: :xlsx) %>
+           </td> 
         </tr>
       </tbody>
     </table>

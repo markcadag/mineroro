@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Control number</Data></Cell>
+        <Cell><Data ss:Type="String">Team</Data></Cell>
+        <Cell><Data ss:Type="String">Milled from</Data></Cell>
+        <Cell><Data ss:Type="String">Milled to</Data></Cell>
+        <Cell><Data ss:Type="String">Ore count</Data></Cell>
+        <Cell><Data ss:Type="String">Ore weight</Data></Cell>
+        <Cell><Data ss:Type="String">Refined output</Data></Cell>
+        <Cell><Data ss:Type="String">Reference number</Data></Cell>
+        <Cell><Data ss:Type="String">Date sold</Data></Cell>
+        <Cell><Data ss:Type="String">Sold quantity</Data></Cell>
+        <Cell><Data ss:Type="String">Unit price</Data></Cell>
+        <Cell><Data ss:Type="String">Revenue</Data></Cell>
+        <Cell><Data ss:Type="String">Gross sale</Data></Cell>
+        <Cell><Data ss:Type="String">Jdt trading share</Data></Cell>
+        <Cell><Data ss:Type="String">Plant charge</Data></Cell>
+        <Cell><Data ss:Type="String">Corp share</Data></Cell>
+        <Cell><Data ss:Type="String">Royalty share</Data></Cell>
+        <Cell><Data ss:Type="String">Miner share</Data></Cell>
+        <Cell><Data ss:Type="String">Contractor share</Data></Cell>
+        <Cell><Data ss:Type="String">Pioneer share</Data></Cell>
+        <Cell><Data ss:Type="String">Msebua share</Data></Cell>
+        <Cell><Data ss:Type="String">Community fund</Data></Cell>
+        <Cell><Data ss:Type="String">Remarks</Data></Cell>
+        <Cell><Data ss:Type="String">Notes</Data></Cell>
+      </Row>
+      <% @plant_millings.each do |plant_milling| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= plant_milling.control_number %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.team.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.milled_from.to_s(:short) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.milled_to.to_s(:short) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.ore_count %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.ore_weight %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.refined_output %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.reference_number %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.date_sold.to_s(:short) %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.sold_quantity %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.unit_price %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.revenue %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.gross_sale %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.jdt_trading_share %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.plant_charge %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.corp_share %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.royalty_share %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.miner_share %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.contractor_share %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.pioneer_share %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.msebua_share %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.community_fund %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.remarks %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= plant_milling.notes %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

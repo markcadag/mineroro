@@ -77,6 +77,9 @@ gem  'gherkin'
 
 gem "nested_form"
 
+gem 'axlsx_rails'
+
+gem 'acts_as_xlsx',:git => "git://github.com/straydogstudio/acts_as_xlsx.git"
 
 
 group :development, :test do

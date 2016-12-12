@@ -173,15 +173,15 @@
             </div>
           </td>
           <td>
-             <div class="field">
-                <%= f.label "Miner share (27%)", :id => 'label_miner_share' %><br>
-                <%=  f.number_field :miner_share,:id => 'miner_share', step: :any,  :readonly => true  %>
+              <div class="field">
+                <%= f.label "Contractor/Staff share (3%)", :id => 'label_contractor_share' %><br>
+                <%=  f.number_field :contractor_share,:id => 'contractor_share', step: :any,  :readonly => true  %>
               </div>
           </td>
           <td>
-              <div class="field">
-                <%= f.label "Contractor share (3%)", :id => 'label_contractor_share' %><br>
-                <%=  f.number_field :contractor_share,:id => 'contractor_share', step: :any,  :readonly => true  %>
+             <div class="field">
+                <%= f.label "Miner share (27%)", :id => 'label_miner_share' %><br>
+                <%=  f.number_field :miner_share,:id => 'miner_share', step: :any,  :readonly => true  %>
               </div>
           </td>
         </tr>
@@ -277,20 +277,11 @@
         $('#miner_share').show();
         break;
       case "ball_mill":
-        miner_share = .30;
-        contractor_share = 0;
+        miner_share = .27;
+        contractor_share = .03;
         corp_share = .5;
-        $("#contractor_share").hide();
-        $('#label_contractor_share').hide();
-        $("#label_miner_share").show();
-        $('#miner_share').show();
-        break;
-      case "rod_mill":
-        miner_share = .30;
-        contractor_share = 0;
-        corp_share = .5;
-        $("#contractor_share").hide();
-        $('#label_contractor_share').hide();
+        $("#contractor_share").show();
+        $('#label_contractor_share').show();
         $("#label_miner_share").show();
         $('#miner_share').show();
         break;
@@ -311,7 +302,7 @@
     $('#contractor_share').val($('#gross_sale').val() * contractor_share );
     $('#miner_share').val($('#gross_sale').val() * miner_share);
 
-    $('#label_contractor_share').text("Contractor share (" + (contractor_share * 100) + "%)");
+    $('#label_contractor_share').text("Contractor/Staff share (" + (contractor_share * 100) + "%)");
     $('#label_miner_share').text("Miner share (" + (miner_share * 100) + "%)");
     $('#label_corp_share').text("Corporation share (" + (corp_share * 100) + "%)");
  

@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Plant Milling") do |sheet|
+    sheet.add_row ["ID"]
+    @plant_millings.each do |plant_milling|
+        sheet.add_row [plant_milling.id]
+    end
+end
