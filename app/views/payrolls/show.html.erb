@@ -1,14 +1,45 @@
-<p id="notice"><%= notice %></p>
+<div class="container" style="margin-top:50px;">
 
-<p>
-  <strong>Reference number:</strong>
-  <%= @payroll.reference_number %>
-</p>
-
-<p>
-  <strong>Payroll date:</strong>
-  <%= @payroll.payroll_date %>
-</p>
-
+<h3>Payroll Reference #: <b><%= @payroll.reference_number %></b></h3>
+<h4>From <b><%= @payroll.start_date %></b> to <b><%= @payroll.end_date %></b></h4>
+<div class="panel">
+	<div class="table-responsive">
+	<table  class="table-bordered table-condensed table-hover" style="width: 100%">
+	  <thead>
+	    <tr>
+	      <th>No.</th>
+	      <th>Names</th>
+	      <th>Salary</th>
+	      <th>Deduction</th>
+	      <th>Net</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	   <% counter =  1 %>
+	    <% @payroll.payroll_datums.each do |payroll_datum| %>
+	      <tr>
+	      	<td>#<%= counter %></td>
+	        <td><%= payroll_datum.employee.name %></td>
+	        <td><%= number_to_currency(payroll_datum.salary,:precision => 2, :unit => "") || 0  %></td>
+	        <td><%= number_to_currency(payroll_datum.deduction,:precision => 2, :unit => "") || 0  %></td>
+	        <td><%= number_to_currency(payroll_datum.net,:precision => 2, :unit => "") || 0  %></td>
+	        <% counter = counter + 1 %>
+	      </tr>
+	    <% end %>
+	    <tr>
+	        <td colspan="1"></td>
+	        <td colspan="1">Total</td>
+	        <td><%= number_to_currency(@payroll.payroll_datums.sum('salary'),:precision => 2, :unit => "₱ ") || 0 %></td>
+	       	<td><%= number_to_currency(@payroll.payroll_datums.sum('deduction'),:precision => 2, :unit => "₱ ") || 0 %></td>   	
+	       	<td><%= number_to_currency(@payroll.payroll_datums.sum('net'),:precision => 2, :unit => "₱ ") || 0 %></td>
+	    </tr>
+	  </tbody>
+	</table>
+	</div>
+</div>
 <%= link_to 'Edit', edit_payroll_path(@payroll) %> |
 <%= link_to 'Back', payrolls_path %>
+
+</div>
+
+

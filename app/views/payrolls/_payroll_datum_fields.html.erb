@@ -1,10 +1,32 @@
-<div class="fields">
-	<%= f.label :employee_id %><br>
-    <%= f.text_field :employee_id %><br>
-   	<%= f.label :salary %><br>
+<br/>
+<div class="row">
+<div class="field col-md-2">
+    <%= f.label :employee_id %><br>
+    <%= f.collection_select :employee_id, Employee.all,:id, :name, {prompt: true} ,{:id => 'expense_type', class: 'form-control'} %>
+  </div>
+
+  <div class="field col-md-2">
+    	<%= f.label :salary %><br>
     <%= f.text_field :salary %><br>
-    <%= f.label :deduction %><br>
+  	</div>
+
+  <div class="field col-md-2">
+     <%= f.label :deduction %><br>
     <%= f.text_field :deduction %><br>
+  </div>
+
+  <div class="field col-md-2">
     <%= f.label :net %><br>
     <%= f.text_field :net %><br>
+  </div>
+  <div class="field col-md-12">
+      <%= f.link_to_remove "Remove this employee" %>
+  </div>
 </div>
+<hr/>
+
+
+<script type="text/javascript">
+	
+
+</script>

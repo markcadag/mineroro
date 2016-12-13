@@ -14,20 +14,30 @@
     <%= f.label :reference_number %><br>
     <%= f.text_field :reference_number %>
   </div>
+
+  <div class="field">
+    <%= f.label :payroll_type %><br>
+     <%= f.select(:payroll_type, Payroll.payroll_types.keys.map {|payroll_type| [payroll_type.titleize,payroll_type]},:selected => @payroll.payroll_type) %>
+  </div>
   
   <div class="field">
-    <%= f.label :payroll_date %><br>
-    <%= f.date_select :payroll_date %>
+    <%= f.label :start_date %><br>
+    <%= f.date_select :start_date %>
   </div>
+
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.date_select :end_date %>
+  </div>
+
+
 
   <%= f.fields_for :payroll_datums do |builder| %>
     <p>
       <%= render "payroll_datum_fields", :f => builder %>
-      <%= builder.link_to_remove "Remove this payroll" %>
     </p>
   <% end %>
-  <p><%= f.link_to_add "Add a payroll", :payroll_datums %></p>
-  <p><%= f.submit "Submit" %></p>
+  <p><%= f.link_to_add "Add an Employee", :payroll_datums %></p>
 
   <div class="actions">
     <%= f.submit %>

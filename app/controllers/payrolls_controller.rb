@@ -4,7 +4,7 @@ class PayrollsController < ApplicationController
   # GET /payrolls
   # GET /payrolls.json
   def index
-    @payrolls = Payroll.all
+    @payrolls = Payroll.includes(:payroll_datums).all
   end
 
   # GET /payrolls/1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212013029) do
+ActiveRecord::Schema.define(version: 20161212072152) do
 
   create_table "attendances", force: :cascade do |t|
     t.integer  "user_id",         limit: 4
@@ -260,6 +260,9 @@ ActiveRecord::Schema.define(version: 20161212013029) do
     t.date     "payroll_date"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.integer  "payroll_type",     limit: 4
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   create_table "personnel_categories", force: :cascade do |t|
