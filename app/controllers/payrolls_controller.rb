@@ -1,10 +1,19 @@
 class PayrollsController < ApplicationController
   before_action :set_payroll, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :query_payroll, only: [:index, :create_report]
 
   # GET /payrolls
   # GET /payrolls.json
   def index
-    @payrolls = Payroll.includes(:payroll_datums).all
+  end
+
+
+  def create_report
+    # @payrolls = Payroll.by_month(12, field: :end_date)
+    respond_to do |format| 
+       format.xlsx {render "payrolls/index.xlsx.axlsx"}
+    end
   end
 
   # GET /payrolls/1
@@ -70,6 +79,22 @@ class PayrollsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def payroll_params
       params.require(:payroll).permit!
+    end
+
+    def query_payroll
+      if params[:by_date].nil? 
+      @payrolls = Payroll.includes(:payroll_datums).all
+      else
+        if params[:by_date]['by_date(2i)'].present? && params[:by_date]['by_date(1i)'].present?
+          @payrolls = Payroll.by_month(params[:by_date]['by_date(2i)'], year: params[:by_date]['by_date(1i)'], field: :end_date).includes(:payroll_datums)
+        elsif params[:by_date]['by_date(2i)'].present?
+          @payrolls = Payroll.by_month(params[:by_date]['by_date(2i)'],field: :end_date).includes(:payroll_datums)
+        elsif params[:by_date]['by_date(1i)'].present?
+          @payrolls = Payroll.by_month(params[:by_date]['by_date(1i)'],field: :end_date).includes(:payroll_datums)
+        else
+          @payrolls = Payroll.includes(:payroll_datums).all
+        end
+      end
     end
 
   

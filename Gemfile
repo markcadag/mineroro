@@ -81,6 +81,7 @@ gem 'axlsx_rails'
 
 gem 'acts_as_xlsx',:git => "git://github.com/straydogstudio/acts_as_xlsx.git"
 
+gem 'axlsx_styler'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

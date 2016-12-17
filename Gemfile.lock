@@ -70,6 +70,9 @@ GEM
     axlsx_rails (0.5.0)
       actionpack (>= 3.1)
       axlsx (>= 2.0.1)
+    axlsx_styler (0.1.7)
+      activesupport (>= 3.1)
+      axlsx (~> 2.0)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -252,6 +255,7 @@ DEPENDENCIES
   autoprefixer-rails
   aws-sdk
   axlsx_rails
+  axlsx_styler
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3.6)
   by_star!

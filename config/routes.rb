@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :payroll_data
-  resources :payrolls
   resources :employees
   resources :plant_millings
   resources :team_members
@@ -46,6 +45,12 @@ Rails.application.routes.draw do
 
   resources :tunnel do
     resources :tunnel_operations
+  end
+
+  resources :payrolls do 
+    collection do
+      get 'create_report'
+    end
   end
 
   post "mine/session", :to=>"mines#save_mine_session"

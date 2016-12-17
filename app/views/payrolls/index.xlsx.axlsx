@@ -1,0 +1,36 @@
+wb = xlsx_package.workbook
+style_shout = wb.styles.add_style sz: 16, b: true, alignment: { horizontal: :center }
+style_header = wb.styles.add_style sz: 18, b: true, alignment: { horizontal: :center }
+row_style =  wb.styles.add_style  sz: 18, alignment: { horizontal: :left }
+wb.add_worksheet(name: "All") do |sheet|
+  sheet.add_row ['',"4j Payroll Overall",'']
+  sheet.add_row ['',"For the period of December",'']
+  sheet.add_row ['','','','']
+  sheet.add_row ['',"Ref Number", "Payroll Type", "Amount", "Signature"], :style => [style_header]
+  @payrolls.each do |payroll|
+    sheet.add_row ['',payroll.reference_number,payroll.payroll_type.titleize, number_to_currency(payroll.payroll_datums.sum('net'),:precision => 2, :unit => "₱ ") || 0,''] , :style => [row_style]
+  end
+
+  sheet.add_row ['','','Total',number_to_currency(@payrolls.sum(:net),:precision => 2, :unit => "₱ ") || 0,''], :style => [row_style]
+  sheet.add_row ['','','','']
+ 
+  sheet.add_row ['','',"Prepared by:",'Verified by:', 'Approved by:']
+  sheet.add_row ['','','','']
+  sheet.add_row ['','',"______________",'______________', '______________','']
+  sheet.add_row ['','','','']
+  sheet.add_row ['','','','']
+  
+  sheet.column_widths 5,15, 25, 25, 25
+  sheet.merge_cells("B1:E1")
+  sheet.merge_cells("B2:E2")
+  sheet["B1"].style = style_shout
+  sheet["B2"].style = style_shout
+
+end
+
+
+wb.add_worksheet(name: "4J km 15") do |sheet|
+  @payrolls.each do |payroll|
+    sheet.add_row [payroll.id]
+  end
+end

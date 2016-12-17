@@ -2,8 +2,59 @@
 <div class="container" style="margin-top: 50px;">
 <p id="notice"><%= notice %></p>
 
-<h3>Listing Payrolls</h3>
+
+<h3>Create Report</h3>
+<%= form_tag create_report_payrolls_path(format: :xlsx) , :method => 'get' do %>
+  <p>
+    <table class="table-bordered table-condensed table-hover" style="background-color: white;">
+      <tbody>
+        <tr>
+          <td>
+            Month:
+            <%= date_select("by_date", "by_date", :start_year => 1995,
+                       :use_month_numbers => false,
+                       :discard_day => true,
+                         :include_blank => true, order: [:month, :year]) %>
+          </td>
+          <td>
+            <%= submit_tag "download report", :name => nil %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </p>
+<% end %>
+
+
+
+
+<%= form_tag payrolls_path, :method => 'get' do %>
+
+  <p>
+    <table class="table-bordered table-condensed table-hover" style="background-color: white;">
+      <thead>
+        <h3>Filter Payrolls</h3> 
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            End Date:
+            <%= date_select("by_date", "by_date", :start_year => 1995,
+                       :use_month_numbers => false,
+                       :discard_day => true,
+                         :include_blank => true, order: [:month, :year]) %>
+          </td>
+          <td>
+            <%= submit_tag "Set by date", :name => nil %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </p>
+<% end %>
+
  <div class="panel">
+
 <div class="table-responsive" >
  
     <table class="table-bordered table-condensed table-hover" style="width: 100%">
